@@ -1,0 +1,114 @@
+{
+    "name": "word_response",
+    "strict": true,
+    "schema": {
+        "type": "object",
+        "properties": {
+            "word": {
+                "type": "string"
+            },
+            "language": {
+                "type": "string"
+            },
+            "pronunciation": {
+                "type": "string"
+            },
+            "plural": {
+                "type": "string"
+            },
+            "gender": {
+                "type": "string"
+            },
+            "article": {
+                "type": "string"
+            },
+            "meanings": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "context": {
+                            "type": "string"
+                        },
+                        "part_of_speech": {
+                            "type": "string"
+                        },
+                        "definition": {
+                            "type": "string"
+                        },
+                        "example_sentences": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "synonyms": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        },
+                        "antonyms": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "required": [
+                        "context",
+                        "part_of_speech",
+                        "definition"
+                    ],
+                    "additionalProperties": false
+                }
+            },
+            "conjugation": {
+                "type": "object",
+                "properties": {
+                    "present": {
+                        "type": "object"
+                    },
+                    "past": {
+                        "type": "object"
+                    },
+                    "perfect": {
+                        "type": "object"
+                    },
+                    "past_participle": {
+                        "type": "object"
+                    },
+                    "auxiliary_verb": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "comparative": {
+                "type": "string"
+            },
+            "superlative": {
+                "type": "string"
+            },
+            "related_words": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            },
+            "difficulty_level": {
+                "type": "string"
+            }
+        },
+        "required": [
+            "word",
+            "language",
+            "plural",
+            "gender",
+            "article",
+            "meanings",
+            "difficulty_level"
+        ],
+        "additionalProperties": false
+    }
+}
