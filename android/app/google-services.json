@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "78963345560",
+    "project_id": "wort-meister",
+    "storage_bucket": "wort-meister.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78963345560:android:49715f41f26995041668ed",
+        "android_client_info": {
+          "package_name": "dev.nikkothe.wortmeister"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlYcM45SEyMuNCa7HC6_3WSuq4Fk7_wSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78963345560:android:bb7213d528bf19291668ed",
+        "android_client_info": {
+          "package_name": "dev.nikkothe.wortmeister.wortmeister"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlYcM45SEyMuNCa7HC6_3WSuq4Fk7_wSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
