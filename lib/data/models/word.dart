@@ -2,6 +2,7 @@ import 'package:wortmeister/data/models/conjugation.dart';
 import 'package:wortmeister/data/models/meaning.dart';
 
 class Word {
+  final String wordId;
   final String word;
   final String language;
   final String pronunciation;
@@ -16,6 +17,7 @@ class Word {
   final String difficultyLevel;
 
   Word({
+    required this.wordId,
     required this.word,
     required this.language,
     required this.pronunciation,
@@ -32,6 +34,7 @@ class Word {
 
   factory Word.fromJson(Map<String, dynamic> json) {
     return Word(
+      wordId: json['word_id'],
       word: json['word'],
       language: json['language'],
       pronunciation: json['pronunciation'],
@@ -50,6 +53,7 @@ class Word {
 
   Map<String, dynamic> toJson() {
     return {
+      'word_id': wordId,
       'word': word,
       'language': language,
       'pronunciation': pronunciation,
