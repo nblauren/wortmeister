@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+  Stream<User?>? get authStateChanges => _firebaseAuth.authStateChanges();
   // Check if user is logged in
   User? currentUser() {
     User? user = _firebaseAuth.currentUser;
