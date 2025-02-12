@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wortmeister/core/services/firebase_auth_service.dart';
+import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/firebase_options.dart';
 import 'package:wortmeister/screens/login/login_screen.dart';
 import 'package:wortmeister/screens/practice/practice_screen.dart';
@@ -13,10 +14,12 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await LocatorService.configureLocalModuleInjection();
   runApp(
     MultiProvider(
       providers: [
-        Provider<FirebaseAuthService>(create: (_) => FirebaseAuthService()),
+        Provider<FirebaseAuthService>(
+            create: (_) => LocatorService.firebaseAuthService),
       ],
       child: MyApp(),
     ),

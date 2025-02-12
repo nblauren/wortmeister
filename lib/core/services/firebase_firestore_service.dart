@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseFirestoreService {
-  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseFirestore _db;
 
-  // Singleton pattern
-  FirebaseFirestoreService._privateConstructor();
-  static final FirebaseFirestoreService instance =
-      FirebaseFirestoreService._privateConstructor();
+  FirebaseFirestoreService(this._db);
 
   // Get a collection reference
   CollectionReference getCollection(String path) {
