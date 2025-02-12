@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:wortmeister/core/services/firebase_auth_service.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/firebase_options.dart';
+import 'package:wortmeister/screens/add_deck/add_deck_screen.dart';
 import 'package:wortmeister/screens/login/login_screen.dart';
 import 'package:wortmeister/screens/practice/practice_screen.dart';
 import 'package:wortmeister/screens/signup/signup_screen.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/practice': (context) => PracticeScreen(),
         '/settings': (context) => LoginScreen(),
+        '/new-deck': (context) => AddDeckScreen(),
         '/signup': (context) => SignupScreen(),
       },
     );
