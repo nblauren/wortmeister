@@ -26,7 +26,7 @@ class Deck {
   Map<String, dynamic> toJson() {
     return {
       'deck_id': deckId,
-      'userId': userId,
+      'user_id': userId,
       'title': title,
       'description': description,
       'word_ids': wordIds,

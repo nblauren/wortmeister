@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wortmeister/core/services/firebase_auth_service.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
+import 'package:wortmeister/data/models/deck.dart';
 import 'package:wortmeister/firebase_options.dart';
 import 'package:wortmeister/screens/add_deck/add_deck_screen.dart';
+import 'package:wortmeister/screens/deck/deck_screen.dart';
 import 'package:wortmeister/screens/login/login_screen.dart';
 import 'package:wortmeister/screens/practice/practice_screen.dart';
 import 'package:wortmeister/screens/signup/signup_screen.dart';
@@ -39,14 +41,31 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => AuthWrapper(),
-        '/login': (context) => LoginScreen(),
-        '/practice': (context) => PracticeScreen(),
-        '/settings': (context) => LoginScreen(),
-        '/new-deck': (context) => AddDeckScreen(),
-        '/signup': (context) => SignupScreen(),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/':
+            return MaterialPageRoute(builder: (context) => AuthWrapper());
+          case '/login':
+            return MaterialPageRoute(builder: (context) => LoginScreen());
+          case '/practice':
+            return MaterialPageRoute(builder: (context) => PracticeScreen());
+          case '/settings':
+            return MaterialPageRoute(builder: (context) => LoginScreen());
+          case '/new-deck':
+            return MaterialPageRoute(builder: (context) => AddDeckScreen());
+          case '/signup':
+            return MaterialPageRoute(builder: (context) => SignupScreen());
+          case '/deck':
+            return MaterialPageRoute(builder: (context) {
+              final deck = settings.arguments as Deck;
+              return Provider.value(
+                value: deck,
+                child: DeckScreen(),
+              );
+            });
+          default:
+            return null;
+        }
       },
     );
   }

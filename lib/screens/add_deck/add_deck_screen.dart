@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/data/controllers/deck_controller.dart';
 import 'package:wortmeister/data/models/deck.dart';
@@ -24,7 +25,7 @@ class _AddDeckScreenState extends State<AddDeckScreen> {
       DeckController deckController = DeckController(
           firebaseService: LocatorService.firebaseFirestoreService);
       await deckController.createDeck(Deck(
-          deckId: UniqueKey().toString(),
+          deckId: Uuid().v4(),
           userId: LocatorService.firebaseAuthService.currentUser()?.uid ?? '',
           title: _deckNameController.text,
           description: '',

@@ -56,14 +56,15 @@ class DeckController {
   }
 
   // Get all decks (could be paginated if necessary)
-  Future<List<Deck>> getAllDecks() async {
+  Stream<List<Deck>> getDecksAsStream() {
     try {
-      var querySnapshot = await firebaseService.getCollectionSnapshot('decks');
-      return querySnapshot.docs
-          .map((doc) => Deck.fromJson(doc.data() as Map<String, dynamic>))
-          .toList();
+      return firebaseService.streamCollection('decks').map((querySnapshot) {
+        return querySnapshot.docs
+            .map((doc) => Deck.fromJson(doc.data() as Map<String, dynamic>))
+            .toList();
+      });
     } catch (e) {
-      throw Exception('Error retrieving all decks: $e');
+      throw Exception('Error retrieving decks as stream: $e');
     }
   }
 }
