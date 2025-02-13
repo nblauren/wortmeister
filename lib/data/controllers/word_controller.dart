@@ -34,6 +34,20 @@ class WordController {
     }
   }
 
+  // Get multiple words by their IDs
+  Future<List<Word>> getWordsByIds(List<String> wordIds) async {
+    try {
+      var words = <Word>[];
+      for (var wordId in wordIds) {
+        var word = await getWord(wordId);
+        words.add(word);
+      }
+      return words;
+    } catch (e) {
+      throw Exception('Error retrieving words: $e');
+    }
+  }
+
   // Update a word
   Future<void> updateWord(Word word) async {
     try {

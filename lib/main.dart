@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ import 'package:wortmeister/screens/add_deck/add_deck_screen.dart';
 import 'package:wortmeister/screens/deck/deck_screen.dart';
 import 'package:wortmeister/screens/login/login_screen.dart';
 import 'package:wortmeister/screens/practice/practice_screen.dart';
+import 'package:wortmeister/screens/settings/settings_screen.dart';
 import 'package:wortmeister/screens/signup/signup_screen.dart';
 import 'package:wortmeister/widgets/auth_wrapper.dart';
 
@@ -50,7 +52,7 @@ class MyApp extends StatelessWidget {
           case '/practice':
             return MaterialPageRoute(builder: (context) => PracticeScreen());
           case '/settings':
-            return MaterialPageRoute(builder: (context) => LoginScreen());
+            return MaterialPageRoute(builder: (context) => SettingsScreen());
           case '/new-deck':
             return MaterialPageRoute(builder: (context) => AddDeckScreen());
           case '/signup':
@@ -58,8 +60,15 @@ class MyApp extends StatelessWidget {
           case '/deck':
             return MaterialPageRoute(builder: (context) {
               final deck = settings.arguments as Deck;
-              return Provider.value(
-                value: deck,
+              return MultiProvider(
+                providers: [
+                  Provider<Deck>(
+                    create: (_) => deck,
+                  ),
+                  Provider<FirebaseAuthService>(
+                    create: (_) => FirebaseAuthService(FirebaseAuth.instance),
+                  ),
+                ],
                 child: DeckScreen(),
               );
             });

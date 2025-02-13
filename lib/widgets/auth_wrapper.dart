@@ -10,14 +10,20 @@ class AuthWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<FirebaseAuthService>(context);
+    final authService = Provider.of<FirebaseAuthService>(
+      context,
+      listen: false,
+    );
     return StreamBuilder<User?>(
       stream: authService.authStateChanges,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container();
         } else if (snapshot.hasData) {
-          return HomeScreen();
+          return Provider(
+            create: (context) => authService,
+            child: HomeScreen(),
+          );
         } else {
           return LoginScreen();
         }
