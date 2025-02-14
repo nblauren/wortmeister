@@ -59,8 +59,6 @@ class MyApp extends StatelessWidget {
           case '/signup':
             return MaterialPageRoute(builder: (context) => SignupScreen());
           case '/new-word':
-            return MaterialPageRoute(builder: (context) => AddWordScreen());
-          case '/deck':
             return MaterialPageRoute(builder: (context) {
               final deck = settings.arguments as Deck;
               return MultiProvider(
@@ -68,8 +66,17 @@ class MyApp extends StatelessWidget {
                   Provider<Deck>(
                     create: (_) => deck,
                   ),
-                  Provider<FirebaseAuthService>(
-                    create: (_) => FirebaseAuthService(FirebaseAuth.instance),
+                ],
+                child: AddWordScreen(),
+              );
+            });
+          case '/deck':
+            return MaterialPageRoute(builder: (context) {
+              final deck = settings.arguments as Deck;
+              return MultiProvider(
+                providers: [
+                  Provider<Deck>(
+                    create: (_) => deck,
                   ),
                 ],
                 child: DeckScreen(),

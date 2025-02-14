@@ -10,7 +10,7 @@ class WordController {
   Future<void> createWord(Word word) async {
     try {
       await firebaseService.setDocument(
-        'words/${word.word}',
+        'words/${word.wordId}',
         word.toJson(),
       );
     } catch (e) {

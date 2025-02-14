@@ -1,225 +1,221 @@
 {
-    "name": "word",
-    "strict": true,
-    "schema": {
-        "type": "object",
-        "properties": {
-            "word": {
-                "type": "string",
-                "description": "Infinitive for verbs, singular nominative for nouns, etc.)"
-            },
-            "language": {
-                "type": "string",
-                "description": "The language code (e.g., 'de' for German')"
-            },
-            "pronunciation": {
-                "type": [
-                    "string",
-                    "null"
-                ],
-                "description": "Pronunciation of the word in IPA notation"
-            },
-            "plural": {
-                "type": [
-                    "string",
-                    "null"
-                ],
-                "description": "Plural form of the word, if applicable. Should include the article"
-            },
-            "gender": {
-                "type": [
-                    "string",
-                    "null"
-                ],
-                "enum": [
-                    "masculine",
-                    "feminine",
-                    "neuter",
-                    "none",
-                    null
-                ],
-                "description": "Gender of the noun (if applicable)"
-            },
-            "article": {
-                "type": [
-                    "string",
-                    "null"
-                ],
-                "description": "Definite or indefinite article for the word"
-            },
-            "meanings": {
-                "type": "array",
-                "description": "A list of meanings with examples, synonyms, and antonyms. If there are multiple meanings it should be dbe added here.",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "context": {
-                            "type": [
-                                "string",
-                                "null"
-                            ],
-                            "description": "Context in which the word is used"
-                        },
-                        "part_of_speech": {
-                            "type": "string",
-                            "enum": [
-                                "noun",
-                                "verb",
-                                "adjective",
-                                "adverb",
-                                "other"
-                            ],
-                            "description": "The grammatical category of the word"
-                        },
-                        "definition": {
-                            "type": "string",
-                            "description": "Definition of the word"
-                        },
-                        "example_sentences": {
-                            "type": [
-                                "array",
-                                "null"
-                            ],
-                            "description": "Example sentences using the word",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
-                        "synonyms": {
-                            "type": [
-                                "array",
-                                "null"
-                            ],
-                            "description": "List of synonyms",
-                            "items": {
-                                "type": "string"
-                            }
-                        },
-                        "antonyms": {
-                            "type": [
-                                "array",
-                                "null"
-                            ],
-                            "description": "List of antonyms",
-                            "items": {
-                                "type": "string"
-                            }
+    "type": "object",
+    "properties": {
+        "word": {
+            "type": "string",
+            "description": "Infinitive for verbs, singular nominative for nouns, etc.)"
+        },
+        "language": {
+            "type": "string",
+            "description": "The language code (e.g., 'de' for German')"
+        },
+        "pronunciation": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Pronunciation of the word in IPA notation"
+        },
+        "plural": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Plural form of the word, if applicable. Should include the article"
+        },
+        "gender": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "enum": [
+                "masculine",
+                "feminine",
+                "neuter",
+                "none",
+                null
+            ],
+            "description": "Gender of the noun (if applicable)"
+        },
+        "article": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Definite or indefinite article for the word"
+        },
+        "meanings": {
+            "type": "array",
+            "description": "A list of meanings with examples, synonyms, and antonyms. If there are multiple meanings it should be dbe added here.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "context": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "description": "Context in which the word is used"
+                    },
+                    "part_of_speech": {
+                        "type": "string",
+                        "enum": [
+                            "noun",
+                            "verb",
+                            "adjective",
+                            "adverb",
+                            "other"
+                        ],
+                        "description": "The grammatical category of the word"
+                    },
+                    "definition": {
+                        "type": "string",
+                        "description": "Definition of the word"
+                    },
+                    "example_sentences": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "description": "Example sentences using the word",
+                        "items": {
+                            "type": "string"
                         }
                     },
-                    "required": [
-                        "context",
-                        "part_of_speech",
-                        "definition",
-                        "example_sentences",
-                        "synonyms",
-                        "antonyms"
-                    ],
-                    "additionalProperties": false
-                }
-            },
-            "conjugation": {
-                "type": [
-                    "object",
-                    "null"
-                ],
-                "description": "Conjugations of the verb, if applicable",
-                "properties": {
-                    "present": {
+                    "synonyms": {
                         "type": [
-                            "string",
+                            "array",
                             "null"
                         ],
-                        "description": "Present tense conjugations"
+                        "description": "List of synonyms",
+                        "items": {
+                            "type": "string"
+                        }
                     },
-                    "past": {
+                    "antonyms": {
                         "type": [
-                            "string",
+                            "array",
                             "null"
                         ],
-                        "description": "Past tense conjugations"
-                    },
-                    "perfect": {
-                        "type": [
-                            "string",
-                            "null"
-                        ],
-                        "description": "Perfect tense conjugations"
-                    },
-                    "past_participle": {
-                        "type": [
-                            "string",
-                            "null"
-                        ],
-                        "description": "Past participle form"
-                    },
-                    "auxiliary_verb": {
-                        "type": [
-                            "string",
-                            "null"
-                        ],
-                        "description": "The auxiliary verb used for perfect tense"
+                        "description": "List of antonyms",
+                        "items": {
+                            "type": "string"
+                        }
                     }
                 },
                 "required": [
-                    "present",
-                    "past",
-                    "perfect",
-                    "past_participle",
-                    "auxiliary_verb"
+                    "context",
+                    "part_of_speech",
+                    "definition",
+                    "example_sentences",
+                    "synonyms",
+                    "antonyms"
                 ],
                 "additionalProperties": false
-            },
-            "comparative": {
-                "type": [
-                    "string",
-                    "null"
-                ],
-                "description": "Comparative form of the word (if adjective/adverb)"
-            },
-            "superlative": {
-                "type": [
-                    "string",
-                    "null"
-                ],
-                "description": "Superlative form of the word (if adjective/adverb)"
-            },
-            "related_words": {
-                "type": [
-                    "array",
-                    "null"
-                ],
-                "description": "A list of related words",
-                "items": {
-                    "type": "string"
-                }
-            },
-            "difficulty_level": {
-                "type": "string",
-                "enum": [
-                    "A1",
-                    "A2",
-                    "B1",
-                    "B2",
-                    "C1",
-                    "C2"
-                ],
-                "description": "Difficulty level of the word based on CEFR"
             }
         },
-        "required": [
-            "word",
-            "language",
-            "pronunciation",
-            "plural",
-            "gender",
-            "article",
-            "meanings",
-            "conjugation",
-            "comparative",
-            "superlative",
-            "related_words",
-            "difficulty_level"
-        ],
-        "additionalProperties": false
-    }
+        "conjugation": {
+            "type": [
+                "object",
+                "null"
+            ],
+            "description": "Conjugations of the verb, if applicable",
+            "properties": {
+                "present": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Present tense conjugations"
+                },
+                "past": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Past tense conjugations"
+                },
+                "perfect": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Perfect tense conjugations"
+                },
+                "past_participle": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "Past participle form"
+                },
+                "auxiliary_verb": {
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "description": "The auxiliary verb used for perfect tense"
+                }
+            },
+            "required": [
+                "present",
+                "past",
+                "perfect",
+                "past_participle",
+                "auxiliary_verb"
+            ],
+            "additionalProperties": false
+        },
+        "comparative": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Comparative form of the word (if adjective/adverb)"
+        },
+        "superlative": {
+            "type": [
+                "string",
+                "null"
+            ],
+            "description": "Superlative form of the word (if adjective/adverb)"
+        },
+        "related_words": {
+            "type": [
+                "array",
+                "null"
+            ],
+            "description": "A list of related words",
+            "items": {
+                "type": "string"
+            }
+        },
+        "difficulty_level": {
+            "type": "string",
+            "enum": [
+                "A1",
+                "A2",
+                "B1",
+                "B2",
+                "C1",
+                "C2"
+            ],
+            "description": "Difficulty level of the word based on CEFR"
+        }
+    },
+    "required": [
+        "word",
+        "language",
+        "pronunciation",
+        "plural",
+        "gender",
+        "article",
+        "meanings",
+        "conjugation",
+        "comparative",
+        "superlative",
+        "related_words",
+        "difficulty_level"
+    ],
+    "additionalProperties": false
 }

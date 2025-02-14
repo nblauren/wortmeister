@@ -42,11 +42,6 @@ class WordList extends StatelessWidget {
                 ),
                 elevation: 1,
                 child: ListTile(
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    '/deck',
-                    arguments: word,
-                  ),
                   title: Text(word.word),
                 ),
               );

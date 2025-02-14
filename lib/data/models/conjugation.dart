@@ -1,8 +1,8 @@
 class Conjugation {
-  final Map<String, String> present;
-  final Map<String, String> past;
-  final Map<String, String> perfect;
-  final Map<String, String> pastParticiple;
+  final String present;
+  final String past;
+  final String perfect;
+  final String pastParticiple;
   final String auxiliaryVerb;
 
   Conjugation({
@@ -15,10 +15,10 @@ class Conjugation {
 
   factory Conjugation.fromJson(Map<String, dynamic> json) {
     return Conjugation(
-      present: Map<String, String>.from(json['present']),
-      past: Map<String, String>.from(json['past']),
-      perfect: Map<String, String>.from(json['perfect']),
-      pastParticiple: Map<String, String>.from(json['past_participle']),
+      present: json['present'],
+      past: json['past'],
+      perfect: json['perfect'],
+      pastParticiple: json['past_participle'],
       auxiliaryVerb: json['auxiliary_verb'],
     );
   }

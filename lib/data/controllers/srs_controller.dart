@@ -10,7 +10,7 @@ class SrsController {
   Future<void> createOrUpdateSrs(Srs srs) async {
     try {
       await firebaseService.setDocument(
-        'srs/${srs.wordId}',
+        'srs/${srs.srsId}',
         srs.toJson(),
       );
     } catch (e) {

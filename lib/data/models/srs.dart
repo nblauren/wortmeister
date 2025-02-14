@@ -1,35 +1,88 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Srs {
+  final String srsId;
+  final String userId;
   final String wordId;
-  final DateTime nextReviewDate;
+  final DateTime? lastReviewed;
+  final DateTime nextReview;
   final int interval;
-  final int repetitions;
   final double easeFactor;
+  final int streak;
+  final int reviewCount;
+  final int correctCount;
+  final int incorrectCount;
+  final bool suspended;
 
   Srs({
+    required this.srsId,
+    required this.userId,
     required this.wordId,
-    required this.nextReviewDate,
+    this.lastReviewed,
+    required this.nextReview,
     required this.interval,
-    required this.repetitions,
     required this.easeFactor,
+    required this.streak,
+    required this.reviewCount,
+    required this.correctCount,
+    required this.incorrectCount,
+    required this.suspended,
   });
 
-  factory Srs.fromJson(Map<String, dynamic> json) {
+  // Default values for a new SRS entry
+  factory Srs.newEntry(
+      {required String srsId, required String userId, required String wordId}) {
     return Srs(
-      wordId: json['word_id'],
-      nextReviewDate: DateTime.parse(json['next_review_date']),
-      interval: json['interval'],
-      repetitions: json['repetitions'],
-      easeFactor: json['ease_factor'],
+      srsId: srsId,
+      userId: userId,
+      wordId: wordId,
+      lastReviewed: null,
+      nextReview: DateTime.now(),
+      interval: 1,
+      easeFactor: 2.5,
+      streak: 0,
+      reviewCount: 0,
+      correctCount: 0,
+      incorrectCount: 0,
+      suspended: false,
     );
   }
 
+  // Convert to JSON (for Firebase)
   Map<String, dynamic> toJson() {
     return {
-      'word_id': wordId,
-      'next_review_date': nextReviewDate.toIso8601String(),
-      'interval': interval,
-      'repetitions': repetitions,
-      'ease_factor': easeFactor,
+      "srs_id": srsId,
+      "user_id": userId,
+      "word_id": wordId,
+      "last_reviewed": lastReviewed?.toUtc(),
+      "next_review": nextReview.toUtc(),
+      "interval": interval,
+      "ease_factor": easeFactor,
+      "streak": streak,
+      "review_count": reviewCount,
+      "correct_count": correctCount,
+      "incorrect_count": incorrectCount,
+      "suspended": suspended,
     };
+  }
+
+  // Create object from Firebase snapshot
+  factory Srs.fromJson(Map<String, dynamic> json) {
+    return Srs(
+      srsId: json["srs_id"],
+      userId: json["user_id"],
+      wordId: json["word_id"],
+      lastReviewed: json["last_reviewed"] != null
+          ? (json["last_reviewed"] as Timestamp).toDate()
+          : null,
+      nextReview: (json["next_review"] as Timestamp).toDate(),
+      interval: json["interval"],
+      easeFactor: (json["ease_factor"] as num).toDouble(),
+      streak: json["streak"],
+      reviewCount: json["review_count"],
+      correctCount: json["correct_count"],
+      incorrectCount: json["incorrect_count"],
+      suspended: json["suspended"],
+    );
   }
 }

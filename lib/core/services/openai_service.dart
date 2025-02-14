@@ -24,7 +24,7 @@ class OpenAIService {
       String prompt, String userChat, Map<String, dynamic> structure) async {
     final response = await _openAIClient.createChatCompletion(
       request: CreateChatCompletionRequest(
-        model: ChatCompletionModel.modelId('gpt-4o'),
+        model: ChatCompletionModel.modelId('gpt-4o-mini'),
         messages: [
           ChatCompletionMessage.system(
             content: prompt,
