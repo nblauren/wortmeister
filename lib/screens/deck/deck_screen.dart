@@ -21,7 +21,7 @@ class DeckScreen extends StatelessWidget {
                   Icons.add,
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/settings');
+                  Navigator.pushNamed(context, '/new-word');
                 },
               ),
             ],

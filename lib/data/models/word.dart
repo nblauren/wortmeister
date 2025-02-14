@@ -5,30 +5,30 @@ class Word {
   final String wordId;
   final String word;
   final String language;
-  final String pronunciation;
-  final String plural;
-  final String gender;
-  final String article;
+  final String? pronunciation;
+  final String? plural;
+  final String? gender;
+  final String? article;
   final List<Meaning> meanings;
-  final Conjugation conjugation;
-  final String comparative;
-  final String superlative;
-  final List<String> relatedWords;
+  final Conjugation? conjugation;
+  final String? comparative;
+  final String? superlative;
+  final List<String>? relatedWords;
   final String difficultyLevel;
 
   Word({
     required this.wordId,
     required this.word,
     required this.language,
-    required this.pronunciation,
-    required this.plural,
-    required this.gender,
-    required this.article,
+    this.pronunciation,
+    this.plural,
+    this.gender,
+    this.article,
     required this.meanings,
-    required this.conjugation,
-    required this.comparative,
-    required this.superlative,
-    required this.relatedWords,
+    this.conjugation,
+    this.comparative,
+    this.superlative,
+    this.relatedWords,
     required this.difficultyLevel,
   });
 
@@ -43,10 +43,14 @@ class Word {
       article: json['article'],
       meanings:
           List<Meaning>.from(json['meanings'].map((x) => Meaning.fromJson(x))),
-      conjugation: Conjugation.fromJson(json['conjugation']),
+      conjugation: json['conjugation'] != null
+          ? Conjugation.fromJson(json['conjugation'])
+          : null,
       comparative: json['comparative'],
       superlative: json['superlative'],
-      relatedWords: List<String>.from(json['related_words']),
+      relatedWords: json['related_words'] != null
+          ? List<String>.from(json['related_words'])
+          : null,
       difficultyLevel: json['difficulty_level'],
     );
   }
@@ -61,7 +65,7 @@ class Word {
       'gender': gender,
       'article': article,
       'meanings': List<dynamic>.from(meanings.map((x) => x.toJson())),
-      'conjugation': conjugation.toJson(),
+      'conjugation': conjugation?.toJson(),
       'comparative': comparative,
       'superlative': superlative,
       'related_words': relatedWords,

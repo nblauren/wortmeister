@@ -1,18 +1,18 @@
 class Meaning {
-  final String context;
+  final String? context;
   final String partOfSpeech;
   final String definition;
-  final List<String> exampleSentences;
-  final List<String> synonyms;
-  final List<String> antonyms;
+  final List<String>? exampleSentences;
+  final List<String>? synonyms;
+  final List<String>? antonyms;
 
   Meaning({
-    required this.context,
+    this.context,
     required this.partOfSpeech,
     required this.definition,
-    required this.exampleSentences,
-    required this.synonyms,
-    required this.antonyms,
+    this.exampleSentences,
+    this.synonyms,
+    this.antonyms,
   });
 
   factory Meaning.fromJson(Map<String, dynamic> json) {
@@ -20,10 +20,15 @@ class Meaning {
       context: json['context'],
       partOfSpeech: json['part_of_speech'],
       definition: json['definition'],
-      exampleSentences:
-          List<String>.from(json['example_sentences'].map((x) => x)),
-      synonyms: List<String>.from(json['synonyms'].map((x) => x)),
-      antonyms: List<String>.from(json['antonyms'].map((x) => x)),
+      exampleSentences: json['example_sentences'] != null
+          ? List<String>.from(json['example_sentences'].map((x) => x))
+          : null,
+      synonyms: json['synonyms'] != null
+          ? List<String>.from(json['synonyms'].map((x) => x))
+          : null,
+      antonyms: json['antonyms'] != null
+          ? List<String>.from(json['antonyms'].map((x) => x))
+          : null,
     );
   }
 

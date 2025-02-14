@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:get_it/get_it.dart';
 import 'package:wortmeister/core/services/firebase_auth_service.dart';
 import 'package:wortmeister/core/services/firebase_firestore_service.dart';
@@ -15,7 +14,7 @@ class LocatorService {
   static Future<void> configureLocalModuleInjection() async {
     // Register FirebaseRemoveConfig as a singleton
     getIt.registerSingleton<FirebaseRemoteConfigService>(
-      FirebaseRemoteConfigService(FirebaseRemoteConfig.instance),
+      await FirebaseRemoteConfigService.create(),
     );
 
     // Register FirestoreService as a singleton

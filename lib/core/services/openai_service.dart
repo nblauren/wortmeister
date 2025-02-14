@@ -21,7 +21,7 @@ class OpenAIService {
   }
 
   Future<CreateChatCompletionResponse> getCompletionWithStructuredOutput(
-      String prompt, Map<String, String> structure) async {
+      String prompt, String userChat, Map<String, dynamic> structure) async {
     final response = await _openAIClient.createChatCompletion(
       request: CreateChatCompletionRequest(
         model: ChatCompletionModel.modelId('gpt-4o'),
@@ -29,10 +29,20 @@ class OpenAIService {
           ChatCompletionMessage.system(
             content: prompt,
           ),
+          ChatCompletionMessage.user(
+            content: ChatCompletionUserMessageContent.string(
+              userChat,
+            ),
+          ),
         ],
         temperature: 0,
         responseFormat: ResponseFormat.jsonSchema(
-          jsonSchema: JsonSchemaObject.fromJson(structure),
+          jsonSchema: JsonSchemaObject(
+            name: 'word_prompt',
+            description: "word structure",
+            strict: true,
+            schema: structure,
+          ),
         ),
       ),
     );

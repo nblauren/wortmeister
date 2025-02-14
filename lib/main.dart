@@ -7,6 +7,7 @@ import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/data/models/deck.dart';
 import 'package:wortmeister/firebase_options.dart';
 import 'package:wortmeister/screens/add_deck/add_deck_screen.dart';
+import 'package:wortmeister/screens/add_word/add_word_screen.dart';
 import 'package:wortmeister/screens/deck/deck_screen.dart';
 import 'package:wortmeister/screens/login/login_screen.dart';
 import 'package:wortmeister/screens/practice/practice_screen.dart';
@@ -57,6 +58,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => AddDeckScreen());
           case '/signup':
             return MaterialPageRoute(builder: (context) => SignupScreen());
+          case '/new-word':
+            return MaterialPageRoute(builder: (context) => AddWordScreen());
           case '/deck':
             return MaterialPageRoute(builder: (context) {
               final deck = settings.arguments as Deck;
