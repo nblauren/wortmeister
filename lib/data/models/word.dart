@@ -15,6 +15,7 @@ class Word {
   final String? superlative;
   final List<String>? relatedWords;
   final String difficultyLevel;
+  final String createdBy;
 
   Word({
     required this.wordId,
@@ -30,6 +31,7 @@ class Word {
     this.superlative,
     this.relatedWords,
     required this.difficultyLevel,
+    required this.createdBy,
   });
 
   factory Word.fromJson(Map<String, dynamic> json) {
@@ -52,6 +54,7 @@ class Word {
           ? List<String>.from(json['related_words'])
           : null,
       difficultyLevel: json['difficulty_level'],
+      createdBy: json['created_by'],
     );
   }
 
@@ -70,6 +73,7 @@ class Word {
       'superlative': superlative,
       'related_words': relatedWords,
       'difficulty_level': difficultyLevel,
+      'created_by': createdBy,
     };
   }
 }

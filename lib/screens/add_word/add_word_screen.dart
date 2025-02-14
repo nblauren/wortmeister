@@ -7,10 +7,8 @@ import 'package:uuid/uuid.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/core/services/openai_service.dart';
 import 'package:wortmeister/data/controllers/deck_controller.dart';
-import 'package:wortmeister/data/controllers/srs_controller.dart';
 import 'package:wortmeister/data/controllers/word_controller.dart';
 import 'package:wortmeister/data/models/deck.dart';
-import 'package:wortmeister/data/models/srs.dart';
 import 'package:wortmeister/data/models/word.dart';
 
 class AddWordScreen extends StatefulWidget {
@@ -44,8 +42,6 @@ class _AddWordScreenState extends State<AddWordScreen> {
           firebaseService: LocatorService.firebaseFirestoreService);
       DeckController deckController = DeckController(
           firebaseService: LocatorService.firebaseFirestoreService);
-      SrsController srsController = SrsController(
-          firebaseService: LocatorService.firebaseFirestoreService);
       final openAIService = OpenAIService(key);
 
       final result = await openAIService.getCompletionWithStructuredOutput(
@@ -55,22 +51,14 @@ class _AddWordScreenState extends State<AddWordScreen> {
         final newWordId = Uuid().v4();
         final wordJson = jsonDecode(result.choices.first.message.content!);
         wordJson['word_id'] = newWordId;
+        wordJson['created_by'] =
+            LocatorService.firebaseAuthService.currentUser()!.uid;
         final word = Word.fromJson(wordJson);
         await wordController.createWord(word);
 
         // add word to deck
         deck.wordIds.add(newWordId);
         await deckController.updateDeck(deck);
-
-        // add to srs
-        final newSrsId = Uuid().v4();
-
-        final newSrs = Srs.newEntry(
-            srsId: newSrsId,
-            userId: LocatorService.firebaseAuthService.currentUser()!.uid,
-            wordId: newWordId);
-
-        await srsController.createOrUpdateSrs(newSrs);
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Data sent successfully!')),

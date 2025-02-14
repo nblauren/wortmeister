@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '78963345560',
     projectId: 'wort-meister',
     storageBucket: 'wort-meister.firebasestorage.app',
+    iosClientId: '78963345560-l56bccvdlgvloepd1ncj3dmhe4ed8dci.apps.googleusercontent.com',
     iosBundleId: 'dev.nikkothe.wortmeister',
   );
 
@@ -72,6 +73,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '78963345560',
     projectId: 'wort-meister',
     storageBucket: 'wort-meister.firebasestorage.app',
+    iosClientId: '78963345560-l56bccvdlgvloepd1ncj3dmhe4ed8dci.apps.googleusercontent.com',
     iosBundleId: 'dev.nikkothe.wortmeister',
   );
 
