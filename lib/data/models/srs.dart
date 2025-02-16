@@ -85,4 +85,33 @@ class Srs {
       suspended: json["suspended"],
     );
   }
+  Srs copyWith({
+    String? srsId,
+    String? userId,
+    String? wordId,
+    DateTime? lastReviewed,
+    DateTime? nextReview,
+    int? interval,
+    double? easeFactor,
+    int? streak,
+    int? reviewCount,
+    int? correctCount,
+    int? incorrectCount,
+    bool? suspended,
+  }) {
+    return Srs(
+      srsId: srsId ?? this.srsId,
+      userId: userId ?? this.userId,
+      wordId: wordId ?? this.wordId,
+      lastReviewed: lastReviewed ?? this.lastReviewed,
+      nextReview: nextReview ?? this.nextReview,
+      interval: interval ?? this.interval,
+      easeFactor: easeFactor ?? this.easeFactor,
+      streak: streak ?? this.streak,
+      reviewCount: reviewCount ?? this.reviewCount,
+      correctCount: correctCount ?? this.correctCount,
+      incorrectCount: incorrectCount ?? this.incorrectCount,
+      suspended: suspended ?? this.suspended,
+    );
+  }
 }

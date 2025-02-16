@@ -49,8 +49,6 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => AuthWrapper());
           case '/login':
             return MaterialPageRoute(builder: (context) => LoginScreen());
-          case '/practice':
-            return MaterialPageRoute(builder: (context) => PracticeScreen());
           case '/settings':
             return MaterialPageRoute(builder: (context) => SettingsScreen());
           case '/new-deck':
@@ -67,6 +65,18 @@ class MyApp extends StatelessWidget {
                   ),
                 ],
                 child: AddWordScreen(),
+              );
+            });
+          case '/practice':
+            return MaterialPageRoute(builder: (context) {
+              final deck = settings.arguments as Deck;
+              return MultiProvider(
+                providers: [
+                  Provider<Deck>(
+                    create: (_) => deck,
+                  ),
+                ],
+                child: PracticeScreen(),
               );
             });
           case '/deck':

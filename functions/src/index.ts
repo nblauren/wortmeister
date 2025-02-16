@@ -27,22 +27,22 @@ export const createSRSItem = functions.firestore
             }
 
             const srsData = {
-                srsId: db.collection("srs").doc().id, // Auto-generate ID
-                userId: createdBy, // Extract from Firestore metadata
-                wordId: wordId,
-                lastReviewed: null, // Not reviewed yet
-                nextReview: admin.firestore.Timestamp.now(), // Due now
+                srs_id: db.collection("srs").doc().id, // Auto-generate ID
+                user_id: createdBy, // Extract from Firestore metadata
+                word_id: wordId,
+                last_reviewed: null, // Not reviewed yet
+                next_review: admin.firestore.Timestamp.now(), // Due now
                 interval: 1, // Initial interval of 1 day
-                easeFactor: 2.5, // Default ease factor
+                ease_factor: 2.5, // Default ease factor
                 streak: 0, // No streak yet
-                reviewCount: 0, // No reviews yet
-                correctCount: 0,
-                incorrectCount: 0,
+                review_count: 0, // No reviews yet
+                correct_count: 0,
+                incorrect_count: 0,
                 suspended: false,
             };
 
             // Create SRS document in Firestore
-            await db.collection("srs").doc(srsData.srsId).set(srsData);
+            await db.collection("srs").doc(srsData.srs_id).set(srsData);
             console.log(`SRS entry created for word ${wordId}`);
         } catch (error) {
             console.error(`Error creating SRS entry for word ${wordId}: `, error);

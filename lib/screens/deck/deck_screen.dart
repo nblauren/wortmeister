@@ -24,6 +24,14 @@ class DeckScreen extends StatelessWidget {
                   Navigator.pushNamed(context, '/new-word', arguments: deck);
                 },
               ),
+              IconButton(
+                icon: const Icon(
+                  Icons.abc,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/practice', arguments: deck);
+                },
+              ),
             ],
             snap: true,
           ),

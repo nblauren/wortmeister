@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wortmeister/screens/practice/word_gallery.dart';
 
 class PracticeScreen extends StatelessWidget {
   const PracticeScreen({super.key});
@@ -9,9 +10,7 @@ class PracticeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Practice Screen'),
       ),
-      body: Center(
-        child: Text('Welcome to the Practice Screen!'),
-      ),
+      body: WordGallery(),
     );
   }
 }

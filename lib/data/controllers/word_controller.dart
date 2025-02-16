@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wortmeister/core/services/firebase_firestore_service.dart';
 import 'package:wortmeister/data/models/word.dart';
 
@@ -34,18 +35,30 @@ class WordController {
     }
   }
 
-  // Get multiple words by their IDs
   Future<List<Word>> getWordsByIds(List<String> wordIds) async {
+    if (wordIds.isEmpty) return [];
+
+    List<Word> allWords = [];
+    int batchSize = 30;
+
     try {
-      var words = <Word>[];
-      for (var wordId in wordIds) {
-        var word = await getWord(wordId);
-        words.add(word);
+      for (int i = 0; i < wordIds.length; i += batchSize) {
+        List<String> batch = wordIds.sublist(
+            i, i + batchSize > wordIds.length ? wordIds.length : i + batchSize);
+
+        final snapshot = await firebaseService
+            .getCollection("words")
+            .where(FieldPath.documentId, whereIn: batch)
+            .get();
+
+        allWords.addAll(snapshot.docs
+            .map((doc) => Word.fromJson((doc.data() as Map<String, dynamic>))));
       }
-      return words;
     } catch (e) {
-      throw Exception('Error retrieving words: $e');
+      print("Error fetching words: $e");
     }
+
+    return allWords;
   }
 
   // Update a word
