@@ -24,12 +24,13 @@ class _AddDeckScreenState extends State<AddDeckScreen> {
     try {
       DeckController deckController = DeckController(
           firebaseService: LocatorService.firebaseFirestoreService);
-      await deckController.createDeck(Deck(
+      await deckController.createDeck(Deck.newEntry(
           deckId: Uuid().v4(),
           userId: LocatorService.firebaseAuthService.currentUser()?.uid ?? '',
           title: _deckNameController.text,
           description: '',
-          wordIds: []));
+          createdBy:
+              LocatorService.firebaseAuthService.currentUser()?.uid ?? ''));
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Data sent successfully!')),
       );
