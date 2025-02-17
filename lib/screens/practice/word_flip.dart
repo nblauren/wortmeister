@@ -10,47 +10,51 @@ class WordFlip extends StatelessWidget {
   Widget build(BuildContext context) {
     final word = context.watch<Word>();
 
-    return Padding(
-      padding: const EdgeInsets.all(32.0),
-      child: FlipCard(
-        speed: 200,
-        fill: Fill
-            .fillBack, // Fill the back side of the card to make in the same size as the front.
-        direction: FlipDirection.HORIZONTAL, // default
-        side: CardSide.FRONT, // The side to initially display.
-        front: Card(
-          child: Center(
-              child: Text(
-            word.word.contains(' ')
-                ? word.word.split(' ').skip(1).join(' ')
-                : word.word,
-            style: TextStyle(fontSize: 50),
-          )),
-        ),
-        back: SizedBox(
-          child: Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                      child: Column(
-                    children: [
-                      Text(
-                        word.word,
-                        style: TextStyle(fontSize: 32),
-                      ),
-                      Text(
-                        word.gender ?? '',
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ],
-                  )),
-                  SizedBox(
-                    height: 16,
+    return FlipCard(
+      speed: 200,
+      fill: Fill
+          .fillBack, // Fill the back side of the card to make in the same size as the front.
+      direction: FlipDirection.HORIZONTAL, // default
+      side: CardSide.FRONT, // The side to initially display.
+      front: Card(
+        child: Center(
+            child: Text(
+          word.word.contains(' ')
+              ? word.word.split(' ').skip(1).join(' ')
+              : word.word,
+          style: TextStyle(fontSize: 50),
+        )),
+      ),
+      back: SizedBox(
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                    child: Column(
+                  children: [
+                    Text(
+                      word.word,
+                      style: TextStyle(fontSize: 32),
+                    ),
+                    Text(
+                      word.gender ?? '',
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  ],
+                )),
+                SizedBox(
+                  height: 16,
+                ),
+                if (word.back != null)
+                  Text(
+                    word.back!,
+                    style: TextStyle(fontSize: 32),
                   ),
-                  ...word.meanings.map(
+                if (word.meanings != null)
+                  ...word.meanings!.map(
                     (meaning) => Column(
                       children: [
                         Text(
@@ -76,8 +80,7 @@ class WordFlip extends StatelessWidget {
                       ],
                     ),
                   ),
-                ],
-              ),
+              ],
             ),
           ),
         ),

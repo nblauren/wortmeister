@@ -9,13 +9,14 @@ class Word {
   final String? plural;
   final String? gender;
   final String? article;
-  final List<Meaning> meanings;
+  final List<Meaning>? meanings;
   final Conjugation? conjugation;
   final String? comparative;
   final String? superlative;
   final List<String>? relatedWords;
-  final String difficultyLevel;
+  final String? difficultyLevel;
   final String createdBy;
+  final String? back;
 
   Word({
     required this.wordId,
@@ -25,13 +26,14 @@ class Word {
     this.plural,
     this.gender,
     this.article,
-    required this.meanings,
+    this.meanings,
     this.conjugation,
     this.comparative,
     this.superlative,
     this.relatedWords,
-    required this.difficultyLevel,
+    this.difficultyLevel,
     required this.createdBy,
+    this.back,
   });
 
   factory Word.fromJson(Map<String, dynamic> json) {
@@ -43,8 +45,9 @@ class Word {
       plural: json['plural'],
       gender: json['gender'],
       article: json['article'],
-      meanings:
-          List<Meaning>.from(json['meanings'].map((x) => Meaning.fromJson(x))),
+      meanings: json['meanings'] != null
+          ? List<Meaning>.from(json['meanings'].map((x) => Meaning.fromJson(x)))
+          : null,
       conjugation: json['conjugation'] != null
           ? Conjugation.fromJson(json['conjugation'])
           : null,
@@ -55,6 +58,7 @@ class Word {
           : null,
       difficultyLevel: json['difficulty_level'],
       createdBy: json['created_by'],
+      back: json['back'],
     );
   }
 
@@ -67,13 +71,16 @@ class Word {
       'plural': plural,
       'gender': gender,
       'article': article,
-      'meanings': List<dynamic>.from(meanings.map((x) => x.toJson())),
+      'meanings': meanings != null
+          ? List<dynamic>.from(meanings!.map((x) => x.toJson()))
+          : null,
       'conjugation': conjugation?.toJson(),
       'comparative': comparative,
       'superlative': superlative,
       'related_words': relatedWords,
       'difficulty_level': difficultyLevel,
       'created_by': createdBy,
+      'back': back,
     };
   }
 }

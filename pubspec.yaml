@@ -22,7 +22,6 @@ dependencies:
   google_sign_in: ^6.2.2
   openai_dart: ^0.4.5
   provider: ^6.1.2
-  spaced_repetition: ^0.1.0
   uuid: ^4.5.1
 
 dev_dependencies:

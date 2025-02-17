@@ -1,0 +1,500 @@
+gehen / to go / ging / ist gegangen
+sein / to be / war / ist gewesen
+haben / to have / hatte / hat gehabt
+werden / to become / wurde / ist geworden
+können / to be able to / konnte / hat gekonnt
+müssen / to must / musste / hat gemusst
+sagen / to say / sagte / hat gesagt
+machen / to do/make / machte / hat gemacht
+geben / to give / gab / hat gegeben
+kommen / to come / kam / ist gekommen
+sollen / should / sollte / hat gesollt
+wollen / to want / wollte / hat gewollt
+sehen / to see / sah / hat gesehen
+lassen / to let/allow / ließ / hat gelassen
+stehen / to stand / stand / hat gestanden
+finden / to find / fand / hat gefunden
+bleiben / to stay / blieb / ist geblieben
+liegen / to lie / lag / hat gelegen
+heißen / to be called / hieß / hat geheißen
+denken / to think / dachte / hat gedacht
+nehmen / to take / nahm / hat genommen
+tun / to do / tat / hat getan
+dürfen / to be allowed to / durfte / hat gedurft
+glauben / to believe / glaubte / hat geglaubt
+halten / to hold / hielt / hat gehalten
+nennen / to name / nannte / hat genannt
+mögen / to like / mochte / hat gemocht
+zeigen / to show / zeigte / hat gezeigt
+führen / to lead / führte / hat geführt
+sprechen / to speak / sprach / hat gesprochen
+bringen / to bring / brachte / hat gebracht
+leben / to live / lebte / hat gelebt
+fahren / to drive / fuhr / ist gefahren
+meinen / to mean / meinte / hat gemeint
+fragen / to ask / fragte / hat gefragt
+kennen / to know / kannte / hat gekannt
+gelten / to be valid / galt / hat gegolten
+stellen / to place / stellte / hat gestellt
+spielen / to play / spielte / hat gespielt
+arbeiten / to work / arbeitete / hat gearbeitet
+brauchen / to need / brauchte / hat gebraucht
+folgen / to follow / folgte / ist gefolgt
+lernen / to learn / lernte / hat gelernt
+bestehen / to exist / bestand / hat bestanden
+verstehen / to understand / verstand / hat verstanden
+setzen / to set / setzte / hat gesetzt
+bekommen / to receive / bekam / hat bekommen
+beginnen / to begin / begann / hat begonnen
+erzählen / to tell / erzählte / hat erzählt
+versuchen / to try / versuchte / hat versucht
+schreiben / to write / schrieb / hat geschrieben
+laufen / to run / lief / ist gelaufen
+erklären / to explain / erklärte / hat erklärt
+entsprechen / to correspond / entsprach / hat entsprochen
+sitzen / to sit / saß / hat gesessen
+ziehen / to pull / zog / hat gezogen
+scheinen / to seem / schien / hat geschienen
+fallen / to fall / fiel / ist gefallen
+gehören / to belong / gehörte / hat gehört
+entstehen / to arise / entstand / ist entstanden
+erhalten / to receive / erhielt / hat erhalten
+treffen / to meet / traf / hat getroffen
+suchen / to search / suchte / hat gesucht
+legen / to lay / legte / hat gelegt
+vorstellen / to introduce / stellte vor / hat vorgestellt
+handeln / to act / handelte / hat gehandelt
+erreichen / to reach / erreichte / hat erreicht
+tragen / to carry / trug / hat getragen
+schaffen / to create / schuf / hat geschaffen
+lesen / to read / las / hat gelesen
+verlieren / to lose / verlor / hat verloren
+darstellen / to represent / stellte dar / hat dargestellt
+erkennen / to recognize / erkannte / hat erkannt
+entwickeln / to develop / entwickelte / hat entwickelt
+reden / to talk / redete / hat geredet
+aussehen / to appear / sah aus / hat ausgesehen
+erscheinen / to appear / erschien / ist erschienen
+bilden / to form / bildete / hat gebildet
+anfangen / to start / fing an / hat angefangen
+erwarten / to expect / erwartete / hat erwartet
+wohnen / to live/reside / wohnte / hat gewohnt
+betreffen / to concern / betraf / hat betroffen
+warten / to wait / wartete / hat gewartet
+vergehen / to pass / verging / ist vergangen
+helfen / to help / half / hat geholfen
+gewinnen / to win / gewann / hat gewonnen
+schließen / to close / schloss / hat geschlossen
+fühlen / to feel / fühlte / hat gefühlt
+bieten / to offer / bot / hat geboten
+interessieren / to interest / interessierte / hat interessiert
+erinnern / to remind / erinnerte / hat erinnert
+verbinden / to connect / verband / hat verbunden
+ansehen / to look at / sah an / hat angesehen
+vergleichen / to compare / verglich / hat verglichen
+bewegen / to move / bewegte / hat bewegt
+gründen / to found / gründete / hat gegründet
+laden / to load / lud / hat geladen
+passieren / to happen / passierte / ist passiert
+arbeiten / to work / arbeitete / hat gearbeitet
+bedeuten / to mean / bedeutete / hat bedeutet
+begründen / to justify / begründete / hat begründet
+behalten / to keep / behielt / hat behalten
+bekommen / to receive / bekam / hat bekommen
+bemerken / to notice / bemerkte / hat bemerkt
+benutzen / to use / benutzte / hat benutzt
+berichten / to report / berichtete / hat berichtet
+beschreiben / to describe / beschrieb / hat beschrieben
+besitzen / to own / besaß / hat besessen
+bestätigen / to confirm / bestätigte / hat bestätigt
+bestehen / to exist / bestand / hat bestanden
+besuchen / to visit / besuchte / hat besucht
+betreten / to enter / betrat / hat betreten
+bewegen / to move / bewegte / hat bewegt
+bewerben / to apply / bewarb / hat beworben
+beziehen / to refer / bezog / hat bezogen
+bleiben / to stay / blieb / ist geblieben
+brauchen / to need / brauchte / hat gebraucht
+danken / to thank / dankte / hat gedankt
+denken / to think / dachte / hat gedacht
+dürfen / to be allowed to / durfte / hat gedurft
+einladen / to invite / lud ein / hat eingeladen
+empfehlen / to recommend / empfahl / hat empfohlen
+entdecken / to discover / entdeckte / hat entdeckt
+entfernen / to remove / entfernte / hat entfernt
+enthalten / to contain / enthielt / hat enthalten
+entscheiden / to decide / entschied / hat entschieden
+entsprechen / to correspond / entsprach / hat entsprochen
+entstehen / to arise / entstand / ist entstanden
+entwickeln / to develop / entwickelte / hat entwickelt
+erfahren / to experience / erfuhr / hat erfahren
+erfinden / to invent / erfand / hat erfunden
+erhalten / to receive / erhielt / hat erhalten
+erinnern / to remind / erinnerte / hat erinnert
+erkennen / to recognize / erkannte / hat erkannt
+erklären / to explain / erklärte / hat erklärt
+erlauben / to allow / erlaubte / hat erlaubt
+erreichen / to reach / erreichte / hat erreicht
+erscheinen / to appear / erschien / ist erschienen
+erschrecken / to scare / erschrak / ist erschrocken
+erwarten / to expect / erwartete / hat erwartet
+erzählen / to tell / erzählte / hat erzählt
+essen / to eat / aß / hat gegessen
+fahren / to drive / fuhr / ist gefahren
+fallen / to fall / fiel / ist gefallen
+fangen / to catch / fing / hat gefangen
+fühlen / to feel / fühlte / hat gefühlt
+führen / to lead / führte / hat geführt
+geben / to give / gab / hat gegeben
+gefallen / to please / gefiel / hat gefallen
+gehen / to go / ging / ist gegangen
+gehören / to belong / gehörte / hat gehört
+gelingen / to succeed / gelang / ist gelungen
+gelten / to be valid / galt / hat gegolten
+genießen / to enjoy / genoss / hat genossen
+gewinnen / to win / gewann / hat gewonnen
+glauben / to believe / glaubte / hat geglaubt
+graben / to dig / grub / hat gegraben
+greifen / to grab / griff / hat gegriffen
+haben / to have / hatte / hat gehabt
+halten / to hold / hielt / hat gehalten
+hängen / to hang / hing / hat gehangen
+hassen / to hate / hasste / hat gehasst
+heben / to lift / hob / hat gehoben
+heißen / to be called / hieß / hat geheißen
+helfen / to help / half / hat geholfen
+herstellen / to produce / stellte her / hat hergestellt
+hinweisen / to point out / wies hin / hat hingewiesen
+hoffen / to hope / hoffte / hat gehofft
+hören / to hear / hörte / hat gehört
+importieren / to import / importierte / hat importiert
+kämpfen / to fight / kämpfte / hat gekämpft
+kaufen / to buy / kaufte / hat gekauft
+kehren / to turn / kehrte / hat gekehrt
+kennen / to know / kannte / hat gekannt
+klettern / to climb / kletterte / ist geklettert
+klingen / to sound / klang / hat geklungen
+kochen / to cook / kochte / hat gekocht
+kommen / to come / kam / ist gekommen
+können / to be able to / konnte / hat gekonnt
+kosten / to cost / kostete / hat gekostet
+kriechen / to crawl / kroch / ist gekrochen
+kühlen / to cool / kühlte / hat gekühlt
+kündigen / to resign / kündigte / hat gekündigt
+küssen / to kiss / küsste / hat geküsst
+lachen / to laugh / lachte / hat gelacht
+laden / to load / lud / hat geladen
+lächeln / to smile / lächelte / hat gelächelt
+lassen / to let/allow / ließ / hat gelassen
+laufen / to run / lief / ist gelaufen
+leben / to live / lebte / hat gelebt
+legen / to lay / legte / hat gelegt
+lehren / to teach / lehrte / hat gelehrt
+leihen / to lend / lieh / hat geliehen
+leiden / to suffer / litt / hat gelitten
+leiten / to lead / leitete / hat geleitet
+lernen / to learn / lernte / hat gelernt
+lesen / to read / las / hat gelesen
+leuchten / to shine / leuchtete / hat geleuchtet
+lieben / to love / liebte / hat geliebt
+liegen / to lie / lag / hat gelegen
+loben / to praise / lobte / hat gelobt
+lösen / to solve / löste / hat gelöst
+lügen / to lie / log / hat gelogen
+machen / to do/make / machte / hat gemacht
+malen / to paint / malte / hat gemalt
+messen / to measure / maß / hat gemessen
+mieten / to rent / mietete / hat gemietet
+mögen / to like / mochte / hat gemocht
+müssen / to must / musste / hat gemusst
+nähen / to sew / nähte / hat genäht
+nehmen / to take / nahm / hat genommen
+nennen / to name / nannte / hat genannt
+nicken / to nod / nickte / hat genickt
+öffnen / to open / öffnete / hat geöffnet
+ordnen / to organize / ordnete / hat geordnet
+packen / to pack / packte / hat gepackt
+passen / to fit / passte / hat gepasst
+passieren / to happen / passierte / ist passiert
+pfeifen / to whistle / pfiff / hat gepfiffen
+probieren / to try / probierte / hat probiert
+prüfen / to test / prüfte / hat geprüft
+putzen / to clean / putzte / hat geputzt
+quälen / to torment / quälte / hat gequält
+raten / to advise / riet / hat geraten
+rauchen / to smoke / rauchte / hat geraucht
+räumen / to clear / räumte / hat geräumt
+rechnen / to calculate / rechnete / hat gerechnet
+reden / to talk / redete / hat geredet
+regnen / to rain / regnete / hat geregnet
+reichen / to reach / reichte / hat gereicht
+reisen / to travel / reiste / ist gereist
+reißen / to tear / riss / hat gerissen
+reiten / to ride / ritt / ist geritten
+rennen / to run / rannte / ist gerannt
+retten / to save / rette / hat gerettet
+richten / to direct / richtete / hat gerichtet
+riechen / to smell / roch / hat gerochen
+ringen / to wrestle / rang / hat gerungen
+rücken / to move / rückte / hat gerückt
+rufen / to call / rief / hat gerufen
+rüsten / to arm / rüstete / hat gerüstet
+sagen / to say / sagte / hat gesagt
+sammeln / to collect / sammelte / hat gesammelt
+saufen / to drink (alcohol) / soff / hat gesoffen
+saugen / to suck / sog / hat gesogen
+schaden / to harm / schadete / hat geschadet
+schaffen / to create / schuf / hat geschaffen
+schätzen / to estimate / schätzte / hat geschätzt
+schauen / to look / schaute / hat geschaut
+scheinen / to seem / schien / hat geschienen
+schenken / to give (as a gift) / schenkte / hat geschenkt
+schicken / to send / schickte / hat geschickt
+schieben / to push / schob / hat geschoben
+schießen / to shoot / schoss / hat geschossen
+schlafen / to sleep / schlief / hat geschlafen
+schlagen / to hit / schlug / hat geschlagen
+schließen / to close / schloss / hat geschlossen
+schmecken / to taste / schmeckte / hat geschmeckt
+schmelzen / to melt / schmolz / hat geschmolzen
+schneiden / to cut / schnitt / hat geschnitten
+schreiben / to write / schrieb / hat geschrieben
+schreien / to scream / schrie / hat geschrien
+schützen / to protect / schützte / hat geschützt
+schwimmen / to swim / schwamm / ist geschwommen
+sehen / to see / sah / hat gesehen
+sein / to be / war / ist gewesen
+senden / to send / sandte / hat gesandt
+setzen / to set / setzte / hat gesetzt
+singen / to sing / sang / hat gesungen
+sinken / to sink / sank / ist gesunken
+sitzen / to sit / saß / hat gesessen
+sparen / to save / sparte / hat gespart
+spazieren / to walk / spazierte / ist spaziert
+spielen / to play / spielte / hat gespielt
+sprechen / to speak / sprach / hat gesprochen
+springen / to jump / sprang / ist gesprungen
+spülen / to rinse / spülte / hat gespült
+stechen / to sting / stach / hat gestochen
+stehen / to stand / stand / hat gestanden
+stehlen / to steal / stahl / hat gestohlen
+steigen / to climb / stieg / ist gestiegen
+stellen / to place / stellte / hat gestellt
+sterben / to die / starb / ist gestorben
+stören / to disturb / störte / hat gestört
+stoßen / to push / stieß / hat gestoßen
+streiten / to argue / stritt / hat gestritten
+studieren / to study / studierte / hat studiert
+stürzen / to fall / stürzte / ist gestürzt
+suchen / to search / suchte / hat gesucht
+tanzen / to dance / tanzte / hat getanzt
+tauchen / to dive / tauchte / ist getaucht
+tauschen / to exchange / tauschte / hat getauscht
+teilen / to share / teilte / hat geteilt
+telefonieren / to call / telefonierte / hat telefoniert
+töten / to kill / tötete / hat getötet
+tragen / to carry / trug / hat getragen
+trainieren / to train / trainierte / hat trainiert
+träumen / to dream / träumte / hat geträumt
+treffen / to meet / traf / hat getroffen
+treiben / to drive / trieb / hat getrieben
+treten / to step / trat / hat getreten
+trinken / to drink / trank / hat getrunken
+trocknen / to dry / trocknete / hat getrocknet
+tun / to do / tat / hat getan
+überlegen / to consider / überlegte / hat überlegt
+überraschen / to surprise / überraschte / hat überrascht
+übersetzen / to translate / übersetzte / hat übersetzt
+überzeugen / to convince / überzeugte / hat überzeugt
+umziehen / to move (house) / zog um / ist umgezogen
+unterhalten / to entertain / unterhielt / hat unterhalten
+untersuchen / to examine / untersuchte / hat untersucht
+verändern / to change / veränderte / hat verändert
+verbinden / to connect / verband / hat verbunden
+verbrauchen / to consume / verbrauchte / hat verbraucht
+verderben / to spoil / verdarb / hat verdorben
+verdienen / to earn / verdiente / hat verdient
+vergessen / to forget / vergaß / hat vergessen
+vergleichen / to compare / verglich / hat verglichen
+verhalten / to behave / verhielt / hat verhalten
+verkaufen / to sell / verkaufte / hat verkauft
+verlassen / to leave / verließ / hat verlassen
+verletzen / to injure / verletzte / hat verletzt
+verlieren / to lose / verlor / hat verloren
+vermeiden / to avoid / vermied / hat vermieden
+verschieben / to postpone / verschob / hat verschoben
+verschwinden / to disappear / verschwand / ist verschwunden
+versprechen / to promise / versprach / hat versprochen
+verstehen / to understand / verstand / hat verstanden
+versuchen / to try / versuchte / hat versucht
+verteidigen / to defend / verteidigte / hat verteidigt
+vertragen / to tolerate / vertrug / hat vertragen
+verwenden / to use / verwendete / hat verwendet
+verzeihen / to forgive / verzieh / hat verziehen
+vorbereiten / to prepare / bereitete vor / hat vorbereitet
+vorstellen / to introduce / stellte vor / hat vorgestellt
+wachsen / to grow / wuchs / ist gewachsen
+wählen / to choose / wählte / hat gewählt
+warten / to wait / wartete / hat gewartet
+wechseln / to change / wechselte / hat gewechselt
+wecken / to wake / weckte / hat geweckt
+wehren / to resist / wehrte / hat gewehrt
+weinen / to cry / weinte / hat geweint
+weisen / to point / wies / hat gewiesen
+wenden / to turn / wandte / hat gewandt
+werben / to advertise / warb / hat geworben
+werden / to become / wurde / ist geworden
+werfen / to throw / warf / hat geworfen
+wetten / to bet / wettete / hat gewettet
+wiederholen / to repeat / wiederholte / hat wiederholt
+wiegen / to weigh / wog / hat gewogen
+wissen / to know / wusste / hat gewusst
+wohnen / to live/reside / wohnte / hat gewohnt
+wollen / to want / wollte / hat gewollt
+wünschen / to wish / wünschte / hat gewünscht
+zahlen / to pay / zahlte / hat gezahlt
+zählen / to count / zählte / hat gezählt
+zeichnen / to draw / zeichnete / hat gezeichnet
+zeigen / to show / zeigte / hat gezeigt
+zerstören / to destroy / zerstörte / hat zerstört
+ziehen / to pull / zog / hat gezogen
+zitieren / to quote / zitierte / hat zitiert
+zögern / to hesitate / zögerte / hat gezögert
+zuhören / to listen / hörte zu / hat zugehört
+zulassen / to permit / ließ zu / hat zugelassen
+zurückkommen / to return / kam zurück / ist zurückgekommen
+zusammenarbeiten / to collaborate / arbeitete zusammen / hat zusammengearbeitet
+zusehen / to watch / sah zu / hat zugesehen
+zwingen / to force / zwang / hat gezwungen
+abholen / to pick up / holte ab / hat abgeholt
+abnehmen / to lose weight / nahm ab / hat abgenommen
+absagen / to cancel / sagte ab / hat abgesagt
+abschließen / to lock / schloss ab / hat abgeschlossen
+abstimmen / to vote / stimmte ab / hat abgestimmt
+achten / to pay attention / achtete / hat geachtet
+ändern / to change / änderte / hat geändert
+anerkennen / to recognize / erkannte an / hat anerkannt
+anfangen / to start / fing an / hat angefangen
+anfordern / to request / forderte an / hat angefordert
+angeben / to specify / gab an / hat angegeben
+angehen / to concern / ging an / ist angegangen
+angeln / to fish / angelte / hat geangelt
+ankommen / to arrive / kam an / ist angekommen
+anmelden / to register / meldete an / hat angemeldet
+annehmen / to accept / nahm an / hat angenommen
+anrufen / to call / rief an / hat angerufen
+anschließen / to connect / schloss an / hat angeschlossen
+ansehen / to look at / sah an / hat angesehen
+anziehen / to put on / zog an / hat angezogen
+arbeiten / to work / arbeitete / hat gearbeitet
+ärgern / to annoy / ärgerte / hat geärgert
+atmen / to breathe / atmete / hat geatmet
+auffallen / to stand out / fiel auf / ist aufgefallen
+aufgeben / to give up / gab auf / hat aufgegeben
+aufhören / to stop / hörte auf / hat aufgehört
+aufpassen / to pay attention / passte auf / hat aufgepasst
+aufstehen / to get up / stand auf / ist aufgestanden
+ausgeben / to spend / gab aus / hat ausgegeben
+aussehen / to appear / sah aus / hat ausgesehen
+aussteigen / to get off / stieg aus / ist ausgestiegen
+ausziehen / to undress / zog aus / hat ausgezogen
+backen / to bake / backte / hat gebacken
+baden / to bathe / badete / hat gebadet
+bauen / to build / baute / hat gebaut
+bedecken / to cover / bedeckte / hat bedeckt
+bedienen / to serve / bediente / hat bedient
+beeilen / to hurry / beeilte / hat beeilt
+beenden / to finish / beendete / hat beendet
+befehlen / to command / befahl / hat befohlen
+befinden / to be located / befand / hat befunden
+beginnen / to begin / begann / hat begonnen
+begleiten / to accompany / begleitete / hat begleitet
+behalten / to keep / behielt / hat behalten
+behandeln / to treat / behandelte / hat behandelt
+behaupten / to claim / behauptete / hat behauptet
+beherrschen / to master / beherrschte / hat beherrscht
+beißen / to bite / biss / hat gebissen
+bekämpfen / to fight / bekämpfte / hat bekämpft
+bekommen / to receive / bekam / hat bekommen
+beleben / to revive / belebte / hat belebt
+beleidigen / to insult / beleidigte / hat beleidigt
+bellen / to bark / bellte / hat gebellt
+belohnen / to reward / belohnte / hat belohnt
+bemerken / to notice / bemerkte / hat bemerkt
+benutzen / to use / benutzte / hat benutzt
+beraten / to advise / beriet / hat beraten
+bereiten / to prepare / bereitete / hat bereitet
+berichten / to report / berichtete / hat berichtet
+beruhigen / to calm / beruhigte / hat beruhigt
+beschädigen / to damage / beschädigte / hat beschädigt
+beschäftigen / to occupy / beschäftigte / hat beschäftigt
+beschließen / to decide / beschloss / hat beschlossen
+beschreiben / to describe / beschrieb / hat beschrieben
+beseitigen / to eliminate / beseitigte / hat beseitigt
+besetzen / to occupy / besetzte / hat besetzt
+besichtigen / to visit / besichtigte / hat besichtigt
+besorgen / to get / besorgte / hat besorgt
+besprechen / to discuss / besprach / hat besprochen
+bestehen / to exist / bestand / hat bestanden
+bestellen / to order / bestellte / hat bestellt
+besuchen / to visit / besuchte / hat besucht
+beten / to pray / betete / hat gebetet
+betonen / to emphasize / betonte / hat betont
+betrachten / to observe / betrachtete / hat betrachtet
+betreten / to enter / betrat / hat betreten
+betrügen / to cheat / betrog / hat betrogen
+bevorzugen / to prefer / bevorzugte / hat bevorzugt
+bewegen / to move / bewegte / hat bewegt
+bewerben / to apply / bewarb / hat beworben
+bewundern / to admire / bewunderte / hat bewundert
+bezahlen / to pay / bezahlte / hat bezahlt
+bezeichnen / to designate / bezeichnete / hat bezeichnet
+beziehen / to refer / bezog / hat bezogen
+biegen / to bend / bog / hat gebogen
+bieten / to offer / bot / hat geboten
+binden / to tie / band / hat gebunden
+bitten / to ask / bat / hat gebeten
+blasen / to blow / blies / hat geblasen
+bleiben / to stay / blieb / ist geblieben
+blicken / to glance / blickte / hat geblickt
+blühen / to bloom / blühte / hat geblüht
+braten / to roast / briet / hat gebraten
+brauchen / to need / brauchte / hat gebraucht
+brechen / to break / brach / hat gebrochen
+brennen / to burn / brannte / hat gebrannt
+bringen / to bring / brachte / hat gebracht
+brüllen / to roar / brüllte / hat gebrüllt
+bügeln / to iron / bügelte / hat gebügelt
+danken / to thank / dankte / hat gedankt
+denken / to think / dachte / hat gedacht
+deuten / to interpret / deutete / hat gedeutet
+dienen / to serve / diente / hat gedient
+dringen / to insist / drang / hat gedrungen
+drucken / to print / druckte / hat gedruckt
+drücken / to press / drückte / hat gedrückt
+dürfen / to be allowed to / durfte / hat gedurft
+ehren / to honor / ehrte / hat geehrt
+einatmen / to inhale / atmete ein / hat eingeatmet
+einfallen / to occur / fiel ein / ist eingefallen
+einkaufen / to shop / kaufte ein / hat eingekauft
+einladen / to invite / lud ein / hat eingeladen
+einrichten / to furnish / richtete ein / hat eingerichtet
+eintreten / to enter / trat ein / ist eingetreten
+empfehlen / to recommend / empfahl / hat empfohlen
+entdecken / to discover / entdeckte / hat entdeckt
+entfernen / to remove / entfernte / hat entfernt
+enthalten / to contain / enthielt / hat enthalten
+entkommen / to escape / entkam / ist entkommen
+entscheiden / to decide / entschied / hat entschieden
+entschuldigen / to apologize / entschuldigte / hat entschuldigt
+entstehen / to arise / entstand / ist entstanden
+entwickeln / to develop / entwickelte / hat entwickelt
+erfahren / to experience / erfuhr / hat erfahren
+erfinden / to invent / erfand / hat erfunden
+erhalten / to receive / erhielt / hat erhalten
+erinnern / to remind / erinnerte / hat erinnert
+erkennen / to recognize / erkannte / hat erkannt
+erklären / to explain / erklärte / hat erklärt
+erlauben / to allow / erlaubte / hat erlaubt
+erreichen / to reach / erreichte / hat erreicht
+erscheinen / to appear / erschien / ist erschienen

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wortmeister/core/services/firebase_firestore_service.dart';
 import 'package:wortmeister/data/controllers/word_controller.dart';
+import 'package:wortmeister/data/models/deck.dart';
 import 'package:wortmeister/data/models/srs.dart';
 import 'package:wortmeister/data/models/srs_word.dart';
 import 'package:wortmeister/data/models/word.dart';
@@ -11,38 +12,40 @@ class SrsController {
   SrsController({required this.firebaseService});
 
   /// Fetch daily review cards based on the user's deck settings
-  Future<List<SrsWord>> getReviewCards(String userId, String deckId) async {
+  Future<List<SrsWord>> getReviewCards(String userId, Deck deck) async {
+    List<Srs> allSrs = [];
+    int batchSize = 30;
+
     final wordController = WordController(firebaseService: firebaseService);
     try {
-      // Fetch the deck settings
-      final deckSnapshot =
-          await firebaseService.getCollection("decks").doc(deckId).get();
-      if (!deckSnapshot.exists) {
-        throw Exception("Deck not found");
-      }
-
-      Map<String, dynamic> deckData =
-          deckSnapshot.data() as Map<String, dynamic>;
-      int dailyReviewLimit = deckData["daily_review_limit"] ?? 50;
+      int dailyReviewLimit = deck.dailyReviewLimit;
       Timestamp today = Timestamp.now();
 
-      // Query review words from SRS
-      QuerySnapshot reviewSnapshot = await firebaseService
-          .getCollection("srs")
-          .where("user_id", isEqualTo: userId)
-          .where("next_review", isLessThanOrEqualTo: today)
-          .where("suspended", isEqualTo: false)
-          .orderBy("next_review")
-          .limit(dailyReviewLimit)
-          .get();
+      for (int i = 0; i < deck.wordIds.length; i += batchSize) {
+        List<String> batch = deck.wordIds.sublist(
+            i,
+            i + batchSize > deck.wordIds.length
+                ? deck.wordIds.length
+                : i + batchSize);
 
-      final srsList = reviewSnapshot.docs
-          .map((doc) => Srs.fromJson((doc.data() as Map<String, dynamic>)))
-          .toList();
-      final wordList = srsList.map((doc) => doc.wordId).toList();
+        // Query review words from SRS
+        QuerySnapshot reviewSnapshot = await firebaseService
+            .getCollection("srs")
+            .where("user_id", isEqualTo: userId)
+            .where("next_review", isLessThanOrEqualTo: today)
+            .where("suspended", isEqualTo: false)
+            .where("word_id", whereIn: batch)
+            .orderBy("next_review")
+            .get();
+
+        allSrs.addAll(reviewSnapshot.docs
+            .map((doc) => Srs.fromJson((doc.data() as Map<String, dynamic>))));
+      }
+      final wordList = allSrs.map((doc) => doc.wordId).toList();
       final words = await wordController.getWordsByIds(wordList);
 
-      return srsList
+      return allSrs
+          .take(dailyReviewLimit)
           .map((srs) => SrsWord(
               srs: srs,
               word: words.where((word) => word.wordId == srs.wordId).first))
