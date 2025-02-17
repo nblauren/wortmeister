@@ -57,14 +57,19 @@ class SrsController {
 
   /// Update the interval, repetitions, and ease factor of a specific SRS entry
   Future<void> updateSrsEntry(
-      String srsId, int interval, int repetitions, double easeFactor) async {
+      String srsId,
+      int interval,
+      int repetitions,
+      double easeFactor,
+      DateTime lastReviewDate,
+      DateTime nextReviewDate) async {
     try {
       await firebaseService.getCollection("srs").doc(srsId).update({
         'interval': interval,
         'review_count': repetitions,
         'ease_factor': easeFactor,
-        'next_review':
-            Timestamp.fromDate(DateTime.now().add(Duration(days: interval))),
+        'next_review': nextReviewDate,
+        'last_reviewed': lastReviewDate,
       });
     } catch (e) {
       throw Exception("Failed to update SRS entry: $e");

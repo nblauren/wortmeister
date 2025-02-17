@@ -23,12 +23,10 @@ class _WordGalleryState extends State<WordGallery> {
   );
 
   final List<Color> buttonColors = [
-    Color(0xFFFF4C4C), // 0 - Red
-    Color(0xFFFF9500), // 1 - Orange
-    Color(0xFFFFD700), // 2 - Yellow
-    Color(0xFF90EE90), // 3 - Light Green
-    Color(0xFF32CD32), // 4 - Green
-    Color(0xFF007AFF), // 5 - Blue
+    Color(0xFFFF4C4C), // 0 - Red (Forgot Completely)
+    Color(0xFFFFA500), // 1 - Orange (Barely Remembered)
+    Color(0xFFFFD700), // 2 - Yellow (Somewhat Remembered)
+    Color(0xFF32CD32), // 3 - Green (Perfect Recall)
   ];
 
   Future<List<SrsWord>> _getReviewCards(BuildContext context, Deck deck) async {
@@ -48,6 +46,8 @@ class _WordGalleryState extends State<WordGallery> {
       newSrs.interval,
       newSrs.repitition,
       newSrs.easeFactor,
+      DateTime.now(),
+      newSrs.nextReview,
     );
   }
 
@@ -59,7 +59,7 @@ class _WordGalleryState extends State<WordGallery> {
   }
 
   Widget _ratingButton(
-      context, Srs srs, int rating, int newIndex, int itemCount) {
+      context, Srs srs, int rating, int newIndex, int itemCount, String text) {
     return ElevatedButton(
       onPressed: () async {
         await _recalculateSrs(srs, rating);
@@ -71,11 +71,10 @@ class _WordGalleryState extends State<WordGallery> {
       },
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.all(24),
-        shape: CircleBorder(),
         backgroundColor: buttonColors[rating],
         foregroundColor: _getTextColor(buttonColors[rating]),
       ),
-      child: Text(rating.toString()),
+      child: Text(text),
     );
   }
 
@@ -129,18 +128,34 @@ class _WordGalleryState extends State<WordGallery> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                _ratingButton(context, srs, 0,
-                                    config.activeIndex, srsWords.length),
-                                _ratingButton(context, srs, 1,
-                                    config.activeIndex, srsWords.length),
-                                _ratingButton(context, srs, 2,
-                                    config.activeIndex, srsWords.length),
-                                _ratingButton(context, srs, 3,
-                                    config.activeIndex, srsWords.length),
-                                _ratingButton(context, srs, 4,
-                                    config.activeIndex, srsWords.length),
-                                _ratingButton(context, srs, 5,
-                                    config.activeIndex, srsWords.length),
+                                _ratingButton(
+                                    context,
+                                    srs,
+                                    0,
+                                    config.activeIndex,
+                                    srsWords.length,
+                                    'Again'),
+                                _ratingButton(
+                                    context,
+                                    srs,
+                                    1,
+                                    config.activeIndex,
+                                    srsWords.length,
+                                    'Hard'),
+                                _ratingButton(
+                                    context,
+                                    srs,
+                                    2,
+                                    config.activeIndex,
+                                    srsWords.length,
+                                    'Good'),
+                                _ratingButton(
+                                    context,
+                                    srs,
+                                    3,
+                                    config.activeIndex,
+                                    srsWords.length,
+                                    'Easy'),
                               ],
                             ),
                           ),
