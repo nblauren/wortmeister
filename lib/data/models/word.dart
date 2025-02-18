@@ -1,22 +1,43 @@
+import 'package:isar/isar.dart';
 import 'package:wortmeister/data/models/conjugation.dart';
 import 'package:wortmeister/data/models/meaning.dart';
 
+part 'word.g.dart';
+
+@Collection()
 class Word {
-  final String wordId;
-  final String word;
-  final String language;
-  final String? pronunciation;
-  final String? plural;
-  final String? gender;
-  final String? article;
-  final List<Meaning>? meanings;
-  final Conjugation? conjugation;
-  final String? comparative;
-  final String? superlative;
-  final List<String>? relatedWords;
-  final String? difficultyLevel;
-  final String createdBy;
-  final String? back;
+  Id id = Isar.autoIncrement;
+
+  @Index(unique: true)
+  late String wordId;
+
+  late String word;
+
+  late String language;
+
+  String? pronunciation;
+
+  String? plural;
+
+  String? gender;
+
+  String? article;
+
+  List<Meaning>? meanings;
+
+  Conjugation? conjugation;
+
+  String? comparative;
+
+  String? superlative;
+
+  List<String>? relatedWords;
+
+  String? difficultyLevel;
+
+  late String createdBy;
+
+  String? back;
 
   Word({
     required this.wordId,

@@ -1,18 +1,36 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:isar/isar.dart';
 
+part 'deck.g.dart';
+
+@Collection()
 class Deck {
-  final String deckId;
-  final String userId;
-  final String title;
-  final String description;
-  final List<String> wordIds;
-  final int dailyNewLimit;
-  final int dailyReviewLimit;
-  final DateTime createdAt;
-  final String createdBy;
-  final DateTime? lastSessionDate;
-  final int reviewedToday;
-  final int newLearnedToday;
+  Id id = Isar.autoIncrement;
+
+  @Index()
+  late String deckId;
+
+  @Index()
+  late String userId;
+
+  late String title;
+
+  late String description;
+
+  late List<String> wordIds;
+
+  late int dailyNewLimit;
+
+  late int dailyReviewLimit;
+
+  late DateTime createdAt;
+
+  late String createdBy;
+
+  DateTime? lastSessionDate;
+
+  late int reviewedToday;
+
+  late int newLearnedToday;
 
   Deck({
     required this.deckId,
@@ -64,10 +82,10 @@ class Deck {
       wordIds: List<String>.from(json['word_ids']),
       dailyNewLimit: json['daily_new_limit'],
       dailyReviewLimit: json['daily_review_limit'],
-      createdAt: (json["created_at"] as Timestamp).toDate(),
+      createdAt: DateTime.parse(json["created_at"]),
       createdBy: json['created_by'],
       lastSessionDate: json["last_session_date"] != null
-          ? (json["last_session_date"] as Timestamp).toDate()
+          ? DateTime.parse(json["last_session_date"])
           : null,
       reviewedToday: json['reviewed_today'],
       newLearnedToday: json['new_learned_today'],
@@ -83,9 +101,9 @@ class Deck {
       'word_ids': wordIds,
       'daily_new_limit': dailyNewLimit,
       'daily_review_limit': dailyReviewLimit,
-      'created_at': createdAt.toUtc(),
+      'created_at': createdAt.toUtc().toIso8601String(),
       'created_by': createdBy,
-      'last_session_date': lastSessionDate?.toUtc(),
+      'last_session_date': lastSessionDate?.toUtc().toIso8601String(),
       'reviewed_today': reviewedToday,
       'new_learned_today': newLearnedToday,
     };

@@ -1,16 +1,21 @@
+import 'package:isar/isar.dart';
+
+part 'conjugation.g.dart';
+
+@Embedded()
 class Conjugation {
-  final String present;
-  final String past;
-  final String perfect;
-  final String pastParticiple;
-  final String auxiliaryVerb;
+  String? present;
+  String? past;
+  String? perfect;
+  String? pastParticiple;
+  String? auxiliaryVerb;
 
   Conjugation({
-    required this.present,
-    required this.past,
-    required this.perfect,
-    required this.pastParticiple,
-    required this.auxiliaryVerb,
+    this.present,
+    this.past,
+    this.perfect,
+    this.pastParticiple,
+    this.auxiliaryVerb,
   });
 
   factory Conjugation.fromJson(Map<String, dynamic> json) {

@@ -64,19 +64,21 @@ class WordFlip extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
-                          meaning.definition,
-                          style: TextStyle(
-                            fontSize: 14,
+                        if (meaning.definition != null)
+                          Text(
+                            meaning.definition!,
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
                           ),
-                        ),
-                        Text(
-                          meaning.definitionEn,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontStyle: FontStyle.italic,
+                        if (meaning.definitionEn != null)
+                          Text(
+                            meaning.definitionEn!,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontStyle: FontStyle.italic,
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ),

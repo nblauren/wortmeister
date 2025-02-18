@@ -1,18 +1,37 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:isar/isar.dart';
 
+part 'srs.g.dart';
+
+@Collection()
 class Srs {
-  final String srsId;
-  final String userId;
-  final String wordId;
-  final DateTime? lastReviewed;
-  final DateTime nextReview;
-  final int interval;
-  final double easeFactor;
-  final int streak;
-  final int reviewCount;
-  final int correctCount;
-  final int incorrectCount;
-  final bool suspended;
+  Id id = Isar.autoIncrement;
+
+  @Index()
+  late String srsId;
+
+  @Index()
+  late String userId;
+
+  @Index()
+  late String wordId;
+
+  DateTime? lastReviewed;
+
+  late DateTime nextReview;
+
+  late int interval;
+
+  late double easeFactor;
+
+  late int streak;
+
+  late int reviewCount;
+
+  late int correctCount;
+
+  late int incorrectCount;
+
+  late bool suspended;
 
   Srs({
     required this.srsId,
@@ -29,7 +48,6 @@ class Srs {
     required this.suspended,
   });
 
-  // Default values for a new SRS entry
   factory Srs.newEntry(
       {required String srsId, required String userId, required String wordId}) {
     return Srs(
@@ -48,7 +66,6 @@ class Srs {
     );
   }
 
-  // Convert to JSON (for Firebase)
   Map<String, dynamic> toJson() {
     return {
       "srs_id": srsId,
@@ -66,16 +83,15 @@ class Srs {
     };
   }
 
-  // Create object from Firebase snapshot
   factory Srs.fromJson(Map<String, dynamic> json) {
     return Srs(
       srsId: json["srs_id"],
       userId: json["user_id"],
       wordId: json["word_id"],
       lastReviewed: json["last_reviewed"] != null
-          ? (json["last_reviewed"] as Timestamp).toDate()
+          ? DateTime.parse(json["last_reviewed"])
           : null,
-      nextReview: (json["next_review"] as Timestamp).toDate(),
+      nextReview: DateTime.parse(json["next_review"]),
       interval: json["interval"],
       easeFactor: (json["ease_factor"] as num).toDouble(),
       streak: json["streak"],
@@ -85,6 +101,7 @@ class Srs {
       suspended: json["suspended"],
     );
   }
+
   Srs copyWith({
     String? srsId,
     String? userId,

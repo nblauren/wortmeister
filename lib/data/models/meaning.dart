@@ -1,17 +1,22 @@
+import 'package:isar/isar.dart';
+
+part 'meaning.g.dart';
+
+@Embedded()
 class Meaning {
-  final String? context;
-  final String partOfSpeech;
-  final String definition;
-  final String definitionEn;
-  final List<String>? exampleSentences;
-  final List<String>? synonyms;
-  final List<String>? antonyms;
+  String? context;
+  String? partOfSpeech;
+  String? definition;
+  String? definitionEn;
+  List<String>? exampleSentences;
+  List<String>? synonyms;
+  List<String>? antonyms;
 
   Meaning({
     this.context,
-    required this.partOfSpeech,
-    required this.definition,
-    required this.definitionEn,
+    this.partOfSpeech,
+    this.definition,
+    this.definitionEn,
     this.exampleSentences,
     this.synonyms,
     this.antonyms,
