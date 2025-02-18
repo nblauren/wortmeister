@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class NewSrs {
   final DateTime nextReview;
   final int interval;

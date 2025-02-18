@@ -1,4 +1,4 @@
-import 'package:wortmeister/data/models/newSrs.dart';
+import 'package:wortmeister/data/models/new_srs.dart';
 
 class SrsService {
   // Singleton pattern
