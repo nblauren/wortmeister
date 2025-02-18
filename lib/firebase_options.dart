@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBlYcM45SEyMuNCa7HC6_3WSuq4Fk7_wSY',
-    appId: '1:78963345560:android:49715f41f26995041668ed',
+    appId: '1:78963345560:android:51c282c85f70ee081668ed',
     messagingSenderId: '78963345560',
     projectId: 'wort-meister',
     storageBucket: 'wort-meister.firebasestorage.app',
@@ -59,22 +59,22 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAevYl21AkplPVbng4p9zoTeEVr4w0w9Xg',
-    appId: '1:78963345560:ios:dfac069822d862201668ed',
+    appId: '1:78963345560:ios:b28c08c1b9145ec51668ed',
     messagingSenderId: '78963345560',
     projectId: 'wort-meister',
     storageBucket: 'wort-meister.firebasestorage.app',
-    iosClientId: '78963345560-l56bccvdlgvloepd1ncj3dmhe4ed8dci.apps.googleusercontent.com',
-    iosBundleId: 'dev.nikkothe.wortmeister',
+    iosClientId: '78963345560-unrb4c00cu73kj2jgs4ehvrlti79g6oi.apps.googleusercontent.com',
+    iosBundleId: 'dev.nikkothe.wordmaster',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyAevYl21AkplPVbng4p9zoTeEVr4w0w9Xg',
-    appId: '1:78963345560:ios:dfac069822d862201668ed',
+    appId: '1:78963345560:ios:b28c08c1b9145ec51668ed',
     messagingSenderId: '78963345560',
     projectId: 'wort-meister',
     storageBucket: 'wort-meister.firebasestorage.app',
-    iosClientId: '78963345560-l56bccvdlgvloepd1ncj3dmhe4ed8dci.apps.googleusercontent.com',
-    iosBundleId: 'dev.nikkothe.wortmeister',
+    iosClientId: '78963345560-unrb4c00cu73kj2jgs4ehvrlti79g6oi.apps.googleusercontent.com',
+    iosBundleId: 'dev.nikkothe.wordmaster',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

@@ -1,4 +1,4 @@
-package dev.nikkothe.wortmeister
+package dev.nikkothe.wordmaster
 
 import io.flutter.embedding.android.FlutterActivity
 

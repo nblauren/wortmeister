@@ -7,6 +7,42 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:78963345560:android:51c282c85f70ee081668ed",
+        "android_client_info": {
+          "package_name": "dev.nikkothe.wordmaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78963345560-0mpua4enc46rpu5glto3gp9dsa29t9he.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlYcM45SEyMuNCa7HC6_3WSuq4Fk7_wSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "78963345560-0mpua4enc46rpu5glto3gp9dsa29t9he.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "78963345560-l56bccvdlgvloepd1ncj3dmhe4ed8dci.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.nikkothe.wortmeister"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:78963345560:android:49715f41f26995041668ed",
         "android_client_info": {
           "package_name": "dev.nikkothe.wortmeister"

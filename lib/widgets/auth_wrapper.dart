@@ -1,3 +1,4 @@
+import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,19 +15,32 @@ class AuthWrapper extends StatelessWidget {
       context,
       listen: false,
     );
-    return StreamBuilder<User?>(
-      stream: authService.authStateChanges,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container();
-        } else if (snapshot.hasData) {
-          return Provider(
-            create: (context) => authService,
-            child: HomeScreen(),
-          );
-        } else {
-          return LoginScreen();
-        }
+    return FlutterSplashScreen.gif(
+      gifPath: 'assets/images/splash.gif',
+      gifWidth: 500,
+      gifHeight: 500,
+      backgroundColor: Color(0xFFF4C7FF),
+      nextScreen: StreamBuilder<User?>(
+        stream: authService.authStateChanges,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Container();
+          } else if (snapshot.hasData) {
+            return Provider(
+              create: (context) => authService,
+              child: HomeScreen(),
+            );
+          } else {
+            return LoginScreen();
+          }
+        },
+      ),
+      duration: const Duration(milliseconds: 3515),
+      onInit: () async {
+        debugPrint("onInit");
+      },
+      onEnd: () async {
+        debugPrint("onEnd 1");
       },
     );
   }
