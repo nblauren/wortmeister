@@ -33,6 +33,10 @@ class Srs {
 
   late bool suspended;
 
+  late DateTime lastUpdated;
+
+  bool isDeleted;
+
   Srs({
     required this.srsId,
     required this.userId,
@@ -46,6 +50,8 @@ class Srs {
     required this.correctCount,
     required this.incorrectCount,
     required this.suspended,
+    required this.lastUpdated,
+    this.isDeleted = false,
   });
 
   factory Srs.newEntry(
@@ -63,6 +69,8 @@ class Srs {
       correctCount: 0,
       incorrectCount: 0,
       suspended: false,
+      lastUpdated: DateTime.now(),
+      isDeleted: false,
     );
   }
 
@@ -80,6 +88,8 @@ class Srs {
       "correct_count": correctCount,
       "incorrect_count": incorrectCount,
       "suspended": suspended,
+      "last_updated": lastUpdated,
+      "is_deleted": isDeleted,
     };
   }
 
@@ -99,6 +109,8 @@ class Srs {
       correctCount: json["correct_count"],
       incorrectCount: json["incorrect_count"],
       suspended: json["suspended"],
+      lastUpdated: json["last_updated"],
+      isDeleted: json["is_deleted"],
     );
   }
 
@@ -115,6 +127,8 @@ class Srs {
     int? correctCount,
     int? incorrectCount,
     bool? suspended,
+    DateTime? lastUpdated,
+    bool? isDeleted,
   }) {
     return Srs(
       srsId: srsId ?? this.srsId,
@@ -129,6 +143,8 @@ class Srs {
       correctCount: correctCount ?? this.correctCount,
       incorrectCount: incorrectCount ?? this.incorrectCount,
       suspended: suspended ?? this.suspended,
+      lastUpdated: lastUpdated ?? this.lastUpdated,
+      isDeleted: isDeleted ?? this.isDeleted,
     );
   }
 }

@@ -12,7 +12,8 @@ class WordList extends StatelessWidget {
   Widget build(BuildContext context) {
     final deck = context.watch<Deck>();
     WordController wordController = WordController(
-        firebaseService: LocatorService.firebaseFirestoreService);
+      isarService: LocatorService.isarService,
+    );
     return FutureBuilder(
       future: wordController.getWordsByIds(deck.wordIds),
       builder: (context, AsyncSnapshot<List<Word>> snapshot) {

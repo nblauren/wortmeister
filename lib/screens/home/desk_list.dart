@@ -9,9 +9,10 @@ class DeskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DeckController deckController = DeckController(
-        firebaseService: LocatorService.firebaseFirestoreService);
-    return StreamBuilder(
-      stream: deckController.getDecksAsStream(),
+      isarService: LocatorService.isarService,
+    );
+    return FutureBuilder(
+      future: deckController.getDecks(),
       builder: (context, AsyncSnapshot<List<Deck>> snapshot) {
         if (snapshot.hasError) {
           return SliverToBoxAdapter(

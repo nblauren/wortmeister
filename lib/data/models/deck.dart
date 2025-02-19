@@ -32,6 +32,10 @@ class Deck {
 
   late int newLearnedToday;
 
+  late DateTime lastUpdated;
+
+  bool isDeleted;
+
   Deck({
     required this.deckId,
     required this.userId,
@@ -45,6 +49,8 @@ class Deck {
     this.lastSessionDate,
     required this.reviewedToday,
     required this.newLearnedToday,
+    required this.lastUpdated,
+    this.isDeleted = false,
   });
 
   factory Deck.newEntry({
@@ -70,6 +76,8 @@ class Deck {
       lastSessionDate: null,
       reviewedToday: 0,
       newLearnedToday: 0,
+      lastUpdated: DateTime.now(),
+      isDeleted: false,
     );
   }
 
@@ -89,6 +97,8 @@ class Deck {
           : null,
       reviewedToday: json['reviewed_today'],
       newLearnedToday: json['new_learned_today'],
+      lastUpdated: json['last_updated'],
+      isDeleted: json['is_deleted'],
     );
   }
 
@@ -106,6 +116,8 @@ class Deck {
       'last_session_date': lastSessionDate?.toUtc().toIso8601String(),
       'reviewed_today': reviewedToday,
       'new_learned_today': newLearnedToday,
+      'last_updated': lastUpdated,
+      'isDeleted': isDeleted,
     };
   }
 }

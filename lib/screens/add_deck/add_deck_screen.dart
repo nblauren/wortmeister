@@ -23,7 +23,8 @@ class _AddDeckScreenState extends State<AddDeckScreen> {
 
     try {
       DeckController deckController = DeckController(
-          firebaseService: LocatorService.firebaseFirestoreService);
+        isarService: LocatorService.isarService,
+      );
       await deckController.createDeck(Deck.newEntry(
           deckId: Uuid().v4(),
           userId: LocatorService.firebaseAuthService.currentUser()?.uid ?? '',

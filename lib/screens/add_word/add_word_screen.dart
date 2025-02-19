@@ -43,9 +43,11 @@ class _AddWordScreenState extends State<AddWordScreen> {
       final structure = jsonDecode(jsonString);
 
       WordController wordController = WordController(
-          firebaseService: LocatorService.firebaseFirestoreService);
+        isarService: LocatorService.isarService,
+      );
       DeckController deckController = DeckController(
-          firebaseService: LocatorService.firebaseFirestoreService);
+        isarService: LocatorService.isarService,
+      );
       final openAIService = OpenAIService(key);
 
       final result = await openAIService.getCompletionWithStructuredOutput(
@@ -87,9 +89,11 @@ class _AddWordScreenState extends State<AddWordScreen> {
       final deck = Provider.of<Deck>(context, listen: false);
 
       WordController wordController = WordController(
-          firebaseService: LocatorService.firebaseFirestoreService);
+        isarService: LocatorService.isarService,
+      );
       DeckController deckController = DeckController(
-          firebaseService: LocatorService.firebaseFirestoreService);
+        isarService: LocatorService.isarService,
+      );
 
       final newWordId = Uuid().v4();
       Word newWord = Word(
@@ -98,6 +102,7 @@ class _AddWordScreenState extends State<AddWordScreen> {
         back: _backController.text,
         language: 'de',
         createdBy: LocatorService.firebaseAuthService.currentUser()!.uid,
+        lastUpdated: DateTime.now(),
       );
 
       await wordController.createWord(newWord);
@@ -126,9 +131,11 @@ class _AddWordScreenState extends State<AddWordScreen> {
       final deck = Provider.of<Deck>(context, listen: false);
 
       WordController wordController = WordController(
-          firebaseService: LocatorService.firebaseFirestoreService);
+        isarService: LocatorService.isarService,
+      );
       DeckController deckController = DeckController(
-          firebaseService: LocatorService.firebaseFirestoreService);
+        isarService: LocatorService.isarService,
+      );
 
       String wordList = await rootBundle.loadString('assets/data/verbs.txt');
 
@@ -150,6 +157,7 @@ class _AddWordScreenState extends State<AddWordScreen> {
           back: '$pret / $past',
           language: 'de',
           createdBy: LocatorService.firebaseAuthService.currentUser()!.uid,
+          lastUpdated: DateTime.now(),
         );
 
         await wordController.createWord(newWord);

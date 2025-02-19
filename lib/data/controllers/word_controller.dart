@@ -1,19 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:wortmeister/core/services/firebase_firestore_service.dart';
+import 'package:wortmeister/core/services/isar_service.dart';
 import 'package:wortmeister/data/models/word.dart';
 
 class WordController {
-  final FirebaseFirestoreService firebaseService;
+  final IsarService isarService;
 
-  WordController({required this.firebaseService});
+  WordController({required this.isarService});
 
   // Create a new word
   Future<void> createWord(Word word) async {
     try {
-      await firebaseService.setDocument(
-        'words/${word.wordId}',
-        word.toJson(),
-      );
+      await isarService.addItem(word);
     } catch (e) {
       throw Exception('Error creating word: $e');
     }
@@ -22,11 +18,10 @@ class WordController {
   // Get a word by its ID
   Future<Word> getWord(String wordId) async {
     try {
-      var docSnapshot = await firebaseService.getDocumentSnapshot(
-        'words/$wordId',
-      );
-      if (docSnapshot.exists) {
-        return Word.fromJson(docSnapshot.data() as Map<String, dynamic>);
+      final isar = await isarService.db;
+      final word = await isar.words.getByWordId(wordId);
+      if (word != null) {
+        return word;
       } else {
         throw Exception('Word not found');
       }
@@ -38,36 +33,23 @@ class WordController {
   Future<List<Word>> getWordsByIds(List<String> wordIds) async {
     if (wordIds.isEmpty) return [];
 
-    List<Word> allWords = [];
-    int batchSize = 30;
-
     try {
-      for (int i = 0; i < wordIds.length; i += batchSize) {
-        List<String> batch = wordIds.sublist(
-            i, i + batchSize > wordIds.length ? wordIds.length : i + batchSize);
-
-        final snapshot = await firebaseService
-            .getCollection("words")
-            .where(FieldPath.documentId, whereIn: batch)
-            .get();
-
-        allWords.addAll(snapshot.docs
-            .map((doc) => Word.fromJson((doc.data() as Map<String, dynamic>))));
-      }
+      final isar = await isarService.db;
+      final words = await isar.words.getAllByWordId(wordIds);
+      return words.whereType<Word>().toList();
     } catch (e) {
       print("Error fetching words: $e");
+      return [];
     }
-
-    return allWords;
   }
 
   // Update a word
   Future<void> updateWord(Word word) async {
     try {
-      await firebaseService.updateDocument(
-        'words/${word.word}',
-        word.toJson(),
-      );
+      final isar = await isarService.db;
+      await isar.writeTxn(() async {
+        await isar.words.putByWordId(word);
+      });
     } catch (e) {
       throw Exception('Error updating word: $e');
     }
@@ -76,21 +58,12 @@ class WordController {
   // Delete a word
   Future<void> deleteWord(String wordId) async {
     try {
-      await firebaseService.deleteDocument('words/$wordId');
+      final isar = await isarService.db;
+      await isar.writeTxn(() async {
+        await isar.words.deleteByWordId(wordId);
+      });
     } catch (e) {
       throw Exception('Error deleting word: $e');
-    }
-  }
-
-  // Get all words (could be paginated if necessary)
-  Future<List<Word>> getAllWords() async {
-    try {
-      var querySnapshot = await firebaseService.getCollectionSnapshot('words');
-      return querySnapshot.docs
-          .map((doc) => Word.fromJson(doc.data() as Map<String, dynamic>))
-          .toList();
-    } catch (e) {
-      throw Exception('Error retrieving all words: $e');
     }
   }
 }

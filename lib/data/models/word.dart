@@ -39,6 +39,10 @@ class Word {
 
   String? back;
 
+  late DateTime lastUpdated;
+
+  late bool isDeleted;
+
   Word({
     required this.wordId,
     required this.word,
@@ -55,6 +59,8 @@ class Word {
     this.difficultyLevel,
     required this.createdBy,
     this.back,
+    required this.lastUpdated,
+    this.isDeleted = false,
   });
 
   factory Word.fromJson(Map<String, dynamic> json) {
@@ -80,6 +86,8 @@ class Word {
       difficultyLevel: json['difficulty_level'],
       createdBy: json['created_by'],
       back: json['back'],
+      lastUpdated: json['last_updated'],
+      isDeleted: json['is_deleted'],
     );
   }
 
@@ -102,6 +110,8 @@ class Word {
       'difficulty_level': difficultyLevel,
       'created_by': createdBy,
       'back': back,
+      'last_updated': lastUpdated,
+      'is_deleted': isDeleted,
     };
   }
 }

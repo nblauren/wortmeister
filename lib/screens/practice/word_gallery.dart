@@ -19,7 +19,7 @@ class WordGallery extends StatefulWidget {
 class _WordGalleryState extends State<WordGallery> {
   final _controller = SwiperController();
   final _srsController = SrsController(
-    firebaseService: LocatorService.firebaseFirestoreService,
+    isarService: LocatorService.isarService,
   );
 
   final List<Color> buttonColors = [
@@ -42,7 +42,7 @@ class _WordGalleryState extends State<WordGallery> {
         quality: quality);
 
     await _srsController.updateSrsEntry(
-      srs.srsId,
+      srs.id,
       newSrs.interval,
       newSrs.repitition,
       newSrs.easeFactor,

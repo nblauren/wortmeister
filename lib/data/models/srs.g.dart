@@ -37,43 +37,53 @@ const SrsSchema = CollectionSchema(
       name: r'interval',
       type: IsarType.long,
     ),
-    r'lastReviewed': PropertySchema(
+    r'isDeleted': PropertySchema(
       id: 4,
+      name: r'isDeleted',
+      type: IsarType.bool,
+    ),
+    r'lastReviewed': PropertySchema(
+      id: 5,
       name: r'lastReviewed',
       type: IsarType.dateTime,
     ),
+    r'lastUpdated': PropertySchema(
+      id: 6,
+      name: r'lastUpdated',
+      type: IsarType.dateTime,
+    ),
     r'nextReview': PropertySchema(
-      id: 5,
+      id: 7,
       name: r'nextReview',
       type: IsarType.dateTime,
     ),
     r'reviewCount': PropertySchema(
-      id: 6,
+      id: 8,
       name: r'reviewCount',
       type: IsarType.long,
     ),
     r'srsId': PropertySchema(
-      id: 7,
+      id: 9,
       name: r'srsId',
       type: IsarType.string,
     ),
     r'streak': PropertySchema(
-      id: 8,
+      id: 10,
       name: r'streak',
       type: IsarType.long,
     ),
     r'suspended': PropertySchema(
-      id: 9,
+      id: 11,
       name: r'suspended',
       type: IsarType.bool,
     ),
     r'userId': PropertySchema(
-      id: 10,
+      id: 12,
       name: r'userId',
       type: IsarType.string,
     ),
     r'wordId': PropertySchema(
-      id: 11,
+      id: 13,
       name: r'wordId',
       type: IsarType.string,
     )
@@ -154,14 +164,16 @@ void _srsSerialize(
   writer.writeDouble(offsets[1], object.easeFactor);
   writer.writeLong(offsets[2], object.incorrectCount);
   writer.writeLong(offsets[3], object.interval);
-  writer.writeDateTime(offsets[4], object.lastReviewed);
-  writer.writeDateTime(offsets[5], object.nextReview);
-  writer.writeLong(offsets[6], object.reviewCount);
-  writer.writeString(offsets[7], object.srsId);
-  writer.writeLong(offsets[8], object.streak);
-  writer.writeBool(offsets[9], object.suspended);
-  writer.writeString(offsets[10], object.userId);
-  writer.writeString(offsets[11], object.wordId);
+  writer.writeBool(offsets[4], object.isDeleted);
+  writer.writeDateTime(offsets[5], object.lastReviewed);
+  writer.writeDateTime(offsets[6], object.lastUpdated);
+  writer.writeDateTime(offsets[7], object.nextReview);
+  writer.writeLong(offsets[8], object.reviewCount);
+  writer.writeString(offsets[9], object.srsId);
+  writer.writeLong(offsets[10], object.streak);
+  writer.writeBool(offsets[11], object.suspended);
+  writer.writeString(offsets[12], object.userId);
+  writer.writeString(offsets[13], object.wordId);
 }
 
 Srs _srsDeserialize(
@@ -175,14 +187,16 @@ Srs _srsDeserialize(
     easeFactor: reader.readDouble(offsets[1]),
     incorrectCount: reader.readLong(offsets[2]),
     interval: reader.readLong(offsets[3]),
-    lastReviewed: reader.readDateTimeOrNull(offsets[4]),
-    nextReview: reader.readDateTime(offsets[5]),
-    reviewCount: reader.readLong(offsets[6]),
-    srsId: reader.readString(offsets[7]),
-    streak: reader.readLong(offsets[8]),
-    suspended: reader.readBool(offsets[9]),
-    userId: reader.readString(offsets[10]),
-    wordId: reader.readString(offsets[11]),
+    isDeleted: reader.readBoolOrNull(offsets[4]) ?? false,
+    lastReviewed: reader.readDateTimeOrNull(offsets[5]),
+    lastUpdated: reader.readDateTime(offsets[6]),
+    nextReview: reader.readDateTime(offsets[7]),
+    reviewCount: reader.readLong(offsets[8]),
+    srsId: reader.readString(offsets[9]),
+    streak: reader.readLong(offsets[10]),
+    suspended: reader.readBool(offsets[11]),
+    userId: reader.readString(offsets[12]),
+    wordId: reader.readString(offsets[13]),
   );
   object.id = id;
   return object;
@@ -204,20 +218,24 @@ P _srsDeserializeProp<P>(
     case 3:
       return (reader.readLong(offset)) as P;
     case 4:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readBoolOrNull(offset) ?? false) as P;
     case 5:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 6:
-      return (reader.readLong(offset)) as P;
+      return (reader.readDateTime(offset)) as P;
     case 7:
-      return (reader.readString(offset)) as P;
+      return (reader.readDateTime(offset)) as P;
     case 8:
       return (reader.readLong(offset)) as P;
     case 9:
-      return (reader.readBool(offset)) as P;
-    case 10:
       return (reader.readString(offset)) as P;
+    case 10:
+      return (reader.readLong(offset)) as P;
     case 11:
+      return (reader.readBool(offset)) as P;
+    case 12:
+      return (reader.readString(offset)) as P;
+    case 13:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -712,6 +730,15 @@ extension SrsQueryFilter on QueryBuilder<Srs, Srs, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Srs, Srs, QAfterFilterCondition> isDeletedEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isDeleted',
+        value: value,
+      ));
+    });
+  }
+
   QueryBuilder<Srs, Srs, QAfterFilterCondition> lastReviewedIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -773,6 +800,59 @@ extension SrsQueryFilter on QueryBuilder<Srs, Srs, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'lastReviewed',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterFilterCondition> lastUpdatedEqualTo(
+      DateTime value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'lastUpdated',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterFilterCondition> lastUpdatedGreaterThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'lastUpdated',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterFilterCondition> lastUpdatedLessThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'lastUpdated',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterFilterCondition> lastUpdatedBetween(
+    DateTime lower,
+    DateTime upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'lastUpdated',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1385,6 +1465,18 @@ extension SrsQuerySortBy on QueryBuilder<Srs, Srs, QSortBy> {
     });
   }
 
+  QueryBuilder<Srs, Srs, QAfterSortBy> sortByIsDeleted() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isDeleted', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterSortBy> sortByIsDeletedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isDeleted', Sort.desc);
+    });
+  }
+
   QueryBuilder<Srs, Srs, QAfterSortBy> sortByLastReviewed() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'lastReviewed', Sort.asc);
@@ -1394,6 +1486,18 @@ extension SrsQuerySortBy on QueryBuilder<Srs, Srs, QSortBy> {
   QueryBuilder<Srs, Srs, QAfterSortBy> sortByLastReviewedDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'lastReviewed', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterSortBy> sortByLastUpdated() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastUpdated', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterSortBy> sortByLastUpdatedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastUpdated', Sort.desc);
     });
   }
 
@@ -1543,6 +1647,18 @@ extension SrsQuerySortThenBy on QueryBuilder<Srs, Srs, QSortThenBy> {
     });
   }
 
+  QueryBuilder<Srs, Srs, QAfterSortBy> thenByIsDeleted() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isDeleted', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterSortBy> thenByIsDeletedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isDeleted', Sort.desc);
+    });
+  }
+
   QueryBuilder<Srs, Srs, QAfterSortBy> thenByLastReviewed() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'lastReviewed', Sort.asc);
@@ -1552,6 +1668,18 @@ extension SrsQuerySortThenBy on QueryBuilder<Srs, Srs, QSortThenBy> {
   QueryBuilder<Srs, Srs, QAfterSortBy> thenByLastReviewedDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'lastReviewed', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterSortBy> thenByLastUpdated() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastUpdated', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterSortBy> thenByLastUpdatedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastUpdated', Sort.desc);
     });
   }
 
@@ -1665,9 +1793,21 @@ extension SrsQueryWhereDistinct on QueryBuilder<Srs, Srs, QDistinct> {
     });
   }
 
+  QueryBuilder<Srs, Srs, QDistinct> distinctByIsDeleted() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'isDeleted');
+    });
+  }
+
   QueryBuilder<Srs, Srs, QDistinct> distinctByLastReviewed() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'lastReviewed');
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QDistinct> distinctByLastUpdated() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'lastUpdated');
     });
   }
 
@@ -1748,9 +1888,21 @@ extension SrsQueryProperty on QueryBuilder<Srs, Srs, QQueryProperty> {
     });
   }
 
+  QueryBuilder<Srs, bool, QQueryOperations> isDeletedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'isDeleted');
+    });
+  }
+
   QueryBuilder<Srs, DateTime?, QQueryOperations> lastReviewedProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'lastReviewed');
+    });
+  }
+
+  QueryBuilder<Srs, DateTime, QQueryOperations> lastUpdatedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'lastUpdated');
     });
   }
 

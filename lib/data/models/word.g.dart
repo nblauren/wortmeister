@@ -53,44 +53,54 @@ const WordSchema = CollectionSchema(
       name: r'gender',
       type: IsarType.string,
     ),
-    r'language': PropertySchema(
+    r'isDeleted': PropertySchema(
       id: 7,
+      name: r'isDeleted',
+      type: IsarType.bool,
+    ),
+    r'language': PropertySchema(
+      id: 8,
       name: r'language',
       type: IsarType.string,
     ),
+    r'lastUpdated': PropertySchema(
+      id: 9,
+      name: r'lastUpdated',
+      type: IsarType.dateTime,
+    ),
     r'meanings': PropertySchema(
-      id: 8,
+      id: 10,
       name: r'meanings',
       type: IsarType.objectList,
       target: r'Meaning',
     ),
     r'plural': PropertySchema(
-      id: 9,
+      id: 11,
       name: r'plural',
       type: IsarType.string,
     ),
     r'pronunciation': PropertySchema(
-      id: 10,
+      id: 12,
       name: r'pronunciation',
       type: IsarType.string,
     ),
     r'relatedWords': PropertySchema(
-      id: 11,
+      id: 13,
       name: r'relatedWords',
       type: IsarType.stringList,
     ),
     r'superlative': PropertySchema(
-      id: 12,
+      id: 14,
       name: r'superlative',
       type: IsarType.string,
     ),
     r'word': PropertySchema(
-      id: 13,
+      id: 15,
       name: r'word',
       type: IsarType.string,
     ),
     r'wordId': PropertySchema(
-      id: 14,
+      id: 16,
       name: r'wordId',
       type: IsarType.string,
     )
@@ -238,19 +248,21 @@ void _wordSerialize(
   writer.writeString(offsets[4], object.createdBy);
   writer.writeString(offsets[5], object.difficultyLevel);
   writer.writeString(offsets[6], object.gender);
-  writer.writeString(offsets[7], object.language);
+  writer.writeBool(offsets[7], object.isDeleted);
+  writer.writeString(offsets[8], object.language);
+  writer.writeDateTime(offsets[9], object.lastUpdated);
   writer.writeObjectList<Meaning>(
-    offsets[8],
+    offsets[10],
     allOffsets,
     MeaningSchema.serialize,
     object.meanings,
   );
-  writer.writeString(offsets[9], object.plural);
-  writer.writeString(offsets[10], object.pronunciation);
-  writer.writeStringList(offsets[11], object.relatedWords);
-  writer.writeString(offsets[12], object.superlative);
-  writer.writeString(offsets[13], object.word);
-  writer.writeString(offsets[14], object.wordId);
+  writer.writeString(offsets[11], object.plural);
+  writer.writeString(offsets[12], object.pronunciation);
+  writer.writeStringList(offsets[13], object.relatedWords);
+  writer.writeString(offsets[14], object.superlative);
+  writer.writeString(offsets[15], object.word);
+  writer.writeString(offsets[16], object.wordId);
 }
 
 Word _wordDeserialize(
@@ -271,19 +283,21 @@ Word _wordDeserialize(
     createdBy: reader.readString(offsets[4]),
     difficultyLevel: reader.readStringOrNull(offsets[5]),
     gender: reader.readStringOrNull(offsets[6]),
-    language: reader.readString(offsets[7]),
+    isDeleted: reader.readBoolOrNull(offsets[7]) ?? false,
+    language: reader.readString(offsets[8]),
+    lastUpdated: reader.readDateTime(offsets[9]),
     meanings: reader.readObjectList<Meaning>(
-      offsets[8],
+      offsets[10],
       MeaningSchema.deserialize,
       allOffsets,
       Meaning(),
     ),
-    plural: reader.readStringOrNull(offsets[9]),
-    pronunciation: reader.readStringOrNull(offsets[10]),
-    relatedWords: reader.readStringList(offsets[11]),
-    superlative: reader.readStringOrNull(offsets[12]),
-    word: reader.readString(offsets[13]),
-    wordId: reader.readString(offsets[14]),
+    plural: reader.readStringOrNull(offsets[11]),
+    pronunciation: reader.readStringOrNull(offsets[12]),
+    relatedWords: reader.readStringList(offsets[13]),
+    superlative: reader.readStringOrNull(offsets[14]),
+    word: reader.readString(offsets[15]),
+    wordId: reader.readString(offsets[16]),
   );
   object.id = id;
   return object;
@@ -315,25 +329,29 @@ P _wordDeserializeProp<P>(
     case 6:
       return (reader.readStringOrNull(offset)) as P;
     case 7:
-      return (reader.readString(offset)) as P;
+      return (reader.readBoolOrNull(offset) ?? false) as P;
     case 8:
+      return (reader.readString(offset)) as P;
+    case 9:
+      return (reader.readDateTime(offset)) as P;
+    case 10:
       return (reader.readObjectList<Meaning>(
         offset,
         MeaningSchema.deserialize,
         allOffsets,
         Meaning(),
       )) as P;
-    case 9:
-      return (reader.readStringOrNull(offset)) as P;
-    case 10:
-      return (reader.readStringOrNull(offset)) as P;
     case 11:
-      return (reader.readStringList(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 12:
       return (reader.readStringOrNull(offset)) as P;
     case 13:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringList(offset)) as P;
     case 14:
+      return (reader.readStringOrNull(offset)) as P;
+    case 15:
+      return (reader.readString(offset)) as P;
+    case 16:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1447,6 +1465,15 @@ extension WordQueryFilter on QueryBuilder<Word, Word, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Word, Word, QAfterFilterCondition> isDeletedEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isDeleted',
+        value: value,
+      ));
+    });
+  }
+
   QueryBuilder<Word, Word, QAfterFilterCondition> languageEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -1572,6 +1599,59 @@ extension WordQueryFilter on QueryBuilder<Word, Word, QFilterCondition> {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'language',
         value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Word, Word, QAfterFilterCondition> lastUpdatedEqualTo(
+      DateTime value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'lastUpdated',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Word, Word, QAfterFilterCondition> lastUpdatedGreaterThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'lastUpdated',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Word, Word, QAfterFilterCondition> lastUpdatedLessThan(
+    DateTime value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'lastUpdated',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Word, Word, QAfterFilterCondition> lastUpdatedBetween(
+    DateTime lower,
+    DateTime upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'lastUpdated',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
       ));
     });
   }
@@ -2692,6 +2772,18 @@ extension WordQuerySortBy on QueryBuilder<Word, Word, QSortBy> {
     });
   }
 
+  QueryBuilder<Word, Word, QAfterSortBy> sortByIsDeleted() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isDeleted', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Word, Word, QAfterSortBy> sortByIsDeletedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isDeleted', Sort.desc);
+    });
+  }
+
   QueryBuilder<Word, Word, QAfterSortBy> sortByLanguage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'language', Sort.asc);
@@ -2701,6 +2793,18 @@ extension WordQuerySortBy on QueryBuilder<Word, Word, QSortBy> {
   QueryBuilder<Word, Word, QAfterSortBy> sortByLanguageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'language', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Word, Word, QAfterSortBy> sortByLastUpdated() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastUpdated', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Word, Word, QAfterSortBy> sortByLastUpdatedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastUpdated', Sort.desc);
     });
   }
 
@@ -2850,6 +2954,18 @@ extension WordQuerySortThenBy on QueryBuilder<Word, Word, QSortThenBy> {
     });
   }
 
+  QueryBuilder<Word, Word, QAfterSortBy> thenByIsDeleted() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isDeleted', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Word, Word, QAfterSortBy> thenByIsDeletedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isDeleted', Sort.desc);
+    });
+  }
+
   QueryBuilder<Word, Word, QAfterSortBy> thenByLanguage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'language', Sort.asc);
@@ -2859,6 +2975,18 @@ extension WordQuerySortThenBy on QueryBuilder<Word, Word, QSortThenBy> {
   QueryBuilder<Word, Word, QAfterSortBy> thenByLanguageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'language', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Word, Word, QAfterSortBy> thenByLastUpdated() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastUpdated', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Word, Word, QAfterSortBy> thenByLastUpdatedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'lastUpdated', Sort.desc);
     });
   }
 
@@ -2967,10 +3095,22 @@ extension WordQueryWhereDistinct on QueryBuilder<Word, Word, QDistinct> {
     });
   }
 
+  QueryBuilder<Word, Word, QDistinct> distinctByIsDeleted() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'isDeleted');
+    });
+  }
+
   QueryBuilder<Word, Word, QDistinct> distinctByLanguage(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'language', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<Word, Word, QDistinct> distinctByLastUpdated() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'lastUpdated');
     });
   }
 
@@ -3066,9 +3206,21 @@ extension WordQueryProperty on QueryBuilder<Word, Word, QQueryProperty> {
     });
   }
 
+  QueryBuilder<Word, bool, QQueryOperations> isDeletedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'isDeleted');
+    });
+  }
+
   QueryBuilder<Word, String, QQueryOperations> languageProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'language');
+    });
+  }
+
+  QueryBuilder<Word, DateTime, QQueryOperations> lastUpdatedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'lastUpdated');
     });
   }
 
