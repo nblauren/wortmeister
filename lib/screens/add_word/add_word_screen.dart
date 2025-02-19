@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/core/services/openai_service.dart';
 import 'package:wortmeister/data/controllers/deck_controller.dart';
+import 'package:wortmeister/data/controllers/srs_controller.dart';
 import 'package:wortmeister/data/controllers/word_controller.dart';
 import 'package:wortmeister/data/models/deck.dart';
 import 'package:wortmeister/data/models/meaning.dart';
@@ -48,6 +49,10 @@ class _AddWordScreenState extends State<AddWordScreen> {
       DeckController deckController = DeckController(
         isarService: LocatorService.isarService,
       );
+
+      final srsController = SrsController(
+        isarService: LocatorService.isarService,
+      );
       final openAIService = OpenAIService(key);
 
       final result = await openAIService.getCompletionWithStructuredOutput(
@@ -66,6 +71,13 @@ class _AddWordScreenState extends State<AddWordScreen> {
         deck.wordIds.add(newWordId);
         await deckController.updateDeck(deck);
 
+        // add srs
+        final newSrsId = Uuid().v4();
+        srsController.createSrsEntry(
+          newSrsId,
+          LocatorService.firebaseAuthService.currentUser()!.uid,
+          newWordId,
+        );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Data sent successfully!')),
         );
@@ -95,6 +107,10 @@ class _AddWordScreenState extends State<AddWordScreen> {
         isarService: LocatorService.isarService,
       );
 
+      final srsController = SrsController(
+        isarService: LocatorService.isarService,
+      );
+
       final newWordId = Uuid().v4();
       Word newWord = Word(
         wordId: newWordId,
@@ -110,6 +126,14 @@ class _AddWordScreenState extends State<AddWordScreen> {
       // add word to deck
       deck.wordIds.add(newWordId);
       await deckController.updateDeck(deck);
+
+      // add srs
+      final newSrsId = Uuid().v4();
+      srsController.createSrsEntry(
+        newSrsId,
+        LocatorService.firebaseAuthService.currentUser()!.uid,
+        newWordId,
+      );
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Data sent successfully!')),
@@ -130,31 +154,39 @@ class _AddWordScreenState extends State<AddWordScreen> {
     try {
       final deck = Provider.of<Deck>(context, listen: false);
 
-      WordController wordController = WordController(
+      final wordController = WordController(
         isarService: LocatorService.isarService,
       );
-      DeckController deckController = DeckController(
+      final deckController = DeckController(
         isarService: LocatorService.isarService,
       );
 
-      String wordList = await rootBundle.loadString('assets/data/verbs.txt');
+      final srsController = SrsController(
+        isarService: LocatorService.isarService,
+      );
+
+      String wordList = await rootBundle.loadString('assets/data/idioms.txt');
 
       List<String> lines = LineSplitter().convert(wordList);
       for (String line in lines) {
         final parts = line.split('/');
         final word = parts[0].trim();
         final meaning = parts[1].trim();
-        final pret = parts[2].trim();
-        final past = parts[3].trim();
+        final meaningDe = parts[2].trim();
+        final example = parts[3].trim();
 
         final newWordId = Uuid().v4();
         Word newWord = Word(
           wordId: newWordId,
           word: word,
           meanings: [
-            Meaning(partOfSpeech: '', definition: '', definitionEn: meaning)
+            Meaning(
+              partOfSpeech: '',
+              definition: meaningDe,
+              definitionEn: meaning,
+              exampleSentences: [example],
+            )
           ],
-          back: '$pret / $past',
           language: 'de',
           createdBy: LocatorService.firebaseAuthService.currentUser()!.uid,
           lastUpdated: DateTime.now(),
@@ -163,8 +195,18 @@ class _AddWordScreenState extends State<AddWordScreen> {
         await wordController.createWord(newWord);
 
         // add word to deck
-        deck.wordIds.add(newWordId);
+        final wordsIds = deck.wordIds.toList();
+        wordsIds.add(newWordId);
+        deck.wordIds = wordsIds;
         await deckController.updateDeck(deck);
+
+        // add srs
+        final newSrsId = Uuid().v4();
+        await srsController.createSrsEntry(
+          newSrsId,
+          LocatorService.firebaseAuthService.currentUser()!.uid,
+          newWordId,
+        );
       }
 
       ScaffoldMessenger.of(context).showSnackBar(

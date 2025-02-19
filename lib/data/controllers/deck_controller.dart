@@ -53,4 +53,13 @@ class DeckController {
       throw Exception('Error retrieving decks: $e');
     }
   }
+
+  // Get all decks (could be paginated if necessary)
+  Stream<List<Deck>> getDecksAsStream() {
+    try {
+      return isarService.watchCollection<Deck>();
+    } catch (e) {
+      throw Exception('Error retrieving decks: $e');
+    }
+  }
 }

@@ -17,7 +17,7 @@ class Deck {
 
   late String description;
 
-  late List<String> wordIds;
+  late List<String> wordIds = [];
 
   late int dailyNewLimit;
 

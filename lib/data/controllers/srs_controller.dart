@@ -11,6 +11,24 @@ class SrsController {
   SrsController({required this.isarService});
 
   /// Fetch daily review cards based on the user's deck settings
+
+  /// Create a new SRS entry
+  Future<void> createSrsEntry(
+    String srsId,
+    String userId,
+    String wordId,
+  ) async {
+    try {
+      final isar = await isarService.db;
+      final srs = Srs.newEntry(srsId: srsId, userId: userId, wordId: wordId);
+      await isar.writeTxn(() async {
+        await isar.srs.put(srs);
+      });
+    } catch (e) {
+      throw Exception("Failed to create SRS entry: $e");
+    }
+  }
+
   Future<List<SrsWord>> getReviewCards(String userId, Deck deck) async {
     final wordController = WordController(isarService: isarService);
     try {

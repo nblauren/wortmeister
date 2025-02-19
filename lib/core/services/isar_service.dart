@@ -36,8 +36,22 @@ class IsarService {
     return await isar.collection<T>().where().findAll();
   }
 
+  Stream<List<T>> watchCollection<T>() async* {
+    final isar = await db;
+    yield* isar.collection<T>().where().watch();
+  }
+
   Future<void> deleteItem<T>(int id) async {
     final isar = await db;
     isar.writeTxnSync(() => isar.collection<T>().deleteSync(id));
+  }
+
+  Future<void> clearAllData() async {
+    final isar = await db;
+    await isar.writeTxn(() async {
+      await isar.words.clear();
+      await isar.decks.clear();
+      await isar.srs.clear();
+    });
   }
 }

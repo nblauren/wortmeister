@@ -28,6 +28,12 @@ class SyncService {
     await prefs.setInt('lastSyncTime', time.millisecondsSinceEpoch);
   }
 
+  // Update the last sync time in SharedPreferences
+  Future<void> removeLastSyncTime() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('lastSyncTime');
+  }
+
   // Sync data from Firebase to Isar
   Future<void> syncFromFirebase() async {
     final lastSyncTime = await getLastSyncTime();
