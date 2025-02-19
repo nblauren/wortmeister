@@ -1,3 +1,4 @@
+import 'package:isar/isar.dart';
 import 'package:wortmeister/core/services/isar_service.dart';
 import 'package:wortmeister/data/models/word.dart';
 
@@ -39,6 +40,20 @@ class WordController {
       return words.whereType<Word>().toList();
     } catch (e) {
       return [];
+    }
+  }
+
+  // Stream of all words
+  Stream<List<Word>> getWordsStream(List<String> wordIds) {
+    try {
+      return isarService.db.asStream().asyncExpand((isar) {
+        return isar.words
+            .filter()
+            .anyOf(wordIds, (q, String wordId) => q.wordIdEqualTo(wordId))
+            .watch(fireImmediately: true);
+      });
+    } catch (e) {
+      throw Exception('Error streaming words: $e');
     }
   }
 

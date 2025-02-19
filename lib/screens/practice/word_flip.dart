@@ -25,12 +25,13 @@ class WordFlip extends StatelessWidget {
           style: TextStyle(fontSize: 50),
         )),
       ),
-      back: SizedBox(
-        child: Card(
+      back: Card(
+        child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Center(
                     child: Column(
@@ -39,10 +40,11 @@ class WordFlip extends StatelessWidget {
                       word.word,
                       style: TextStyle(fontSize: 32),
                     ),
-                    Text(
-                      word.gender ?? '',
-                      style: TextStyle(fontSize: 12),
-                    ),
+                    if (word.gender != null)
+                      Text(
+                        word.gender!,
+                        style: TextStyle(fontSize: 12),
+                      ),
                   ],
                 )),
                 SizedBox(
@@ -51,16 +53,18 @@ class WordFlip extends StatelessWidget {
                 if (word.back != null)
                   Text(
                     word.back!,
+                    textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 32),
                   ),
                 if (word.meanings != null)
                   ...word.meanings!.map(
                     (meaning) => Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           meaning.context ?? '',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -68,17 +72,28 @@ class WordFlip extends StatelessWidget {
                           Text(
                             meaning.definition!,
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 16,
                             ),
                           ),
                         if (meaning.definitionEn != null)
                           Text(
                             meaning.definitionEn!,
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 16,
                               fontStyle: FontStyle.italic,
                             ),
                           ),
+                        if (meaning.exampleSentences != null)
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 16,
+                              ),
+                              Text('Beispiel:'),
+                              ...meaning.exampleSentences!.map((e) => Text(e)),
+                            ],
+                          )
                       ],
                     ),
                   ),

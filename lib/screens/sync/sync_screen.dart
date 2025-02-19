@@ -51,20 +51,20 @@ class SyncScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               ElevatedButton(
-                onPressed: () {
-                  context.read<SyncNotifier>().sync();
+                onPressed: () async {
+                  await context.read<SyncNotifier>().sync();
                 },
                 child: Text('Sync'),
               ),
               ElevatedButton(
-                onPressed: () {
-                  context.read<SyncNotifier>().deleteLocalData();
+                onPressed: () async {
+                  await context.read<SyncNotifier>().deleteLocalData();
                 },
                 child: Text('Delete Local Data'),
               ),
               ElevatedButton(
-                onPressed: () {
-                  context.read<SyncNotifier>().clearSyncTime();
+                onPressed: () async {
+                  await context.read<SyncNotifier>().clearSyncTime();
                 },
                 child: Text('Clear Sync Time'),
               ),

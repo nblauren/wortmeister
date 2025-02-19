@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wortmeister/core/services/firebase_auth_service.dart';
 import 'package:wortmeister/screens/home/desk_list.dart';
-import 'package:wortmeister/widgets/sync_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -88,7 +87,6 @@ class HomeScreen extends StatelessWidget {
           DeskList(),
         ],
       ),
-      floatingActionButton: SyncButton(),
     );
   }
 }

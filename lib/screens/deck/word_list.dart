@@ -14,8 +14,8 @@ class WordList extends StatelessWidget {
     WordController wordController = WordController(
       isarService: LocatorService.isarService,
     );
-    return FutureBuilder(
-      future: wordController.getWordsByIds(deck.wordIds),
+    return StreamBuilder(
+      stream: wordController.getWordsStream(deck.wordIds),
       builder: (context, AsyncSnapshot<List<Word>> snapshot) {
         if (snapshot.hasError) {
           return SliverToBoxAdapter(

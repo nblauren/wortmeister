@@ -1,4 +1,6 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wortmeister/core/services/firebase_auth_service.dart';
@@ -22,12 +24,15 @@ Future<void> main() async {
   );
   await LocatorService.configureLocalModuleInjection();
   runApp(
-    MultiProvider(
-      providers: [
-        Provider<FirebaseAuthService>(
-            create: (_) => LocatorService.firebaseAuthService),
-      ],
-      child: MyApp(),
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MultiProvider(
+        providers: [
+          Provider<FirebaseAuthService>(
+              create: (_) => LocatorService.firebaseAuthService),
+        ],
+        child: MyApp(),
+      ), // Wrap your app
     ),
   );
 }

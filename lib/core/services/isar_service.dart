@@ -36,9 +36,10 @@ class IsarService {
     return await isar.collection<T>().where().findAll();
   }
 
-  Stream<List<T>> watchCollection<T>() async* {
-    final isar = await db;
-    yield* isar.collection<T>().where().watch();
+  Stream<List<T>> watchCollection<T>() {
+    return db.asStream().asyncExpand((isar) {
+      return isar.collection<T>().where().watch(fireImmediately: true);
+    });
   }
 
   Future<void> deleteItem<T>(int id) async {

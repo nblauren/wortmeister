@@ -68,7 +68,9 @@ class _AddWordScreenState extends State<AddWordScreen> {
         await wordController.createWord(word);
 
         // add word to deck
-        deck.wordIds.add(newWordId);
+        final wordsIds = deck.wordIds.toList();
+        wordsIds.add(newWordId);
+        deck.wordIds = wordsIds;
         await deckController.updateDeck(deck);
 
         // add srs
@@ -124,7 +126,9 @@ class _AddWordScreenState extends State<AddWordScreen> {
       await wordController.createWord(newWord);
 
       // add word to deck
-      deck.wordIds.add(newWordId);
+      final wordsIds = deck.wordIds.toList();
+      wordsIds.add(newWordId);
+      deck.wordIds = wordsIds;
       await deckController.updateDeck(deck);
 
       // add srs
