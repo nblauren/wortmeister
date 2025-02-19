@@ -18,17 +18,18 @@ class SrsController {
       DateTime today = DateTime.now();
 
       // Query review words from SRS
-      final allSrs = await isarService.db.then((isar) => isar.srs
+      List<Srs> allSrs = await isarService.db.then((isar) => isar.srs
           .filter()
           .userIdEqualTo(userId)
-          .nextReviewEqualTo(
-            today,
-          )
           .nextReviewLessThan(today, include: true)
           .suspendedEqualTo(false)
-          //Check word id
           .sortByNextReview()
           .findAll());
+
+      // Filter in Dart
+      allSrs = allSrs.where((srs) {
+        return deck.wordIds.any((keyword) => srs.wordId.contains(keyword));
+      }).toList();
 
       final wordList = allSrs.map((doc) => doc.wordId).toList();
       final words = await wordController.getWordsByIds(wordList);
@@ -61,6 +62,7 @@ class SrsController {
         srs.easeFactor = easeFactor;
         srs.nextReview = nextReviewDate;
         srs.lastReviewed = lastReviewDate;
+        srs.lastUpdated = DateTime.now();
         await isar.writeTxn(() async {
           await isar.srs.put(srs);
         });

@@ -99,9 +99,6 @@ class SyncService {
         await isar.addItem(remoteSrs);
       }
     }
-
-    // Update the last sync time
-    await setLastSyncTime(DateTime.now());
   }
 
   // Sync data from Isar to Firebase
@@ -160,15 +157,15 @@ class SyncService {
         await srsRef.set(srs.toJson());
       }
     }
-
-    // Update the last sync time
-    await setLastSyncTime(DateTime.now());
   }
 
   // Perform a full sync (both directions)
   Future<void> fullSync() async {
     await syncFromFirebase();
     await syncToFirebase();
+
+    // Update the last sync time
+    await setLastSyncTime(DateTime.now());
   }
 
   // Update the last_updated field of all items in the collections in Firebase
