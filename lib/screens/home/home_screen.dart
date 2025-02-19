@@ -65,6 +65,12 @@ class HomeScreen extends StatelessWidget {
             ),
             actions: [
               IconButton(
+                icon: const Icon(Icons.sync, color: Colors.white),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/sync');
+                },
+              ),
+              IconButton(
                 icon: const Icon(Icons.settings, color: Colors.white),
                 onPressed: () {
                   Navigator.pushNamed(context, '/settings');

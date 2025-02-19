@@ -11,8 +11,8 @@ class DeskList extends StatelessWidget {
     DeckController deckController = DeckController(
       isarService: LocatorService.isarService,
     );
-    return FutureBuilder(
-      future: deckController.getDecks(),
+    return StreamBuilder<List<Deck>>(
+      stream: deckController.watchDecks(),
       builder: (context, AsyncSnapshot<List<Deck>> snapshot) {
         if (snapshot.hasError) {
           return SliverToBoxAdapter(

@@ -12,6 +12,7 @@ import 'package:wortmeister/screens/login/login_screen.dart';
 import 'package:wortmeister/screens/practice/practice_screen.dart';
 import 'package:wortmeister/screens/settings/settings_screen.dart';
 import 'package:wortmeister/screens/signup/signup_screen.dart';
+import 'package:wortmeister/screens/sync/sync_screen.dart';
 import 'package:wortmeister/widgets/auth_wrapper.dart';
 
 Future<void> main() async {
@@ -55,6 +56,15 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => AddDeckScreen());
           case '/signup':
             return MaterialPageRoute(builder: (context) => SignupScreen());
+          case '/sync':
+            return MaterialPageRoute(builder: (context) {
+              return MultiProvider(
+                providers: [
+                  ChangeNotifierProvider(create: (_) => SyncNotifier()),
+                ],
+                child: SyncScreen(),
+              );
+            });
           case '/new-word':
             return MaterialPageRoute(builder: (context) {
               final deck = settings.arguments as Deck;
