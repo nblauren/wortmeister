@@ -38,7 +38,6 @@ class WordController {
       final words = await isar.words.getAllByWordId(wordIds);
       return words.whereType<Word>().toList();
     } catch (e) {
-      print("Error fetching words: $e");
       return [];
     }
   }

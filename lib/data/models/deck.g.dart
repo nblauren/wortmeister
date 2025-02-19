@@ -97,7 +97,7 @@ const DeckSchema = CollectionSchema(
     r'deckId': IndexSchema(
       id: -1182505463565197889,
       name: r'deckId',
-      unique: false,
+      unique: true,
       replace: false,
       properties: [
         IndexPropertySchema(
@@ -248,6 +248,60 @@ List<IsarLinkBase<dynamic>> _deckGetLinks(Deck object) {
 
 void _deckAttach(IsarCollection<dynamic> col, Id id, Deck object) {
   object.id = id;
+}
+
+extension DeckByIndex on IsarCollection<Deck> {
+  Future<Deck?> getByDeckId(String deckId) {
+    return getByIndex(r'deckId', [deckId]);
+  }
+
+  Deck? getByDeckIdSync(String deckId) {
+    return getByIndexSync(r'deckId', [deckId]);
+  }
+
+  Future<bool> deleteByDeckId(String deckId) {
+    return deleteByIndex(r'deckId', [deckId]);
+  }
+
+  bool deleteByDeckIdSync(String deckId) {
+    return deleteByIndexSync(r'deckId', [deckId]);
+  }
+
+  Future<List<Deck?>> getAllByDeckId(List<String> deckIdValues) {
+    final values = deckIdValues.map((e) => [e]).toList();
+    return getAllByIndex(r'deckId', values);
+  }
+
+  List<Deck?> getAllByDeckIdSync(List<String> deckIdValues) {
+    final values = deckIdValues.map((e) => [e]).toList();
+    return getAllByIndexSync(r'deckId', values);
+  }
+
+  Future<int> deleteAllByDeckId(List<String> deckIdValues) {
+    final values = deckIdValues.map((e) => [e]).toList();
+    return deleteAllByIndex(r'deckId', values);
+  }
+
+  int deleteAllByDeckIdSync(List<String> deckIdValues) {
+    final values = deckIdValues.map((e) => [e]).toList();
+    return deleteAllByIndexSync(r'deckId', values);
+  }
+
+  Future<Id> putByDeckId(Deck object) {
+    return putByIndex(r'deckId', object);
+  }
+
+  Id putByDeckIdSync(Deck object, {bool saveLinks = true}) {
+    return putByIndexSync(r'deckId', object, saveLinks: saveLinks);
+  }
+
+  Future<List<Id>> putAllByDeckId(List<Deck> objects) {
+    return putAllByIndex(r'deckId', objects);
+  }
+
+  List<Id> putAllByDeckIdSync(List<Deck> objects, {bool saveLinks = true}) {
+    return putAllByIndexSync(r'deckId', objects, saveLinks: saveLinks);
+  }
 }
 
 extension DeckQueryWhereSort on QueryBuilder<Deck, Deck, QWhere> {

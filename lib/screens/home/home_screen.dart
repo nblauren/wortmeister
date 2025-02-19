@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wortmeister/core/services/firebase_auth_service.dart';
+import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/screens/home/desk_list.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -78,6 +81,12 @@ class HomeScreen extends StatelessWidget {
           ),
           DeskList(),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await LocatorService.syncService.fullSync();
+        },
+        child: Icon(Icons.sync),
       ),
     );
   }

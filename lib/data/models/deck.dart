@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:isar/isar.dart';
 
 part 'deck.g.dart';
@@ -6,7 +7,7 @@ part 'deck.g.dart';
 class Deck {
   Id id = Isar.autoIncrement;
 
-  @Index()
+  @Index(unique: true)
   late String deckId;
 
   @Index()
@@ -90,15 +91,21 @@ class Deck {
       wordIds: List<String>.from(json['word_ids']),
       dailyNewLimit: json['daily_new_limit'],
       dailyReviewLimit: json['daily_review_limit'],
-      createdAt: DateTime.parse(json["created_at"]),
+      createdAt: json["created_at"] is firestore.Timestamp
+          ? (json["created_at"] as firestore.Timestamp).toDate()
+          : DateTime.parse(json["created_at"]),
       createdBy: json['created_by'],
       lastSessionDate: json["last_session_date"] != null
-          ? DateTime.parse(json["last_session_date"])
+          ? (json["last_session_date"] is firestore.Timestamp
+              ? (json["last_session_date"] as firestore.Timestamp).toDate()
+              : DateTime.parse(json["last_session_date"]))
           : null,
       reviewedToday: json['reviewed_today'],
       newLearnedToday: json['new_learned_today'],
-      lastUpdated: json['last_updated'],
-      isDeleted: json['is_deleted'],
+      lastUpdated: json["last_updated"] is firestore.Timestamp
+          ? (json["last_updated"] as firestore.Timestamp).toDate()
+          : DateTime.parse(json["last_updated"]),
+      isDeleted: json['is_deleted'] ?? false,
     );
   }
 

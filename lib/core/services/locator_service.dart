@@ -5,6 +5,7 @@ import 'package:wortmeister/core/services/firebase_auth_service.dart';
 import 'package:wortmeister/core/services/firebase_firestore_service.dart';
 import 'package:wortmeister/core/services/firebase_remote_config_service.dart';
 import 'package:wortmeister/core/services/isar_service.dart';
+import 'package:wortmeister/core/services/sync_service.dart';
 import 'package:wortmeister/core/services/tts_service.dart';
 
 /// A service locator class to manage and retrieve various services.
@@ -36,6 +37,14 @@ class LocatorService {
     getIt.registerSingleton<IsarService>(
       IsarService(),
     );
+
+    // Register Sync Service as a singleton
+    getIt.registerSingleton<SyncService>(
+      SyncService(
+        isar: getIt<IsarService>(),
+        firestore: firebaseFirestoreService,
+      ),
+    );
   }
 
   /// Getter for FirestoreService instance.
@@ -55,4 +64,7 @@ class LocatorService {
 
   /// Getter for Isar Service instance.
   static IsarService get isarService => getIt<IsarService>();
+
+  /// Getter for Isar Service instance.
+  static SyncService get syncService => getIt<SyncService>();
 }

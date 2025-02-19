@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:isar/isar.dart';
 import 'package:wortmeister/data/models/conjugation.dart';
 import 'package:wortmeister/data/models/meaning.dart';
@@ -62,7 +63,6 @@ class Word {
     required this.lastUpdated,
     this.isDeleted = false,
   });
-
   factory Word.fromJson(Map<String, dynamic> json) {
     return Word(
       wordId: json['word_id'],
@@ -86,8 +86,10 @@ class Word {
       difficultyLevel: json['difficulty_level'],
       createdBy: json['created_by'],
       back: json['back'],
-      lastUpdated: json['last_updated'],
-      isDeleted: json['is_deleted'],
+      lastUpdated: json['last_updated'] is firestore.Timestamp
+          ? (json['last_updated'] as firestore.Timestamp).toDate()
+          : DateTime.now(),
+      isDeleted: json['is_deleted'] ?? false,
     );
   }
 

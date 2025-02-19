@@ -97,7 +97,7 @@ const SrsSchema = CollectionSchema(
     r'srsId': IndexSchema(
       id: 3665327841579292585,
       name: r'srsId',
-      unique: false,
+      unique: true,
       replace: false,
       properties: [
         IndexPropertySchema(
@@ -252,6 +252,60 @@ List<IsarLinkBase<dynamic>> _srsGetLinks(Srs object) {
 
 void _srsAttach(IsarCollection<dynamic> col, Id id, Srs object) {
   object.id = id;
+}
+
+extension SrsByIndex on IsarCollection<Srs> {
+  Future<Srs?> getBySrsId(String srsId) {
+    return getByIndex(r'srsId', [srsId]);
+  }
+
+  Srs? getBySrsIdSync(String srsId) {
+    return getByIndexSync(r'srsId', [srsId]);
+  }
+
+  Future<bool> deleteBySrsId(String srsId) {
+    return deleteByIndex(r'srsId', [srsId]);
+  }
+
+  bool deleteBySrsIdSync(String srsId) {
+    return deleteByIndexSync(r'srsId', [srsId]);
+  }
+
+  Future<List<Srs?>> getAllBySrsId(List<String> srsIdValues) {
+    final values = srsIdValues.map((e) => [e]).toList();
+    return getAllByIndex(r'srsId', values);
+  }
+
+  List<Srs?> getAllBySrsIdSync(List<String> srsIdValues) {
+    final values = srsIdValues.map((e) => [e]).toList();
+    return getAllByIndexSync(r'srsId', values);
+  }
+
+  Future<int> deleteAllBySrsId(List<String> srsIdValues) {
+    final values = srsIdValues.map((e) => [e]).toList();
+    return deleteAllByIndex(r'srsId', values);
+  }
+
+  int deleteAllBySrsIdSync(List<String> srsIdValues) {
+    final values = srsIdValues.map((e) => [e]).toList();
+    return deleteAllByIndexSync(r'srsId', values);
+  }
+
+  Future<Id> putBySrsId(Srs object) {
+    return putByIndex(r'srsId', object);
+  }
+
+  Id putBySrsIdSync(Srs object, {bool saveLinks = true}) {
+    return putByIndexSync(r'srsId', object, saveLinks: saveLinks);
+  }
+
+  Future<List<Id>> putAllBySrsId(List<Srs> objects) {
+    return putAllByIndex(r'srsId', objects);
+  }
+
+  List<Id> putAllBySrsIdSync(List<Srs> objects, {bool saveLinks = true}) {
+    return putAllByIndexSync(r'srsId', objects, saveLinks: saveLinks);
+  }
 }
 
 extension SrsQueryWhereSort on QueryBuilder<Srs, Srs, QWhere> {

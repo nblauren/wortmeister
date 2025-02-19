@@ -1,6 +1,7 @@
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:wortmeister/data/models/deck.dart';
+import 'package:wortmeister/data/models/srs.dart';
 import 'package:wortmeister/data/models/word.dart';
 
 class IsarService {
@@ -16,7 +17,11 @@ class IsarService {
       await dir.create(recursive: true);
     }
     return await Isar.open(
-      [WordSchema, DeckSchema, WordSchema],
+      [
+        WordSchema,
+        DeckSchema,
+        SrsSchema,
+      ],
       directory: dir.path,
     );
   }

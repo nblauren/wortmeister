@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:isar/isar.dart';
 
 part 'srs.g.dart';
@@ -6,7 +7,7 @@ part 'srs.g.dart';
 class Srs {
   Id id = Isar.autoIncrement;
 
-  @Index()
+  @Index(unique: true)
   late String srsId;
 
   @Index()
@@ -99,9 +100,13 @@ class Srs {
       userId: json["user_id"],
       wordId: json["word_id"],
       lastReviewed: json["last_reviewed"] != null
-          ? DateTime.parse(json["last_reviewed"])
+          ? (json["last_reviewed"] is firestore.Timestamp
+              ? (json["last_reviewed"] as firestore.Timestamp).toDate()
+              : DateTime.parse(json["last_reviewed"]))
           : null,
-      nextReview: DateTime.parse(json["next_review"]),
+      nextReview: json["next_review"] is firestore.Timestamp
+          ? (json["next_review"] as firestore.Timestamp).toDate()
+          : DateTime.parse(json["next_review"]),
       interval: json["interval"],
       easeFactor: (json["ease_factor"] as num).toDouble(),
       streak: json["streak"],
@@ -109,8 +114,10 @@ class Srs {
       correctCount: json["correct_count"],
       incorrectCount: json["incorrect_count"],
       suspended: json["suspended"],
-      lastUpdated: json["last_updated"],
-      isDeleted: json["is_deleted"],
+      lastUpdated: json["last_updated"] is firestore.Timestamp
+          ? (json["last_updated"] as firestore.Timestamp).toDate()
+          : DateTime.parse(json["last_updated"]),
+      isDeleted: json['is_deleted'] ?? false,
     );
   }
 
