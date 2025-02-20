@@ -48,16 +48,12 @@ class HomeScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    IconButton.filled(
-                        onPressed: () =>
-                            Navigator.pushNamed(context, '/new-deck'),
-                        icon: Icon(Icons.add))
                   ],
                 ),
                 centerTitle: false,
                 background: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.deepPurple,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
               ),
@@ -82,10 +78,20 @@ class HomeScreen extends StatelessWidget {
                       .signOut();
                 },
               ),
+              IconButton(
+                icon: const Icon(Icons.label, color: Colors.white),
+                onPressed: () {
+                  throw Exception('This is test exception');
+                },
+              ),
             ],
           ),
           DeskList(),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Navigator.pushNamed(context, '/new-deck'),
+        child: Icon(Icons.add),
       ),
     );
   }
