@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:wortmeister/core/services/firebase_auth_service.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/data/models/deck.dart';
@@ -23,16 +24,25 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await LocatorService.configureLocalModuleInjection();
-  runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => MultiProvider(
-        providers: [
-          Provider<FirebaseAuthService>(
-              create: (_) => LocatorService.firebaseAuthService),
-        ],
-        child: MyApp(),
-      ), // Wrap your app
+
+  await SentryFlutter.init(
+    (options) {
+      options.dsn =
+          'https://c835690e841e08b0bcdd5567e4b63202@o1346306.ingest.us.sentry.io/4508849863786496';
+      options.tracesSampleRate = 1.0;
+      options.profilesSampleRate = 1.0;
+    },
+    appRunner: () => runApp(
+      DevicePreview(
+        enabled: !kReleaseMode,
+        builder: (context) => MultiProvider(
+          providers: [
+            Provider<FirebaseAuthService>(
+                create: (_) => LocatorService.firebaseAuthService),
+          ],
+          child: MyApp(),
+        ), // Wrap your app
+      ),
     ),
   );
 }

@@ -8,6 +8,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   firebase_core
   flutter_tts
   isar_flutter_libs
+  sentry_flutter
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

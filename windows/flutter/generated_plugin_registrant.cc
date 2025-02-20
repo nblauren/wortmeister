@@ -11,6 +11,7 @@
 #include <firebase_core/firebase_core_plugin_c_api.h>
 #include <flutter_tts/flutter_tts_plugin.h>
 #include <isar_flutter_libs/isar_flutter_libs_plugin.h>
+#include <sentry_flutter/sentry_flutter_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   CloudFirestorePluginCApiRegisterWithRegistrar(
@@ -23,4 +24,6 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("FlutterTtsPlugin"));
   IsarFlutterLibsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("IsarFlutterLibsPlugin"));
+  SentryFlutterPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("SentryFlutterPlugin"));
 }

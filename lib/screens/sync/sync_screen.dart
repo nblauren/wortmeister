@@ -43,30 +43,32 @@ class SyncScreen extends StatelessWidget {
       create: (_) => SyncNotifier(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Sync Screen'),
+          title: const Text('Sync Screen'),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+          child: Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            direction: Axis.vertical,
+            spacing: 15,
             children: [
               ElevatedButton(
                 onPressed: () async {
                   await context.read<SyncNotifier>().sync();
                 },
-                child: Text('Sync'),
+                child: const Text('Sync'),
               ),
               ElevatedButton(
                 onPressed: () async {
                   await context.read<SyncNotifier>().deleteLocalData();
                 },
-                child: Text('Delete Local Data'),
+                child: const Text('Delete Local Data'),
               ),
               ElevatedButton(
                 onPressed: () async {
                   await context.read<SyncNotifier>().clearSyncTime();
                 },
-                child: Text('Clear Sync Time'),
+                child: const Text('Clear Sync Time'),
               ),
               Consumer<SyncNotifier>(
                 builder: (context, syncNotifier, child) {
