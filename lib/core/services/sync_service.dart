@@ -196,4 +196,23 @@ class SyncService {
       await srsDoc.reference.update({'last_updated': now});
     }
   }
+
+  // Update the last_updated field of all items in the collections in Firebase
+  Future<void> resetSrs() async {
+    final now = DateTime.now();
+
+    // Update srs
+    final srsSnapshot = await firestore.getCollection('srs').get();
+    for (final srsDoc in srsSnapshot.docs) {
+      await srsDoc.reference.update({
+        'last_updated': now,
+        'ease_factor': 2.5,
+        'last_reviewed': null,
+        'next_review': now,
+        'review_count': 0,
+        'interval': 0,
+        'learning_step': 0
+      });
+    }
+  }
 }

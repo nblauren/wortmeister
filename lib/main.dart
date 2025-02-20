@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:wortmeister/core/services/firebase_auth_service.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/data/models/deck.dart';
 import 'package:wortmeister/firebase_options.dart';
@@ -36,13 +35,7 @@ Future<void> main() async {
     appRunner: () => runApp(
       DevicePreview(
         enabled: !kReleaseMode,
-        builder: (context) => MultiProvider(
-          providers: [
-            Provider<FirebaseAuthService>(
-                create: (_) => LocatorService.firebaseAuthService),
-          ],
-          child: MyApp(),
-        ), // Wrap your app
+        builder: (context) => MyApp(), // Wrap your app
       ),
     ),
   );
@@ -54,74 +47,64 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Wort Meister',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFEFC3F9)),
-        useMaterial3: true,
-        fontFamily: GoogleFonts.poppins().fontFamily,
-      ),
-      onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case '/':
-            return MaterialPageRoute(builder: (context) => AuthWrapper());
-          case '/login':
-            return MaterialPageRoute(builder: (context) => LoginScreen());
-          case '/settings':
-            return MaterialPageRoute(builder: (context) => SettingsScreen());
-          case '/new-deck':
-            return MaterialPageRoute(builder: (context) => AddDeckScreen());
-          case '/signup':
-            return MaterialPageRoute(builder: (context) => SignupScreen());
-          case '/sync':
-            return MaterialPageRoute(builder: (context) {
-              return MultiProvider(
-                providers: [
-                  ChangeNotifierProvider(create: (_) => SyncNotifier()),
-                ],
-                child: SyncScreen(),
-              );
-            });
-          case '/new-word':
-            return MaterialPageRoute(builder: (context) {
-              final deck = settings.arguments as Deck;
-              return MultiProvider(
-                providers: [
-                  Provider<Deck>(
+        debugShowCheckedModeBanner: false,
+        title: 'Wort Meister',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFEFC3F9)),
+          useMaterial3: true,
+          fontFamily: GoogleFonts.poppins().fontFamily,
+        ),
+        onGenerateRoute: (settings) {
+          final uri = Uri.parse(settings.name ?? '');
+
+          if (uri.pathSegments.length == 2 &&
+              uri.pathSegments.first == 'deck') {
+            final deckId = uri.pathSegments[1];
+            return MaterialPageRoute(
+              builder: (context) => DeckScreen(deckId: deckId),
+            );
+          } else {
+            switch (settings.name) {
+              case '/':
+                return MaterialPageRoute(builder: (context) => AuthWrapper());
+              case '/login':
+                return MaterialPageRoute(builder: (context) => LoginScreen());
+              case '/settings':
+                return MaterialPageRoute(
+                    builder: (context) => SettingsScreen());
+              case '/new-deck':
+                return MaterialPageRoute(builder: (context) => AddDeckScreen());
+              case '/signup':
+                return MaterialPageRoute(builder: (context) => SignupScreen());
+              case '/practice':
+                final deck = settings.arguments as Deck;
+                return MaterialPageRoute(
+                  builder: (context) => Provider(
                     create: (_) => deck,
+                    child: PracticeScreen(),
                   ),
-                ],
-                child: AddWordScreen(),
-              );
-            });
-          case '/practice':
-            return MaterialPageRoute(builder: (context) {
-              final deck = settings.arguments as Deck;
-              return MultiProvider(
-                providers: [
-                  Provider<Deck>(
+                );
+              case '/new-word':
+                final deck = settings.arguments as Deck;
+                return MaterialPageRoute(
+                  builder: (context) => Provider(
                     create: (_) => deck,
+                    child: AddWordScreen(),
                   ),
-                ],
-                child: PracticeScreen(),
-              );
-            });
-          case '/deck':
-            return MaterialPageRoute(builder: (context) {
-              final deck = settings.arguments as Deck;
-              return MultiProvider(
-                providers: [
-                  Provider<Deck>(
-                    create: (_) => deck,
-                  ),
-                ],
-                child: DeckScreen(),
-              );
-            });
-          default:
-            return null;
-        }
-      },
-    );
+                );
+              case '/sync':
+                return MaterialPageRoute(builder: (context) {
+                  return MultiProvider(
+                    providers: [
+                      ChangeNotifierProvider(create: (_) => SyncNotifier()),
+                    ],
+                    child: SyncScreen(),
+                  );
+                });
+              default:
+                return null;
+            }
+          }
+        });
   }
 }

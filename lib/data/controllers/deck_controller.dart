@@ -16,10 +16,10 @@ class DeckController {
   }
 
   // Get a deck by its ID
-  Future<Deck> getDeck(int deckId) async {
+  Future<Deck> getDeck(String deckId) async {
     try {
       final decks = await isarService.getItems<Deck>();
-      final deck = decks.firstWhere((deck) => deck.id == deckId,
+      final deck = decks.firstWhere((deck) => deck.deckId == deckId,
           orElse: () => throw Exception('Deck not found'));
       return deck;
     } catch (e) {
@@ -51,6 +51,17 @@ class DeckController {
       return await isarService.getItems<Deck>();
     } catch (e) {
       throw Exception('Error retrieving decks: $e');
+    }
+  }
+
+  // Watch a deck by its ID
+  Stream<Deck> watchDeck(String deckId) {
+    try {
+      return isarService.watchCollection<Deck>().map((decks) {
+        return decks.firstWhere((deck) => deck.deckId == deckId);
+      });
+    } catch (e) {
+      throw Exception('Error watching deck: $e');
     }
   }
 

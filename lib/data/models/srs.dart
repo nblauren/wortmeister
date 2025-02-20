@@ -32,6 +32,8 @@ class Srs {
 
   late int incorrectCount;
 
+  late int learningStep;
+
   late bool suspended;
 
   late DateTime lastUpdated;
@@ -52,6 +54,7 @@ class Srs {
     required this.incorrectCount,
     required this.suspended,
     required this.lastUpdated,
+    required this.learningStep,
     this.isDeleted = false,
   });
 
@@ -67,6 +70,7 @@ class Srs {
       easeFactor: 2.5,
       streak: 0,
       reviewCount: 0,
+      learningStep: 0,
       correctCount: 0,
       incorrectCount: 0,
       suspended: false,
@@ -88,6 +92,7 @@ class Srs {
       "review_count": reviewCount,
       "correct_count": correctCount,
       "incorrect_count": incorrectCount,
+      "learning_step": learningStep,
       "suspended": suspended,
       "last_updated": lastUpdated,
       "is_deleted": isDeleted,
@@ -113,6 +118,7 @@ class Srs {
       reviewCount: json["review_count"],
       correctCount: json["correct_count"],
       incorrectCount: json["incorrect_count"],
+      learningStep: json["learning_step"] ?? 0,
       suspended: json["suspended"],
       lastUpdated: json["last_updated"] is firestore.Timestamp
           ? (json["last_updated"] as firestore.Timestamp).toDate()
@@ -133,6 +139,7 @@ class Srs {
     int? reviewCount,
     int? correctCount,
     int? incorrectCount,
+    int? learningStep,
     bool? suspended,
     DateTime? lastUpdated,
     bool? isDeleted,
@@ -152,6 +159,7 @@ class Srs {
       suspended: suspended ?? this.suspended,
       lastUpdated: lastUpdated ?? this.lastUpdated,
       isDeleted: isDeleted ?? this.isDeleted,
+      learningStep: learningStep ?? this.learningStep,
     );
   }
 }

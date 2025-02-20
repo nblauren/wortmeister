@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:wortmeister/core/services/firebase_auth_service.dart';
+import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/screens/home/desk_list.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -17,6 +16,27 @@ class HomeScreen extends StatelessWidget {
             expandedHeight: 180.0,
             floating: true,
             pinned: true,
+            stretch: true,
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.sync, color: Colors.white),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/sync');
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.settings, color: Colors.white),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/settings');
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.exit_to_app, color: Colors.white),
+                onPressed: () async {
+                  await LocatorService.firebaseAuthService.signOut();
+                },
+              ),
+            ],
             flexibleSpace: ClipRRect(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20.0),
@@ -58,33 +78,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.sync, color: Colors.white),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/sync');
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.settings, color: Colors.white),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/settings');
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.exit_to_app, color: Colors.white),
-                onPressed: () async {
-                  await Provider.of<FirebaseAuthService>(context, listen: false)
-                      .signOut();
-                },
-              ),
-              IconButton(
-                icon: const Icon(Icons.label, color: Colors.white),
-                onPressed: () {
-                  throw Exception('This is test exception');
-                },
-              ),
-            ],
           ),
           DeskList(),
         ],

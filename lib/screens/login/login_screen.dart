@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:wortmeister/core/services/firebase_auth_service.dart';
+import 'package:wortmeister/core/services/locator_service.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -29,8 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _isLoading = true);
 
     try {
-      await Provider.of<FirebaseAuthService>(context, listen: false)
-          .signInWithEmailAndPassword(
+      await LocatorService.firebaseAuthService.signInWithEmailAndPassword(
         _emailController.text,
         _passwordController.text,
       );
@@ -46,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text('Login'),
       ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:wortmeister/core/services/date_time_service.dart';
 import 'package:wortmeister/core/services/firebase_auth_service.dart';
 import 'package:wortmeister/core/services/firebase_firestore_service.dart';
 import 'package:wortmeister/core/services/firebase_remote_config_service.dart';
@@ -38,6 +39,11 @@ class LocatorService {
       IsarService(),
     );
 
+    // Register Isar Service as a singleton
+    getIt.registerSingleton<DateTimeService>(
+      DateTimeService(),
+    );
+
     // Register Sync Service as a singleton
     getIt.registerSingleton<SyncService>(
       SyncService(
@@ -67,4 +73,7 @@ class LocatorService {
 
   /// Getter for Isar Service instance.
   static SyncService get syncService => getIt<SyncService>();
+
+  /// Getter for Isar Service instance.
+  static DateTimeService get dateTimeService => getIt<DateTimeService>();
 }

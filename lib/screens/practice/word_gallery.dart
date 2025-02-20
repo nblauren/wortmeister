@@ -35,16 +35,18 @@ class _WordGalleryState extends State<WordGallery> {
 
   Future<void> _recalculateSrs(Srs srs, int quality) async {
     final newSrs = SrsService().calculateNextReviewDate(
-        lastReviewDate: srs.nextReview,
-        interval: srs.interval,
-        easeFactor: srs.easeFactor,
-        repition: srs.reviewCount,
-        quality: quality);
+      lastReviewDate: srs.nextReview,
+      interval: srs.interval,
+      easeFactor: srs.easeFactor,
+      repetition: srs.reviewCount,
+      quality: quality,
+      learningStep: srs.learningStep,
+    );
 
     await _srsController.updateSrsEntry(
       srs.id,
       newSrs.interval,
-      newSrs.repitition,
+      newSrs.repetition,
       newSrs.easeFactor,
       DateTime.now(),
       newSrs.nextReview,

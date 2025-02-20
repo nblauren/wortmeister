@@ -52,38 +52,43 @@ const SrsSchema = CollectionSchema(
       name: r'lastUpdated',
       type: IsarType.dateTime,
     ),
-    r'nextReview': PropertySchema(
+    r'learningStep': PropertySchema(
       id: 7,
+      name: r'learningStep',
+      type: IsarType.long,
+    ),
+    r'nextReview': PropertySchema(
+      id: 8,
       name: r'nextReview',
       type: IsarType.dateTime,
     ),
     r'reviewCount': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'reviewCount',
       type: IsarType.long,
     ),
     r'srsId': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'srsId',
       type: IsarType.string,
     ),
     r'streak': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'streak',
       type: IsarType.long,
     ),
     r'suspended': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'suspended',
       type: IsarType.bool,
     ),
     r'userId': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'userId',
       type: IsarType.string,
     ),
     r'wordId': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'wordId',
       type: IsarType.string,
     )
@@ -167,13 +172,14 @@ void _srsSerialize(
   writer.writeBool(offsets[4], object.isDeleted);
   writer.writeDateTime(offsets[5], object.lastReviewed);
   writer.writeDateTime(offsets[6], object.lastUpdated);
-  writer.writeDateTime(offsets[7], object.nextReview);
-  writer.writeLong(offsets[8], object.reviewCount);
-  writer.writeString(offsets[9], object.srsId);
-  writer.writeLong(offsets[10], object.streak);
-  writer.writeBool(offsets[11], object.suspended);
-  writer.writeString(offsets[12], object.userId);
-  writer.writeString(offsets[13], object.wordId);
+  writer.writeLong(offsets[7], object.learningStep);
+  writer.writeDateTime(offsets[8], object.nextReview);
+  writer.writeLong(offsets[9], object.reviewCount);
+  writer.writeString(offsets[10], object.srsId);
+  writer.writeLong(offsets[11], object.streak);
+  writer.writeBool(offsets[12], object.suspended);
+  writer.writeString(offsets[13], object.userId);
+  writer.writeString(offsets[14], object.wordId);
 }
 
 Srs _srsDeserialize(
@@ -190,13 +196,14 @@ Srs _srsDeserialize(
     isDeleted: reader.readBoolOrNull(offsets[4]) ?? false,
     lastReviewed: reader.readDateTimeOrNull(offsets[5]),
     lastUpdated: reader.readDateTime(offsets[6]),
-    nextReview: reader.readDateTime(offsets[7]),
-    reviewCount: reader.readLong(offsets[8]),
-    srsId: reader.readString(offsets[9]),
-    streak: reader.readLong(offsets[10]),
-    suspended: reader.readBool(offsets[11]),
-    userId: reader.readString(offsets[12]),
-    wordId: reader.readString(offsets[13]),
+    learningStep: reader.readLong(offsets[7]),
+    nextReview: reader.readDateTime(offsets[8]),
+    reviewCount: reader.readLong(offsets[9]),
+    srsId: reader.readString(offsets[10]),
+    streak: reader.readLong(offsets[11]),
+    suspended: reader.readBool(offsets[12]),
+    userId: reader.readString(offsets[13]),
+    wordId: reader.readString(offsets[14]),
   );
   object.id = id;
   return object;
@@ -224,18 +231,20 @@ P _srsDeserializeProp<P>(
     case 6:
       return (reader.readDateTime(offset)) as P;
     case 7:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 8:
-      return (reader.readLong(offset)) as P;
+      return (reader.readDateTime(offset)) as P;
     case 9:
-      return (reader.readString(offset)) as P;
-    case 10:
       return (reader.readLong(offset)) as P;
-    case 11:
-      return (reader.readBool(offset)) as P;
-    case 12:
+    case 10:
       return (reader.readString(offset)) as P;
+    case 11:
+      return (reader.readLong(offset)) as P;
+    case 12:
+      return (reader.readBool(offset)) as P;
     case 13:
+      return (reader.readString(offset)) as P;
+    case 14:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -915,6 +924,58 @@ extension SrsQueryFilter on QueryBuilder<Srs, Srs, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Srs, Srs, QAfterFilterCondition> learningStepEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'learningStep',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterFilterCondition> learningStepGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'learningStep',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterFilterCondition> learningStepLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'learningStep',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterFilterCondition> learningStepBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'learningStep',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<Srs, Srs, QAfterFilterCondition> nextReviewEqualTo(
       DateTime value) {
     return QueryBuilder.apply(this, (query) {
@@ -1555,6 +1616,18 @@ extension SrsQuerySortBy on QueryBuilder<Srs, Srs, QSortBy> {
     });
   }
 
+  QueryBuilder<Srs, Srs, QAfterSortBy> sortByLearningStep() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'learningStep', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterSortBy> sortByLearningStepDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'learningStep', Sort.desc);
+    });
+  }
+
   QueryBuilder<Srs, Srs, QAfterSortBy> sortByNextReview() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'nextReview', Sort.asc);
@@ -1737,6 +1810,18 @@ extension SrsQuerySortThenBy on QueryBuilder<Srs, Srs, QSortThenBy> {
     });
   }
 
+  QueryBuilder<Srs, Srs, QAfterSortBy> thenByLearningStep() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'learningStep', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Srs, Srs, QAfterSortBy> thenByLearningStepDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'learningStep', Sort.desc);
+    });
+  }
+
   QueryBuilder<Srs, Srs, QAfterSortBy> thenByNextReview() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'nextReview', Sort.asc);
@@ -1865,6 +1950,12 @@ extension SrsQueryWhereDistinct on QueryBuilder<Srs, Srs, QDistinct> {
     });
   }
 
+  QueryBuilder<Srs, Srs, QDistinct> distinctByLearningStep() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'learningStep');
+    });
+  }
+
   QueryBuilder<Srs, Srs, QDistinct> distinctByNextReview() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'nextReview');
@@ -1957,6 +2048,12 @@ extension SrsQueryProperty on QueryBuilder<Srs, Srs, QQueryProperty> {
   QueryBuilder<Srs, DateTime, QQueryOperations> lastUpdatedProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'lastUpdated');
+    });
+  }
+
+  QueryBuilder<Srs, int, QQueryOperations> learningStepProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'learningStep');
     });
   }
 

@@ -10,7 +10,12 @@ class PracticeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Practice Screen'),
       ),
-      body: WordGallery(),
+      body: SafeArea(
+          child: Column(
+        children: [
+          Expanded(child: WordGallery()),
+        ],
+      )),
     );
   }
 }

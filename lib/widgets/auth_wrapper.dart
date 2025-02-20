@@ -1,8 +1,7 @@
 import 'package:another_flutter_splash_screen/another_flutter_splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:wortmeister/core/services/firebase_auth_service.dart';
+import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/screens/home/home_screen.dart';
 import 'package:wortmeister/screens/login/login_screen.dart';
 
@@ -11,10 +10,7 @@ class AuthWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authService = Provider.of<FirebaseAuthService>(
-      context,
-      listen: false,
-    );
+    final authService = LocatorService.firebaseAuthService;
     return FlutterSplashScreen.gif(
       gifPath: 'assets/images/splash.gif',
       gifWidth: 500,
@@ -26,10 +22,7 @@ class AuthWrapper extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Container();
           } else if (snapshot.hasData) {
-            return Provider(
-              create: (context) => authService,
-              child: HomeScreen(),
-            );
+            return HomeScreen();
           } else {
             return LoginScreen();
           }

@@ -42,8 +42,7 @@ class DeskList extends StatelessWidget {
                 child: ListTile(
                   onTap: () => Navigator.pushNamed(
                     context,
-                    '/deck',
-                    arguments: deck,
+                    '/deck/${deck.deckId}',
                   ),
                   title: Text(deck.title),
                 ),

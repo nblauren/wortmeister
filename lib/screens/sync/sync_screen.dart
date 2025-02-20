@@ -27,6 +27,11 @@ class SyncNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> resetSrs() async {
+    await LocatorService.syncService.resetSrs();
+    notifyListeners();
+  }
+
   Future<void> clearSyncTime() async {
     await LocatorService.syncService.removeLastSyncTime();
     _lastSyncTime = null;
@@ -69,6 +74,12 @@ class SyncScreen extends StatelessWidget {
                   await context.read<SyncNotifier>().clearSyncTime();
                 },
                 child: const Text('Clear Sync Time'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await context.read<SyncNotifier>().resetSrs();
+                },
+                child: const Text('Reset SRS'),
               ),
               Consumer<SyncNotifier>(
                 builder: (context, syncNotifier, child) {
