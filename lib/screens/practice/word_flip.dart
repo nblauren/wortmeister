@@ -20,7 +20,7 @@ class WordFlip extends StatelessWidget {
       front: Card(
         child: Center(
             child: Text(
-          word.word.contains(' ')
+          word.word.contains(' ') && word.word.split(' ').length < 3
               ? word.word.split(' ').skip(1).join(' ')
               : word.word,
           style: TextStyle(fontSize: 50),

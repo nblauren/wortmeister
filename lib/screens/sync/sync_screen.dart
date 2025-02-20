@@ -11,24 +11,37 @@ class SyncNotifier extends ChangeNotifier {
 
   DateTime? get lastSyncTime => _lastSyncTime;
 
+  bool isFullsyncing = false;
+  bool isDeletingLocalData = false;
+  bool isResetingSrs = false;
+
   Future<void> _initializeLastSyncTime() async {
     _lastSyncTime = await LocatorService.syncService.getLastSyncTime();
     notifyListeners();
   }
 
   Future<void> sync() async {
+    isFullsyncing = true;
+    notifyListeners();
     await LocatorService.syncService.fullSync();
     _lastSyncTime = await LocatorService.syncService.getLastSyncTime();
+    isFullsyncing = false;
     notifyListeners();
   }
 
   Future<void> deleteLocalData() async {
+    isDeletingLocalData = true;
+    notifyListeners();
     await LocatorService.isarService.clearAllData();
+    isDeletingLocalData = false;
     notifyListeners();
   }
 
   Future<void> resetSrs() async {
+    isResetingSrs = true;
+    notifyListeners();
     await LocatorService.syncService.resetSrs();
+    isResetingSrs = false;
     notifyListeners();
   }
 
@@ -50,47 +63,72 @@ class SyncScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Sync Screen'),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            direction: Axis.vertical,
-            spacing: 15,
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  await context.read<SyncNotifier>().sync();
-                },
-                child: const Text('Sync'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  await context.read<SyncNotifier>().deleteLocalData();
-                },
-                child: const Text('Delete Local Data'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  await context.read<SyncNotifier>().clearSyncTime();
-                },
-                child: const Text('Clear Sync Time'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  await context.read<SyncNotifier>().resetSrs();
-                },
-                child: const Text('Reset SRS'),
-              ),
-              Consumer<SyncNotifier>(
-                builder: (context, syncNotifier, child) {
-                  return Text(
-                    syncNotifier.lastSyncTime != null
-                        ? 'Last Sync Time: ${syncNotifier.lastSyncTime}'
-                        : 'No Sync Time Available',
-                  );
-                },
-              ),
-            ],
+        body: SizedBox(
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 15,
+              children: [
+                Consumer<SyncNotifier>(
+                  builder: (_, syncNotifier, __) {
+                    return ElevatedButton(
+                      onPressed: () async {
+                        await syncNotifier.sync();
+                      },
+                      child: syncNotifier.isFullsyncing
+                          ? CircularProgressIndicator()
+                          : const Text('Sync'),
+                    );
+                  },
+                ),
+                Consumer<SyncNotifier>(
+                  builder: (_, syncNotifier, __) {
+                    return ElevatedButton(
+                      onPressed: () async {
+                        await syncNotifier.deleteLocalData();
+                      },
+                      child: syncNotifier.isDeletingLocalData
+                          ? CircularProgressIndicator()
+                          : const Text('Delete Local Data'),
+                    );
+                  },
+                ),
+                Consumer<SyncNotifier>(
+                  builder: (_, syncNotifier, __) {
+                    return ElevatedButton(
+                      onPressed: () async {
+                        await syncNotifier.clearSyncTime();
+                      },
+                      child: const Text('Clear Sync Time'),
+                    );
+                  },
+                ),
+                Consumer<SyncNotifier>(
+                  builder: (_, syncNotifier, __) {
+                    return ElevatedButton(
+                      onPressed: () async {
+                        await syncNotifier.resetSrs();
+                      },
+                      child: syncNotifier.isResetingSrs
+                          ? CircularProgressIndicator()
+                          : const Text('Reset SRS'),
+                    );
+                  },
+                ),
+                Consumer<SyncNotifier>(
+                  builder: (context, syncNotifier, child) {
+                    return Text(
+                      syncNotifier.lastSyncTime != null
+                          ? 'Last Sync Time: ${syncNotifier.lastSyncTime}'
+                          : 'No Sync Time Available',
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
