@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/data/controllers/deck_controller.dart';
 import 'package:wortmeister/data/models/deck.dart';
@@ -53,8 +54,9 @@ class DeckScreen extends StatelessWidget {
                     snap: true,
                   ),
                   SliverToBoxAdapter(
-                    child: DeckStatistics(
-                      deckId: deckId,
+                    child: Provider.value(
+                      value: deck,
+                      child: DeckStatistics(),
                     ),
                   ),
                   SliverToBoxAdapter(
@@ -69,8 +71,9 @@ class DeckScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  WordList(
-                    deckId: deckId,
+                  Provider.value(
+                    value: deck,
+                    child: WordList(),
                   ),
                 ],
               ),

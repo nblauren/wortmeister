@@ -7,7 +7,7 @@ part 'srs.g.dart';
 class Srs {
   Id id = Isar.autoIncrement;
 
-  @Index(unique: true)
+  @Index(unique: true, replace: true)
   late String srsId;
 
   @Index()

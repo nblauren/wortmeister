@@ -37,46 +37,48 @@ class SrsController {
       final isar = await isarService.db;
       final today = DateTime.now();
 
-      // Query all SRS entries for the user
-      final srsEntries =
-          await isar.srs.filter().userIdEqualTo(userId).findAll();
+      // Watch all SRS entries for the user
+      final srsEntriesStream =
+          isar.srs.filter().userIdEqualTo(userId).watch(fireImmediately: true);
 
-      // Filter SRS entries by deck word IDs
-      final filteredSrsEntries = srsEntries.where((srs) {
-        return deck.wordIds.contains(srs.wordId);
-      }).toList();
+      await for (final srsEntries in srsEntriesStream) {
+        // Filter SRS entries by deck word IDs
+        final filteredSrsEntries = srsEntries.where((srs) {
+          return deck.wordIds.contains(srs.wordId);
+        }).toList();
 
-      // Get words by IDs
-      final wordIds = filteredSrsEntries.map((srs) => srs.wordId).toList();
-      final words = await wordController.getWordsByIds(wordIds);
+        // Get words by IDs
+        final wordIds = filteredSrsEntries.map((srs) => srs.wordId).toList();
+        final words = await wordController.getWordsByIds(wordIds);
 
-      // Create a list of SrsWord
-      final srsWords = filteredSrsEntries.map((srs) {
-        final word = words.firstWhere((word) => word.wordId == srs.wordId);
-        return SrsWord(srs: srs, word: word);
-      }).toList();
+        // Create a list of SrsWord
+        final srsWords = filteredSrsEntries.map((srs) {
+          final word = words.firstWhere((word) => word.wordId == srs.wordId);
+          return SrsWord(srs: srs, word: word);
+        }).toList();
 
-      // Categorize cards
-      final newCards =
-          srsWords.where((srsWord) => srsWord.srs.reviewCount == 0).length;
-      final learningCards = srsWords
-          .where((srsWord) =>
-              srsWord.srs.interval < 21 && srsWord.srs.reviewCount > 0)
-          .length;
-      final dueCards = srsWords
-          .where((srsWord) =>
-              srsWord.srs.nextReview.isBefore(today) ||
-              srsWord.srs.nextReview.isAtSameMomentAs(today))
-          .length;
-      final matureCards =
-          srsWords.where((srsWord) => srsWord.srs.interval >= 21).length;
+        // Categorize cards
+        final newCards =
+            srsWords.where((srsWord) => srsWord.srs.reviewCount == 0).length;
+        final learningCards = srsWords
+            .where((srsWord) =>
+                srsWord.srs.interval < 21 && srsWord.srs.reviewCount > 0)
+            .length;
+        final dueCards = srsWords
+            .where((srsWord) =>
+                srsWord.srs.nextReview.isBefore(today) ||
+                srsWord.srs.nextReview.isAtSameMomentAs(today))
+            .length;
+        final matureCards =
+            srsWords.where((srsWord) => srsWord.srs.interval >= 21).length;
 
-      yield DeckStatisticsValue(
-        newCards: newCards,
-        learningCards: learningCards,
-        dueCards: dueCards,
-        matureCards: matureCards,
-      );
+        yield DeckStatisticsValue(
+          newCards: newCards,
+          learningCards: learningCards,
+          dueCards: dueCards,
+          matureCards: matureCards,
+        );
+      }
     } catch (e) {
       throw Exception("Failed to get card stream: $e");
     }
@@ -87,26 +89,31 @@ class SrsController {
     try {
       final isar = await isarService.db;
 
-      // Query all SRS entries for the user
-      final srsEntries =
-          await isar.srs.filter().userIdEqualTo(userId).findAll();
+      // Watch all SRS entries for the user
+      final srsEntriesStream =
+          isar.srs.filter().userIdEqualTo(userId).isDeletedEqualTo(false).watch(
+                fireImmediately: true,
+              );
 
-      // Filter SRS entries by deck word IDs
-      final filteredSrsEntries = srsEntries.where((srs) {
-        return deck.wordIds.contains(srs.wordId);
-      }).toList();
+      await for (final srsEntries in srsEntriesStream) {
+        // Filter SRS entries by deck word IDs
+        final filteredSrsEntries = srsEntries.where((srs) {
+          return deck.wordIds.contains(srs.wordId);
+        }).toList();
 
-      // Get words by IDs
-      final wordIds = filteredSrsEntries.map((srs) => srs.wordId).toList();
-      final words = await wordController.getWordsByIds(wordIds);
+        // Get words by IDs
+        final wordIds = filteredSrsEntries.map((srs) => srs.wordId).toList();
+        final words = await wordController.getWordsByIds(wordIds);
 
-      // Create a list of SrsWord
-      final srsWords = filteredSrsEntries.map((srs) {
-        final word = words.firstWhere((word) => word.wordId == srs.wordId);
-        return SrsWord(srs: srs, word: word);
-      }).toList();
+        // Create a list of SrsWord
+        final srsWords = filteredSrsEntries.map((srs) {
+          final word = words.firstWhere(
+              (word) => word.wordId == srs.wordId && !word.isDeleted);
+          return SrsWord(srs: srs, word: word);
+        }).toList();
 
-      yield srsWords;
+        yield srsWords;
+      }
     } catch (e) {
       throw Exception("Failed to get words from deck: $e");
     }

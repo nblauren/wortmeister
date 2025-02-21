@@ -103,7 +103,7 @@ const SrsSchema = CollectionSchema(
       id: 3665327841579292585,
       name: r'srsId',
       unique: true,
-      replace: false,
+      replace: true,
       properties: [
         IndexPropertySchema(
           name: r'srsId',
