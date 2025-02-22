@@ -115,7 +115,7 @@ const WordSchema = CollectionSchema(
       id: 2217755591053908536,
       name: r'wordId',
       unique: true,
-      replace: false,
+      replace: true,
       properties: [
         IndexPropertySchema(
           name: r'wordId',

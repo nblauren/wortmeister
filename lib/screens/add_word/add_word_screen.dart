@@ -71,6 +71,7 @@ class _AddWordScreenState extends State<AddWordScreen> {
         final wordsIds = deck.wordIds.toList();
         wordsIds.add(newWordId);
         deck.wordIds = wordsIds;
+        deck.lastUpdated = DateTime.now();
         await deckController.updateDeck(deck);
 
         // add srs
@@ -129,6 +130,7 @@ class _AddWordScreenState extends State<AddWordScreen> {
       final wordsIds = deck.wordIds.toList();
       wordsIds.add(newWordId);
       deck.wordIds = wordsIds;
+      deck.lastUpdated = DateTime.now();
       await deckController.updateDeck(deck);
 
       // add srs
@@ -169,15 +171,15 @@ class _AddWordScreenState extends State<AddWordScreen> {
         isarService: LocatorService.isarService,
       );
 
-      String wordList = await rootBundle.loadString('assets/data/idioms.txt');
+      String wordList = await rootBundle.loadString('assets/data/karneval.txt');
 
       List<String> lines = LineSplitter().convert(wordList);
       for (String line in lines) {
         final parts = line.split('/');
         final word = parts[0].trim();
-        final meaning = parts[1].trim();
+        final context = parts[1].trim();
         final meaningDe = parts[2].trim();
-        final example = parts[3].trim();
+        final meaning = parts[3].trim();
 
         final newWordId = Uuid().v4();
         Word newWord = Word(
@@ -188,7 +190,7 @@ class _AddWordScreenState extends State<AddWordScreen> {
               partOfSpeech: '',
               definition: meaningDe,
               definitionEn: meaning,
-              exampleSentences: [example],
+              context: context,
             )
           ],
           language: 'de',
@@ -202,6 +204,7 @@ class _AddWordScreenState extends State<AddWordScreen> {
         final wordsIds = deck.wordIds.toList();
         wordsIds.add(newWordId);
         deck.wordIds = wordsIds;
+        deck.lastUpdated = DateTime.now();
         await deckController.updateDeck(deck);
 
         // add srs

@@ -9,7 +9,7 @@ part 'word.g.dart';
 class Word {
   Id id = Isar.autoIncrement;
 
-  @Index(unique: true)
+  @Index(unique: true, replace: true)
   late String wordId;
 
   late String word;

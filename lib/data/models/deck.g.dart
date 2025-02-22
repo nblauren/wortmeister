@@ -98,7 +98,7 @@ const DeckSchema = CollectionSchema(
       id: -1182505463565197889,
       name: r'deckId',
       unique: true,
-      replace: false,
+      replace: true,
       properties: [
         IndexPropertySchema(
           name: r'deckId',

@@ -7,7 +7,7 @@ part 'deck.g.dart';
 class Deck {
   Id id = Isar.autoIncrement;
 
-  @Index(unique: true)
+  @Index(unique: true, replace: true)
   late String deckId;
 
   @Index()
