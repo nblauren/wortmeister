@@ -6,6 +6,7 @@ import 'package:wortmeister/core/services/firebase_auth_service.dart';
 import 'package:wortmeister/core/services/firebase_firestore_service.dart';
 import 'package:wortmeister/core/services/firebase_remote_config_service.dart';
 import 'package:wortmeister/core/services/isar_service.dart';
+import 'package:wortmeister/core/services/shared_preference_service.dart';
 import 'package:wortmeister/core/services/sync_service.dart';
 import 'package:wortmeister/core/services/tts_service.dart';
 
@@ -32,6 +33,11 @@ class LocatorService {
     // Register Tts Service as a singleton
     getIt.registerSingleton<TTSService>(
       TTSService(),
+    );
+
+    // Register Shared Preference Service as a singleton
+    getIt.registerSingleton<SharedPreferenceService>(
+      SharedPreferenceService(),
     );
 
     // Register Isar Service as a singleton
@@ -73,6 +79,10 @@ class LocatorService {
 
   /// Getter for Isar Service instance.
   static SyncService get syncService => getIt<SyncService>();
+
+  /// Getter for Shared Preference Service instance.
+  static SharedPreferenceService get sharedPreferenceService =>
+      getIt<SharedPreferenceService>();
 
   /// Getter for Isar Service instance.
   static DateTimeService get dateTimeService => getIt<DateTimeService>();

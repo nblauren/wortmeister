@@ -133,7 +133,7 @@ const WordSchema = CollectionSchema(
   getId: _wordGetId,
   getLinks: _wordGetLinks,
   attach: _wordAttach,
-  version: '3.1.0+1',
+  version: '3.1.8',
 );
 
 int _wordEstimateSize(

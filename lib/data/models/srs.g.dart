@@ -144,7 +144,7 @@ const SrsSchema = CollectionSchema(
   getId: _srsGetId,
   getLinks: _srsGetLinks,
   attach: _srsAttach,
-  version: '3.1.0+1',
+  version: '3.1.8',
 );
 
 int _srsEstimateSize(

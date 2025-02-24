@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/screens/home/desk_list.dart';
+import 'package:wortmeister/screens/home/user_name.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -13,6 +14,7 @@ class HomeScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            leading: UserName(),
             expandedHeight: 180.0,
             floating: true,
             pinned: true,
