@@ -34,13 +34,19 @@ class DeckStatistics extends StatelessWidget {
           return Center(child: Text('No words yet'));
         }
 
-        return LayoutBuilder(
-          builder: (context, constraints) {
-            final cardWidth = (constraints.maxWidth - 48.0) /
-                2; // 16.0 spacing * 3 gaps / 2 cards per row
-            return Wrap(
-              alignment: WrapAlignment.center,
-              crossAxisAlignment: WrapCrossAlignment.center,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            LinearProgressIndicator(
+              value: deckStatisticsValue.progress,
+              backgroundColor: Colors.grey[300],
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+            ),
+            SizedBox(height: 16),
+            Wrap(
+              alignment: WrapAlignment.spaceAround,
+              crossAxisAlignment: WrapCrossAlignment.start,
               spacing: 8.0,
               runSpacing: 8.0,
               children: [
@@ -52,41 +58,46 @@ class DeckStatistics extends StatelessWidget {
                     'Due', deckStatisticsValue.dueCards, Colors.red),
                 _buildStatisticCard(
                     'Mature', deckStatisticsValue.matureCards, Colors.green),
-              ].map((card) => SizedBox(width: cardWidth, child: card)).toList(),
-            );
-          },
+              ],
+            ),
+          ],
         );
       },
     );
   }
 
   Widget _buildStatisticCard(String title, int count, Color color) {
-    return Card(
-      color: color,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              title,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          Container(
+            width: 12,
+            height: 12,
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
             ),
-            SizedBox(height: 8),
-            Text(
-              count.toString(),
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
             ),
-          ],
-        ),
+          ),
+          SizedBox(height: 8),
+          Text(
+            count.toString(),
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
     );
   }

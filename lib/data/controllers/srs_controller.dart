@@ -30,6 +30,35 @@ class SrsController {
     }
   }
 
+  /// Get the percentage of due cards in a deck
+  Future<double> getDueCardsPercentage(String userId, Deck deck) async {
+    try {
+      final isar = await isarService.db;
+      final today = DateTime.now();
+
+      // Get all SRS entries for the user
+      final srsEntries =
+          await isar.srs.filter().userIdEqualTo(userId).findAll();
+
+      // Filter SRS entries by deck word IDs
+      final filteredSrsEntries = srsEntries.where((srs) {
+        return deck.wordIds.contains(srs.wordId);
+      }).toList();
+
+      // Calculate due cards
+      final dueCards = filteredSrsEntries.where((srs) {
+        return srs.nextReview.isBefore(today) ||
+            srs.nextReview.isAtSameMomentAs(today);
+      }).length;
+
+      // Calculate percentage
+      final percentage = (dueCards / filteredSrsEntries.length) * 100;
+      return percentage;
+    } catch (e) {
+      throw Exception("Failed to get due cards percentage: $e");
+    }
+  }
+
   Stream<DeckStatisticsValue> getDeckStatistics(
       String userId, Deck deck) async* {
     final wordController = WordController(isarService: isarService);
@@ -58,6 +87,8 @@ class SrsController {
         }).toList();
 
         // Categorize cards
+
+        final totalCards = srsWords.length;
         final newCards =
             srsWords.where((srsWord) => srsWord.srs.reviewCount == 0).length;
         final learningCards = srsWords
@@ -72,11 +103,16 @@ class SrsController {
         final matureCards =
             srsWords.where((srsWord) => srsWord.srs.interval >= 21).length;
 
+        final progress = totalCards > 0
+            ? ((learningCards + (matureCards * 2)) / (totalCards * 2))
+            : 0;
+
         yield DeckStatisticsValue(
           newCards: newCards,
           learningCards: learningCards,
           dueCards: dueCards,
           matureCards: matureCards,
+          progress: progress.toDouble(),
         );
       }
     } catch (e) {
