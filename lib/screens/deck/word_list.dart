@@ -44,10 +44,7 @@ class WordList extends StatelessWidget {
             (context, index) {
               final srsWord = words[index];
               return Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                elevation: 1,
+                elevation: 0,
                 child: ListTile(
                   onTap: () {
                     showModalBottomSheet<void>(

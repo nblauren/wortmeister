@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/data/controllers/deck_controller.dart';
 import 'package:wortmeister/data/models/deck.dart';
+import 'package:wortmeister/screens/deck/deck_statistics.dart';
 
 class DeskList extends StatelessWidget {
   const DeskList({super.key});
@@ -35,16 +37,20 @@ class DeskList extends StatelessWidget {
             (context, index) {
               final deck = decks[index];
               return Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                elevation: 1,
+                elevation: 0,
                 child: ListTile(
                   onTap: () => Navigator.pushNamed(
                     context,
                     '/deck/${deck.deckId}',
                   ),
+                  isThreeLine: true,
                   title: Text(deck.title),
+                  subtitle: Provider.value(
+                    value: deck,
+                    child: DeckStatistics(
+                      isSmall: true,
+                    ),
+                  ),
                 ),
               );
             },

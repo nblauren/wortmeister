@@ -6,8 +6,10 @@ import 'package:wortmeister/data/models/deck_statistics_value.dart';
 import 'package:wortmeister/data/models/deck.dart';
 
 class DeckStatistics extends StatelessWidget {
+  final bool isSmall;
   const DeckStatistics({
     super.key,
+    this.isSmall = false,
   });
 
   @override
@@ -34,33 +36,37 @@ class DeckStatistics extends StatelessWidget {
           return Center(child: Text('No words yet'));
         }
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            LinearProgressIndicator(
-              value: deckStatisticsValue.progress,
-              backgroundColor: Colors.grey[300],
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
-            ),
-            SizedBox(height: 16),
-            Wrap(
-              alignment: WrapAlignment.spaceAround,
-              crossAxisAlignment: WrapCrossAlignment.start,
-              spacing: 8.0,
-              runSpacing: 8.0,
-              children: [
-                _buildStatisticCard(
-                    'New', deckStatisticsValue.newCards, Colors.blue),
-                _buildStatisticCard('Learning',
-                    deckStatisticsValue.learningCards, Colors.orange),
-                _buildStatisticCard(
-                    'Due', deckStatisticsValue.dueCards, Colors.red),
-                _buildStatisticCard(
-                    'Mature', deckStatisticsValue.matureCards, Colors.green),
-              ],
-            ),
-          ],
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              LinearProgressIndicator(
+                value: deckStatisticsValue.progress,
+                backgroundColor: Colors.grey[300],
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+              ),
+              if (isSmall) Container(),
+              if (!isSmall)
+                Wrap(
+                  alignment: WrapAlignment.spaceAround,
+                  crossAxisAlignment: WrapCrossAlignment.start,
+                  spacing: 8.0,
+                  runSpacing: 8.0,
+                  children: [
+                    _buildStatisticCard(
+                        'New', deckStatisticsValue.newCards, Colors.blue),
+                    _buildStatisticCard('Learning',
+                        deckStatisticsValue.learningCards, Colors.orange),
+                    _buildStatisticCard(
+                        'Due', deckStatisticsValue.dueCards, Colors.red),
+                    _buildStatisticCard('Mature',
+                        deckStatisticsValue.matureCards, Colors.green),
+                  ],
+                ),
+            ],
+          ),
         );
       },
     );
