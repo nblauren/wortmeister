@@ -1162,6 +1162,8 @@ PODS:
     - Firebase/Firestore (~> 11.7.0)
     - firebase_core
     - FlutterMacOS
+  - facebook_auth_desktop (0.0.3):
+    - FlutterMacOS
   - Firebase/Auth (11.7.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 11.7.0)
@@ -1259,6 +1261,8 @@ PODS:
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
   - FirebaseRemoteConfigInterop (11.8.0)
   - FirebaseSharedSwift (11.8.0)
+  - flutter_secure_storage_macos (6.1.3):
+    - FlutterMacOS
   - flutter_tts (0.0.1):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
@@ -1422,10 +1426,12 @@ PODS:
 
 DEPENDENCIES:
   - cloud_firestore (from `Flutter/ephemeral/.symlinks/plugins/cloud_firestore/macos`)
+  - facebook_auth_desktop (from `Flutter/ephemeral/.symlinks/plugins/facebook_auth_desktop/macos`)
   - firebase_auth (from `Flutter/ephemeral/.symlinks/plugins/firebase_auth/macos`)
   - firebase_core (from `Flutter/ephemeral/.symlinks/plugins/firebase_core/macos`)
   - firebase_messaging (from `Flutter/ephemeral/.symlinks/plugins/firebase_messaging/macos`)
   - firebase_remote_config (from `Flutter/ephemeral/.symlinks/plugins/firebase_remote_config/macos`)
+  - flutter_secure_storage_macos (from `Flutter/ephemeral/.symlinks/plugins/flutter_secure_storage_macos/macos`)
   - flutter_tts (from `Flutter/ephemeral/.symlinks/plugins/flutter_tts/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
   - google_sign_in_ios (from `Flutter/ephemeral/.symlinks/plugins/google_sign_in_ios/darwin`)
@@ -1470,6 +1476,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   cloud_firestore:
     :path: Flutter/ephemeral/.symlinks/plugins/cloud_firestore/macos
+  facebook_auth_desktop:
+    :path: Flutter/ephemeral/.symlinks/plugins/facebook_auth_desktop/macos
   firebase_auth:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_auth/macos
   firebase_core:
@@ -1478,6 +1486,8 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_messaging/macos
   firebase_remote_config:
     :path: Flutter/ephemeral/.symlinks/plugins/firebase_remote_config/macos
+  flutter_secure_storage_macos:
+    :path: Flutter/ephemeral/.symlinks/plugins/flutter_secure_storage_macos/macos
   flutter_tts:
     :path: Flutter/ephemeral/.symlinks/plugins/flutter_tts/macos
   FlutterMacOS:
@@ -1500,6 +1510,7 @@ SPEC CHECKSUMS:
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
   BoringSSL-GRPC: ca6a8e5d04812fce8ffd6437810c2d46f925eaeb
   cloud_firestore: 7ab52762260151d152cb435e94e59e1265c30c34
+  facebook_auth_desktop: 0ec755e3b01669ec14776af18b6945671a788916
   Firebase: a64bf6a8546e6eab54f1c715cd6151f39d2329f4
   firebase_auth: 948b048b15425931b42759d21b26c41f4aabf967
   firebase_core: 751d3d919b95d4ae46ab049d0d64d42d4eec086b
@@ -1519,6 +1530,7 @@ SPEC CHECKSUMS:
   FirebaseRemoteConfig: aa1d4cb05ef4caad203448dfc87842de12f1ea8d
   FirebaseRemoteConfigInterop: 98897a64aa372eac3c5b3fe2816594ccfaac55ef
   FirebaseSharedSwift: 672954eac7b141d6954fab9a32d45d6b1d922df8
+  flutter_secure_storage_macos: c2754d3483d20bb207bb9e5a14f1b8e771abcdb9
   flutter_tts: 64651204e5d276ffea5a910f942d5e9785a96085
   FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
   google_sign_in_ios: 07375bfbf2620bc93a602c0e27160d6afc6ead38
