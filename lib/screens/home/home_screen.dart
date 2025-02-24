@@ -15,7 +15,6 @@ class HomeScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            leading: UserName(),
             expandedHeight: 180.0,
             floating: true,
             pinned: true,
