@@ -42,10 +42,27 @@ class DeckStatistics extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              LinearProgressIndicator(
-                value: deckStatisticsValue.progress,
-                backgroundColor: Colors.grey[300],
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+              Row(
+                children: [
+                  Expanded(
+                    child: LinearProgressIndicator(
+                      value: deckStatisticsValue.progress,
+                      semanticsValue: deckStatisticsValue.progress.toString(),
+                      backgroundColor: Colors.grey[300],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  Text(
+                    '${(deckStatisticsValue.progress * 100).toStringAsFixed(1)}%',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
               ),
               if (isSmall) Container(),
               if (!isSmall)

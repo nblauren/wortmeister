@@ -30,35 +30,6 @@ class SrsController {
     }
   }
 
-  /// Get the percentage of due cards in a deck
-  Future<double> getDueCardsPercentage(String userId, Deck deck) async {
-    try {
-      final isar = await isarService.db;
-      final today = DateTime.now();
-
-      // Get all SRS entries for the user
-      final srsEntries =
-          await isar.srs.filter().userIdEqualTo(userId).findAll();
-
-      // Filter SRS entries by deck word IDs
-      final filteredSrsEntries = srsEntries.where((srs) {
-        return deck.wordIds.contains(srs.wordId);
-      }).toList();
-
-      // Calculate due cards
-      final dueCards = filteredSrsEntries.where((srs) {
-        return srs.nextReview.isBefore(today) ||
-            srs.nextReview.isAtSameMomentAs(today);
-      }).length;
-
-      // Calculate percentage
-      final percentage = (dueCards / filteredSrsEntries.length) * 100;
-      return percentage;
-    } catch (e) {
-      throw Exception("Failed to get due cards percentage: $e");
-    }
-  }
-
   Stream<DeckStatisticsValue> getDeckStatistics(
       String userId, Deck deck) async* {
     final wordController = WordController(isarService: isarService);
@@ -167,6 +138,7 @@ class SrsController {
           .userIdEqualTo(userId)
           .nextReviewLessThan(today, include: true)
           .suspendedEqualTo(false)
+          .reviewCountGreaterThan(0)
           .sortByNextReview()
           .findAll());
 
@@ -186,6 +158,36 @@ class SrsController {
           .toList();
     } catch (e) {
       return [];
+    }
+  }
+
+  Future<List<SrsWord>> getNewCards(String userId, Deck deck) async {
+    final wordController = WordController(isarService: isarService);
+    try {
+      final isar = await isarService.db;
+
+      // Query new words from SRS
+      List<Srs> newSrsEntries = await isar.srs
+          .filter()
+          .userIdEqualTo(userId)
+          .reviewCountEqualTo(0)
+          .findAll();
+
+      // Filter in Dart
+      newSrsEntries = newSrsEntries.where((srs) {
+        return deck.wordIds.contains(srs.wordId);
+      }).toList();
+
+      final wordList = newSrsEntries.map((srs) => srs.wordId).toList();
+      final words = await wordController.getWordsByIds(wordList);
+
+      return newSrsEntries
+          .map((srs) => SrsWord(
+              srs: srs,
+              word: words.firstWhere((word) => word.wordId == srs.wordId)))
+          .toList();
+    } catch (e) {
+      throw Exception("Failed to get new cards: $e");
     }
   }
 
