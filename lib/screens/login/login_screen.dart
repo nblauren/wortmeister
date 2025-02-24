@@ -54,24 +54,14 @@ class LoginNotifier extends ChangeNotifier {
   }
 }
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  LoginScreen({super.key});
 
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
 
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
+  final TextEditingController _passwordController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -141,11 +131,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Consumer<LoginNotifier>(
                         builder: (_, loginNotifier, __) {
                           return ElevatedButton(
-                            onPressed: () => loginNotifier.login(
-                              context,
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                            ),
+                            onPressed: () async {
+                              if (_formKey.currentState?.validate() ?? false) {
+                                await loginNotifier.login(
+                                  context,
+                                  email: _emailController.text,
+                                  password: _passwordController.text,
+                                );
+                              }
+                            },
                             child: loginNotifier._isLoading
                                 ? CircularProgressIndicator(color: Colors.white)
                                 : Text('Login'),

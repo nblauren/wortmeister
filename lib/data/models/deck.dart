@@ -59,9 +59,9 @@ class Deck {
     required String userId,
     required String title,
     required String description,
+    required int dailyNewLimit,
+    required int dailyReviewLimit,
     List<String> wordIds = const [],
-    int dailyNewLimit = 50,
-    int dailyReviewLimit = 200,
     required String createdBy,
   }) {
     return Deck(

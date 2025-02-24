@@ -8,7 +8,6 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/data/models/deck.dart';
 import 'package:wortmeister/firebase_options.dart';
-import 'package:wortmeister/screens/add_deck/add_deck_screen.dart';
 import 'package:wortmeister/screens/add_word/add_word_screen.dart';
 import 'package:wortmeister/screens/deck/deck_screen.dart';
 import 'package:wortmeister/screens/login/login_screen.dart';
@@ -72,8 +71,6 @@ class MyApp extends StatelessWidget {
               case '/settings':
                 return MaterialPageRoute(
                     builder: (context) => SettingsScreen());
-              case '/new-deck':
-                return MaterialPageRoute(builder: (context) => AddDeckScreen());
               case '/signup':
                 return MaterialPageRoute(builder: (context) => SignupScreen());
               case '/practice':
