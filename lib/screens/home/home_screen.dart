@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/screens/deck/add_deck.dart';
 import 'package:wortmeister/screens/home/desk_list.dart';
-import 'package:wortmeister/screens/home/user_name.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
