@@ -138,7 +138,6 @@ class SrsController {
           .userIdEqualTo(userId)
           .nextReviewLessThan(today, include: true)
           .suspendedEqualTo(false)
-          .reviewCountGreaterThan(0)
           .sortByNextReview()
           .findAll());
 
