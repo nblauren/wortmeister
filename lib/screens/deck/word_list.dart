@@ -9,8 +9,11 @@ import 'package:wortmeister/data/models/word.dart';
 import 'package:wortmeister/widgets/word_details.dart';
 
 class WordList extends StatelessWidget {
+  final String searchWord;
+
   const WordList({
     super.key,
+    required this.searchWord,
   });
 
   @override
@@ -39,10 +42,21 @@ class WordList extends StatelessWidget {
           return SliverToBoxAdapter(child: Center(child: Text('No words yet')));
         }
 
+        final filteredWords = words
+            .where((srsWord) => srsWord.word.word
+                .toLowerCase()
+                .contains(searchWord.toLowerCase()))
+            .toList();
+
+        if (filteredWords.isEmpty) {
+          return SliverToBoxAdapter(
+              child: Center(child: Text('No matching words')));
+        }
+
         return SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              final srsWord = words[index];
+              final srsWord = filteredWords[index];
               return Card(
                 elevation: 0,
                 child: ListTile(
@@ -83,7 +97,7 @@ class WordList extends StatelessWidget {
                 ),
               );
             },
-            childCount: words.length,
+            childCount: filteredWords.length,
           ),
         );
       },
