@@ -106,6 +106,7 @@ class _WordGalleryState extends State<WordGallery> {
                   padding: const EdgeInsets.all(8.0),
                   child: Swiper(
                     scale: 0.7,
+                    physics: NeverScrollableScrollPhysics(),
                     controller: _controller,
                     itemBuilder: (BuildContext context, int index) {
                       final word = srsWords[index].word;
