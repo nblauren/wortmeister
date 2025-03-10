@@ -82,7 +82,10 @@ class _AddWordScreenState extends State<AddWordScreen> {
           newWordId,
         );
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Data sent successfully!')),
+          SnackBar(
+            content: Text('Word added!'),
+            duration: Duration(seconds: 1),
+          ),
         );
         Navigator.of(context).pop();
       }
@@ -142,7 +145,10 @@ class _AddWordScreenState extends State<AddWordScreen> {
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Data sent successfully!')),
+        SnackBar(
+          content: Text('Word added!'),
+          duration: Duration(seconds: 1),
+        ),
       );
       Navigator.of(context).pop();
     } catch (e) {
@@ -217,7 +223,10 @@ class _AddWordScreenState extends State<AddWordScreen> {
       }
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Data sent successfully!')),
+        SnackBar(
+          content: Text('Word added!'),
+          duration: Duration(seconds: 1),
+        ),
       );
       Navigator.of(context).pop();
     } catch (e) {

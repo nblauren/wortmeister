@@ -47,6 +47,8 @@ class WordList extends StatelessWidget {
                 .toLowerCase()
                 .contains(searchWord.toLowerCase()))
             .toList();
+        filteredWords
+            .sort((a, b) => b.srs.lastUpdated.compareTo(a.srs.lastUpdated));
 
         if (filteredWords.isEmpty) {
           return SliverToBoxAdapter(
