@@ -1,6 +1,5 @@
 import 'package:isar/isar.dart';
 import 'package:wortmeister/core/services/isar_service.dart';
-import 'package:wortmeister/data/controllers/deck_controller.dart';
 import 'package:wortmeister/data/controllers/review_history_controller.dart';
 import 'package:wortmeister/data/controllers/word_controller.dart';
 import 'package:wortmeister/data/models/deck.dart';

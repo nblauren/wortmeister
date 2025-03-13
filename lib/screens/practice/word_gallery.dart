@@ -161,7 +161,10 @@ class _WordGalleryState extends State<WordGallery> {
             } else {
               final srsReviewWords = snapshot.data![0];
               final srsNewWords = snapshot.data![1];
-              final srsWords = [...srsReviewWords, ...srsNewWords];
+              final srsWords = [
+                ...srsNewWords,
+                ...srsReviewWords,
+              ];
 
               if (srsWords.isEmpty) {
                 return const Center(child: Text('No words available'));
