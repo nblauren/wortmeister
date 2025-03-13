@@ -1,6 +1,7 @@
 import 'package:isar/isar.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wortmeister/core/services/isar_service.dart';
+import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/data/models/review_history.dart';
 
 class ReviewHistoryController {
@@ -17,18 +18,19 @@ class ReviewHistoryController {
     try {
       final reviewHistories = await isarService.getItems<ReviewHistory>();
       final existingReviewHistory = reviewHistories.firstWhere(
-        (rh) => rh.deckId == deckId && rh.date == date,
+        (rh) =>
+            rh.deckId == deckId &&
+            rh.date == LocatorService.dateTimeService.getBeginningOfDay(date),
         orElse: () => ReviewHistory(
           reviewHistoryId: Uuid().v4(),
           deckId: deckId,
-          date: date,
+          date: LocatorService.dateTimeService.getBeginningOfDay(date),
           reviewWordCount: 0,
           newWordReviewCount: 0,
         ),
       );
 
       existingReviewHistory.reviewWordCount += reviewWordCount;
-
       existingReviewHistory.newWordReviewCount += newWordReviewCount;
 
       await isarService.addItem(existingReviewHistory);
@@ -37,21 +39,33 @@ class ReviewHistoryController {
     }
   }
 
-  // Stream of all words
-  Stream<List<ReviewHistory?>> getReviewHistoryToday({
+  Future<ReviewHistory> getReviewHistoryToday({
     required String deckId,
     required DateTime date,
-  }) {
+  }) async {
     try {
-      return isarService.db.asStream().asyncExpand((isar) {
-        return isar.reviewHistorys
-            .filter()
-            .dateEqualTo(date)
-            .deckIdEqualTo(deckId)
-            .watch(fireImmediately: true);
-      });
+      final isar = await isarService.db;
+      final reviewHistory = await isar.reviewHistorys
+          .filter()
+          .dateEqualTo(LocatorService.dateTimeService.getBeginningOfDay(date))
+          .deckIdEqualTo(deckId)
+          .findFirst();
+
+      if (reviewHistory == null) {
+        final newReviewHistory = ReviewHistory(
+          reviewHistoryId: Uuid().v4(),
+          deckId: deckId,
+          date: LocatorService.dateTimeService.getBeginningOfDay(date),
+          reviewWordCount: 0,
+          newWordReviewCount: 0,
+        );
+        await isarService.addItem(newReviewHistory);
+        return newReviewHistory;
+      }
+
+      return reviewHistory;
     } catch (e) {
-      throw Exception('Error streaming words: $e');
+      throw Exception('Error fetching review history: $e');
     }
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/core/services/srs_service.dart';
+import 'package:wortmeister/data/controllers/review_history_controller.dart';
 import 'package:wortmeister/data/controllers/srs_controller.dart';
 import 'package:wortmeister/data/models/deck.dart';
 import 'package:wortmeister/data/models/srs.dart';
@@ -18,9 +19,6 @@ class WordGallery extends StatefulWidget {
 
 class _WordGalleryState extends State<WordGallery> {
   final _controller = SwiperController();
-  final _srsController = SrsController(
-    isarService: LocatorService.isarService,
-  );
 
   final List<Color> buttonColors = [
     Color(0xFFFF4C4C), // 0 - Red (Forgot Completely)
@@ -30,10 +28,49 @@ class _WordGalleryState extends State<WordGallery> {
   ];
 
   Future<List<SrsWord>> _getReviewCards(BuildContext context, Deck deck) async {
-    return await _srsController.getReviewCards(deck.userId, deck);
+    ReviewHistoryController reviewHistoryController = ReviewHistoryController(
+      isarService: LocatorService.isarService,
+    );
+
+    final srsController = SrsController(
+      isarService: LocatorService.isarService,
+      reviewHistoryController: reviewHistoryController,
+    );
+    return await srsController.getReviewCards(
+      deck.userId,
+      deck,
+    );
   }
 
-  Future<void> _recalculateSrs(Srs srs, int quality) async {
+  Future<List<SrsWord>> _getNewReviewCards(
+      BuildContext context, Deck deck) async {
+    ReviewHistoryController reviewHistoryController = ReviewHistoryController(
+      isarService: LocatorService.isarService,
+    );
+
+    final srsController = SrsController(
+      isarService: LocatorService.isarService,
+      reviewHistoryController: reviewHistoryController,
+    );
+    return await srsController.getNewCards(
+      deck.userId,
+      deck,
+    );
+  }
+
+  Future<void> _recalculateSrs(
+    Srs srs,
+    int quality,
+    String deckId,
+  ) async {
+    ReviewHistoryController reviewHistoryController = ReviewHistoryController(
+      isarService: LocatorService.isarService,
+    );
+
+    final srsController = SrsController(
+      isarService: LocatorService.isarService,
+      reviewHistoryController: reviewHistoryController,
+    );
     final newSrs = SrsService().calculateNextReviewDate(
       lastReviewDate: srs.nextReview,
       interval: srs.interval,
@@ -43,7 +80,14 @@ class _WordGalleryState extends State<WordGallery> {
       learningStep: srs.learningStep,
     );
 
-    await _srsController.updateSrsEntry(
+    await reviewHistoryController.upsertReviewHistory(
+      deckId: deckId,
+      date: DateTime.now(),
+      reviewWordCount: srs.reviewCount != 0 ? 1 : 0,
+      newWordReviewCount: srs.reviewCount == 0 ? 1 : 0,
+    );
+
+    await srsController.updateSrsEntry(
       srs.id,
       newSrs.interval,
       newSrs.repetition,
@@ -61,10 +105,21 @@ class _WordGalleryState extends State<WordGallery> {
   }
 
   Widget _ratingButton(
-      context, Srs srs, int rating, int newIndex, int itemCount, String text) {
+    context,
+    Srs srs,
+    int rating,
+    int newIndex,
+    int itemCount,
+    String text,
+    String deckId,
+  ) {
     return ElevatedButton(
       onPressed: () async {
-        await _recalculateSrs(srs, rating);
+        await _recalculateSrs(
+          srs,
+          rating,
+          deckId,
+        );
         await _controller.next();
 
         if (newIndex == itemCount - 1) {
@@ -90,8 +145,12 @@ class _WordGalleryState extends State<WordGallery> {
   Widget build(BuildContext context) {
     return Consumer<Deck>(
       builder: (context, deck, child) {
-        return FutureBuilder<List<SrsWord>>(
-          future: _getReviewCards(context, deck),
+        return FutureBuilder(
+          future: Future.wait([
+            _getReviewCards(context, deck),
+            _getNewReviewCards(context, deck),
+            // Add other futures here if needed
+          ]),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -100,7 +159,14 @@ class _WordGalleryState extends State<WordGallery> {
             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return const Center(child: Text('No words available'));
             } else {
-              final srsWords = snapshot.data!;
+              final srsReviewWords = snapshot.data![0];
+              final srsNewWords = snapshot.data![1];
+              final srsWords = [...srsReviewWords, ...srsNewWords];
+
+              if (srsWords.isEmpty) {
+                return const Center(child: Text('No words available'));
+              }
+
               return SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -132,33 +198,41 @@ class _WordGalleryState extends State<WordGallery> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 _ratingButton(
-                                    context,
-                                    srs,
-                                    0,
-                                    config.activeIndex,
-                                    srsWords.length,
-                                    'Again'),
+                                  context,
+                                  srs,
+                                  0,
+                                  config.activeIndex,
+                                  srsWords.length,
+                                  'Again',
+                                  deck.deckId,
+                                ),
                                 _ratingButton(
-                                    context,
-                                    srs,
-                                    1,
-                                    config.activeIndex,
-                                    srsWords.length,
-                                    'Hard'),
+                                  context,
+                                  srs,
+                                  1,
+                                  config.activeIndex,
+                                  srsWords.length,
+                                  'Hard',
+                                  deck.deckId,
+                                ),
                                 _ratingButton(
-                                    context,
-                                    srs,
-                                    2,
-                                    config.activeIndex,
-                                    srsWords.length,
-                                    'Good'),
+                                  context,
+                                  srs,
+                                  2,
+                                  config.activeIndex,
+                                  srsWords.length,
+                                  'Good',
+                                  deck.deckId,
+                                ),
                                 _ratingButton(
-                                    context,
-                                    srs,
-                                    3,
-                                    config.activeIndex,
-                                    srsWords.length,
-                                    'Easy'),
+                                  context,
+                                  srs,
+                                  3,
+                                  config.activeIndex,
+                                  srsWords.length,
+                                  'Easy',
+                                  deck.deckId,
+                                ),
                               ],
                             ),
                           ),

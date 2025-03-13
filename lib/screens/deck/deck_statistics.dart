@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
+import 'package:wortmeister/data/controllers/review_history_controller.dart';
 import 'package:wortmeister/data/controllers/srs_controller.dart';
 import 'package:wortmeister/data/models/deck_statistics_value.dart';
 import 'package:wortmeister/data/models/deck.dart';
@@ -15,9 +16,15 @@ class DeckStatistics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deck = context.read<Deck>();
-    final srsController = SrsController(
+    final reviewHistoryController = ReviewHistoryController(
       isarService: LocatorService.isarService,
     );
+
+    final srsController = SrsController(
+      isarService: LocatorService.isarService,
+      reviewHistoryController: reviewHistoryController,
+    );
+
     return StreamBuilder<DeckStatisticsValue>(
       stream: srsController.getDeckStatistics(
           LocatorService.firebaseAuthService.currentUser()!.uid, deck),

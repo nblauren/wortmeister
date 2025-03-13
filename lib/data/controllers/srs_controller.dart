@@ -1,5 +1,7 @@
 import 'package:isar/isar.dart';
 import 'package:wortmeister/core/services/isar_service.dart';
+import 'package:wortmeister/data/controllers/deck_controller.dart';
+import 'package:wortmeister/data/controllers/review_history_controller.dart';
 import 'package:wortmeister/data/controllers/word_controller.dart';
 import 'package:wortmeister/data/models/deck.dart';
 import 'package:wortmeister/data/models/deck_statistics_value.dart';
@@ -8,8 +10,12 @@ import 'package:wortmeister/data/models/srs_word.dart';
 
 class SrsController {
   final IsarService isarService;
+  final ReviewHistoryController reviewHistoryController;
 
-  SrsController({required this.isarService});
+  SrsController({
+    required this.isarService,
+    required this.reviewHistoryController,
+  });
 
   /// Fetch daily review cards based on the user's deck settings
 
@@ -126,11 +132,19 @@ class SrsController {
     }
   }
 
-  Future<List<SrsWord>> getReviewCards(String userId, Deck deck) async {
+  Future<List<SrsWord>> getReviewCards(
+    String userId,
+    Deck deck,
+  ) async {
     final wordController = WordController(isarService: isarService);
+    final reviewHistoryController =
+        ReviewHistoryController(isarService: isarService);
     try {
-      int dailyReviewLimit = deck.dailyReviewLimit;
       DateTime today = DateTime.now();
+      final dataToday = await reviewHistoryController.getReviewHistoryToday(
+          deckId: deck.deckId, date: today);
+      int dailyReviewLimit = deck.dailyReviewLimit;
+      final takeLimit = dailyReviewLimit - dataToday.reviewWordCount;
 
       // Query review words from SRS
       List<Srs> allSrs = await isarService.db.then((isar) => isar.srs
@@ -150,7 +164,7 @@ class SrsController {
       final words = await wordController.getWordsByIds(wordList);
 
       return allSrs
-          .take(dailyReviewLimit)
+          .take(takeLimit)
           .map((srs) => SrsWord(
               srs: srs,
               word: words.where((word) => word.wordId == srs.wordId).first))
@@ -162,6 +176,14 @@ class SrsController {
 
   Future<List<SrsWord>> getNewCards(String userId, Deck deck) async {
     final wordController = WordController(isarService: isarService);
+    final reviewHistoryController =
+        ReviewHistoryController(isarService: isarService);
+
+    DateTime today = DateTime.now();
+    final dataToday = await reviewHistoryController.getReviewHistoryToday(
+        deckId: deck.deckId, date: today);
+    int dailyReviewLimit = deck.dailyNewLimit;
+    final takeLimit = dailyReviewLimit - dataToday.newWordReviewCount;
     try {
       final isar = await isarService.db;
 
@@ -181,6 +203,7 @@ class SrsController {
       final words = await wordController.getWordsByIds(wordList);
 
       return newSrsEntries
+          .take(takeLimit)
           .map((srs) => SrsWord(
               srs: srs,
               word: words.firstWhere((word) => word.wordId == srs.wordId)))

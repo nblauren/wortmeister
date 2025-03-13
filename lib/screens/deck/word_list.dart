@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
+import 'package:wortmeister/data/controllers/review_history_controller.dart';
 import 'package:wortmeister/data/controllers/srs_controller.dart';
 import 'package:wortmeister/data/models/srs.dart';
 import 'package:wortmeister/data/models/srs_word.dart';
@@ -18,9 +19,15 @@ class WordList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final srsController = SrsController(
+    final reviewHistoryController = ReviewHistoryController(
       isarService: LocatorService.isarService,
     );
+
+    final srsController = SrsController(
+      isarService: LocatorService.isarService,
+      reviewHistoryController: reviewHistoryController,
+    );
+
     final deck = context.read<Deck>();
     return StreamBuilder<List<SrsWord>>(
       stream: srsController.getAllWordsFromDeck(

@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/core/services/openai_service.dart';
 import 'package:wortmeister/data/controllers/deck_controller.dart';
+import 'package:wortmeister/data/controllers/review_history_controller.dart';
 import 'package:wortmeister/data/controllers/srs_controller.dart';
 import 'package:wortmeister/data/controllers/word_controller.dart';
 import 'package:wortmeister/data/models/deck.dart';
@@ -49,10 +50,15 @@ class _AddWordScreenState extends State<AddWordScreen> {
       DeckController deckController = DeckController(
         isarService: LocatorService.isarService,
       );
+      final reviewHistoryController = ReviewHistoryController(
+        isarService: LocatorService.isarService,
+      );
 
       final srsController = SrsController(
         isarService: LocatorService.isarService,
+        reviewHistoryController: reviewHistoryController,
       );
+
       final openAIService = OpenAIService(key);
 
       final result = await openAIService.getCompletionWithStructuredOutput(
@@ -106,15 +112,19 @@ class _AddWordScreenState extends State<AddWordScreen> {
     try {
       final deck = Provider.of<Deck>(context, listen: false);
 
-      WordController wordController = WordController(
+      final wordController = WordController(
         isarService: LocatorService.isarService,
       );
-      DeckController deckController = DeckController(
+      final deckController = DeckController(
+        isarService: LocatorService.isarService,
+      );
+      final reviewHistoryController = ReviewHistoryController(
         isarService: LocatorService.isarService,
       );
 
       final srsController = SrsController(
         isarService: LocatorService.isarService,
+        reviewHistoryController: reviewHistoryController,
       );
 
       final newWordId = Uuid().v4();
@@ -172,9 +182,13 @@ class _AddWordScreenState extends State<AddWordScreen> {
       final deckController = DeckController(
         isarService: LocatorService.isarService,
       );
+      final reviewHistoryController = ReviewHistoryController(
+        isarService: LocatorService.isarService,
+      );
 
       final srsController = SrsController(
         isarService: LocatorService.isarService,
+        reviewHistoryController: reviewHistoryController,
       );
 
       String wordList = await rootBundle.loadString('assets/data/karneval.txt');

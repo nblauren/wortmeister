@@ -90,12 +90,12 @@ class DateTimeService {
   }
 
   DateTime getBeginningOfDay(DateTime date) {
-    return DateTime.utc(date.year, date.month, date.day);
+    return DateTime(date.year, date.month, date.day);
   }
 
   DateTime getEndOfDay(DateTime date) {
     final DateTime endOfDay =
-        DateTime.utc(date.year, date.month, date.day, 23, 59, 59);
+        DateTime(date.year, date.month, date.day, 23, 59, 59);
     return endOfDay;
   }
 
