@@ -1,0 +1,43 @@
+-er / der / der Lehrer, der Computer
+-en / der / der Garten, der Hafen
+-el / der / der Apfel, der Himmel
+-ig / der / der Honig, der König
+-ling / der / der Schmetterling, der Frühling
+-ismus / der / der Kapitalismus, der Optimismus
+-or / der / der Motor, der Traktor
+-us / der / der Rhythmus, der Zirkus
+Days & Months / der / der Montag, der Juli
+Seasons / der / der Frühling, der Sommer
+Weather phenomena / der / der Regen, der Schnee
+Car brands / der / der BMW, der Mercedes
+Names of alcoholic drinks (except Bier) / der / der Wein, der Whisky
+Most non-German river names / der / der Nil, der Amazonas
+-e / die / die Blume, die Straße (but: der Name, das Ende)
+-heit / die / die Freiheit, die Wahrheit
+-keit / die / die Möglichkeit, die Freundlichkeit
+-ung / die / die Rechnung, die Übung
+-schaft / die / die Freundschaft, die Wissenschaft
+-ion / die / die Nation, die Diskussion
+-tät / die / die Universität, die Identität
+-ik / die / die Musik, die Logik
+-ie / die / die Industrie, die Strategie
+-enz / die / die Existenz, die Tendenz
+-anz / die / die Eleganz, die Distanz
+-ur / die / die Natur, die Kultur
+Names of airplanes & ships / die / die Boeing 747, die Titanic
+Names of motorbikes / die / die Harley-Davidson, die Yamaha
+Most German river names / die / die Donau, die Elbe
+Names of cigars & cigarette brands / die / die Marlboro, die Camel
+-chen / das / das Mädchen, das Häuschen
+-lein / das / das Fräulein, das Büchlein
+-ment / das / das Instrument, das Dokument
+-um / das / das Zentrum, das Museum
+-o / das / das Auto, das Konto
+-ett / das / das Bett, das Ballett
+-ma / das / das Thema, das Drama
+Infinitives used as nouns / das / das Essen, das Trinken
+Most metals / das / das Gold, das Silber
+Scientific units / das / das Kilogramm, das Meter
+Names of hotels & cafés / das / das Hilton, das Café Mozart
+Names of colors used as nouns / das / das Blau, das Grün
+Most English loanwords ending in -ing / das / das Timing, das Training

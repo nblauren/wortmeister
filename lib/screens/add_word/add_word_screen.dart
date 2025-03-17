@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -191,26 +192,29 @@ class _AddWordScreenState extends State<AddWordScreen> {
         reviewHistoryController: reviewHistoryController,
       );
 
-      String wordList = await rootBundle.loadString('assets/data/karneval.txt');
+      String wordList = await rootBundle.loadString(
+        'assets/data/german_connectors.csv',
+      );
 
-      List<String> lines = LineSplitter().convert(wordList);
-      for (String line in lines) {
-        final parts = line.split('/');
-        final word = parts[0].trim();
-        final context = parts[1].trim();
-        final meaningDe = parts[2].trim();
-        final meaning = parts[3].trim();
+      List<List<dynamic>> rowsAsListOfValues =
+          const CsvToListConverter().convert(wordList, eol: '\r\n');
+      for (var parts in rowsAsListOfValues) {
+        final type = parts[0].trim();
+        final connector = parts[1].trim();
+        final eng = parts[2].trim();
+        final exmpl1 = parts[3].trim();
+        final exmpl2 = parts[4].trim();
+        final usage = parts[5].trim();
 
         final newWordId = Uuid().v4();
         Word newWord = Word(
           wordId: newWordId,
-          word: word,
+          word: '$connector ($eng)',
           meanings: [
             Meaning(
-              partOfSpeech: '',
-              definition: meaningDe,
-              definitionEn: meaning,
-              context: context,
+              partOfSpeech: type,
+              exampleSentences: [exmpl1, exmpl2],
+              definition: usage,
             )
           ],
           language: 'de',

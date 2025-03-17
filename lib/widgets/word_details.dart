@@ -53,11 +53,20 @@ class WordDetails extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    if (meaning.partOfSpeech != null)
+                      Text(
+                        meaning.partOfSpeech!,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
                     Text(
                       meaning.context ?? '',
                       style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w900,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     if (meaning.definition != null)
@@ -85,7 +94,7 @@ class WordDetails extends StatelessWidget {
                             height: 16,
                           ),
                           Text('Beispiel:'),
-                          ...meaning.exampleSentences!.map((e) => Text(e)),
+                          ...meaning.exampleSentences!.map((e) => Text('- $e')),
                         ],
                       ),
                     if (meaning.synonyms != null &&

@@ -1,0 +1,42 @@
+Type,German Connector,English Equivalent,Example Sentence 1,Example Sentence 2,Usage NoteCoordinating Conjunction,und,and,Ich esse Brot und trinke Kaffee.,Er spielt Fußball und sie schaut zu.,Verb stays in position 2 in both clauses, no change in word order.
+Coordinating Conjunction,oder,or,Möchtest du Tee oder Kaffee?,Ich gehe heute oder morgen ins Kino.,Verb stays in position 2 in both clauses, used for alternatives.
+Coordinating Conjunction,aber,but,Ich bin müde, aber ich arbeite weiter.,Er ist klein, aber schnell.,Verb remains in position 2, expresses contrast.
+Coordinating Conjunction,denn,because,Ich gehe schlafen, denn ich bin müde.,Er kann nicht kommen, denn er ist krank.,Verb stays in position 2, introduces a reason (more formal than "weil").
+Coordinating Conjunction,sondern,but rather,Das ist nicht blau, sondern grün.,Ich trinke keinen Kaffee, sondern Tee.,Used after a negation, verb remains in position 2.
+Coordinating Conjunction,doch,but/however,Es regnet, doch wir gehen spazieren.,Er hat wenig Zeit, doch er hilft mir.,Similar to "aber," verb remains in position 2.
+Coordinating Conjunction,beziehungsweise (bzw.),or rather,Wir treffen uns Montag beziehungsweise Dienstag.,Du kannst bar beziehungsweise mit Karte zahlen.,No verb change, used for clarifications.
+Subordinating Conjunction,weil,because,Ich bleibe zu Hause, weil ich krank bin.,Er kommt nicht, weil er arbeiten muss.,Verb moves to the end, used for reasons, can be in any tense.
+Subordinating Conjunction,da,since/because,Da es regnet, bleiben wir drinnen.,Ich gehe schlafen, da ich müde bin.,Verb moves to the end, more formal than "weil."
+Subordinating Conjunction,obwohl,although,Obwohl er müde ist, arbeitet er weiter.,Ich esse, obwohl ich keinen Hunger habe.,Verb moves to the end, expresses contrast.
+Subordinating Conjunction,während,while,Während ich esse, lese ich ein Buch.,Er arbeitet, während sie schläft.,Verb moves to the end, used for simultaneous actions.
+Subordinating Conjunction,als,when (past),Als ich jung war, spielte ich viel draußen.,Ich habe ihn gesehen, als ich im Bus war.,Verb moves to the end, only used for past tense.
+Subordinating Conjunction,wenn,when/if,Wenn es regnet, bleibe ich zu Hause.,Ich helfe dir, wenn du willst.,Verb moves to the end, used for present/future and conditional sentences.
+Subordinating Conjunction,falls,in case,Falls es regnet, nehmen wir einen Schirm mit.,Falls du Hilfe brauchst, ruf mich an.,Verb moves to the end, expresses condition.
+Subordinating Conjunction,sobald,as soon as,Sobald ich ankomme, rufe ich dich an.,Sobald es dunkel wird, gehen wir nach Hause.,Verb moves to the end, indicates immediate sequence.
+Subordinating Conjunction,bevor,before,Bevor ich schlafe, lese ich ein Buch.,Er ruft mich an, bevor er kommt.,Verb moves to the end, indicates prior action.
+Subordinating Conjunction,nachdem,after,Ich rufe dich an, nachdem ich angekommen bin.,Nachdem wir gegessen haben, gehen wir spazieren.,Verb moves to the end, often used with past perfect (Plusquamperfekt).
+Subordinating Conjunction,damit,so that,Ich lerne, damit ich die Prüfung bestehe.,Er spricht laut, damit alle ihn hören.,Verb moves to the end, expresses purpose.
+Subordinating Conjunction,dass,that,Ich hoffe, dass du kommst.,Er sagt, dass er müde ist.,Verb moves to the end, used for indirect speech and reported statements.
+Subordinating Conjunction,ob,whether,Ich weiß nicht, ob er kommt.,Kannst du mir sagen, ob du Zeit hast?,Verb moves to the end, used for indirect yes/no questions.
+Subordinating Conjunction,indem,by doing,Indem ich viel lese, verbessere ich mein Deutsch.,Er spart Geld, indem er weniger ausgibt.,Verb moves to the end, expresses method or means.
+Conjunctive Adverb,trotzdem,nevertheless,Es regnet, trotzdem gehen wir spazieren.,Er ist müde, trotzdem macht er weiter.,Verb stays in position 2, despite contradiction.
+Conjunctive Adverb,deshalb,therefore,Es ist spät, deshalb gehe ich nach Hause.,Er war krank, deshalb blieb er im Bett.,Verb stays in position 2, shows consequence.
+Conjunctive Adverb,daher,hence,Ich habe keinen Regenschirm, daher bin ich nass.,Er spricht leise, daher verstehe ich ihn kaum.,Verb stays in position 2, similar to "deshalb."
+Conjunctive Adverb,darum,for that reason,Es ist kalt, darum ziehe ich eine Jacke an.,Er hat wenig Zeit, darum beeilt er sich.,Verb stays in position 2, reason-based.
+Conjunctive Adverb,folglich,consequently,Er hat nicht gelernt, folglich hat er die Prüfung nicht bestanden.,Es gibt keinen Bus, folglich müssen wir laufen.,Verb stays in position 2, formal.
+Conjunctive Adverb,allerdings,however,Das Essen war teuer, allerdings sehr lecker.,Ich verstehe Deutsch, allerdings nicht perfekt.,Verb stays in position 2, more formal than "aber."
+Conjunctive Adverb,sonst,otherwise,Denk daran, sonst vergisst du es wieder.,Beeil dich, sonst kommst du zu spät.,Verb stays in position 2, expresses consequences.
+Conjunctive Adverb,dennoch,still/yet,Er ist müde, dennoch arbeitet er weiter.,Es regnet, dennoch gehen wir spazieren.,Verb stays in position 2, formal version of "trotzdem."
+Conjunctive Adverb,inzwischen,meanwhile,Ich koche, inzwischen deckt er den Tisch.,Sie war beschäftigt, inzwischen habe ich aufgeräumt.,Verb stays in position 2, expresses simultaneous events.
+Conjunctive Adverb,gleichzeitig,simultaneously,Er arbeitet, gleichzeitig hört er Musik.,Sie spricht, gleichzeitig schreibt sie Notizen.,Verb stays in position 2, used for parallel actions.
+Prepositional Connector,aufgrund,due to,Aufgrund des Wetters bleiben wir zu Hause.,Er ist müde aufgrund der langen Reise.,Preposition with genitive, expresses cause.
+Prepositional Connector,wegen,because of,Ich bleibe wegen des Regens drinnen.,Wegen des Staus kam er zu spät.,Preposition with genitive (or dative in informal speech).
+Prepositional Connector,trotz,despite,Trotz des Regens gehen wir spazieren.,Trotz seines Alters ist er fit.,Preposition with genitive, expresses contrast.
+Prepositional Connector,anstatt,instead of,Anstatt zu lernen, spielt er Videospiele.,Er nahm den Bus anstatt des Autos.,Preposition with genitive or verb+zu.
+Prepositional Connector,außerhalb/innerhalb,outside/inside of,Wir treffen uns außerhalb der Stadt.,Innerhalb einer Woche werde ich fertig sein.,Preposition with genitive, expresses location or time.
+Prepositional Connector,mithilfe,with the help of,Er hat es mithilfe eines Freundes geschafft.,Mithilfe der Anleitung habe ich es repariert.,Preposition with genitive, expresses assistance.
+Correlative Conjunction,entweder … oder,either … or,Entweder du kommst oder ich gehe alleine.,Ich trinke entweder Tee oder Kaffee.,Verb stays in position 2, used for alternatives.
+Correlative Conjunction,nicht nur … sondern auch,not only … but also,Er ist nicht nur klug, sondern auch fleißig.,Nicht nur das Wetter ist schlecht, sondern auch die Stimmung.,Verb stays in position 2.
+Correlative Conjunction,sowohl … als auch,both … and,Ich mag sowohl Kaffee als auch Tee.,Er spricht sowohl Deutsch als auch Englisch.,Verb stays in position 2, used for listing.
+Correlative Conjunction,weder … noch,neither … nor,Er spricht weder Deutsch noch Englisch.,Weder das Wetter noch die Laune waren gut.,Verb stays in position 2, negation.
+Correlative Conjunction,je … desto,the … the,Je mehr ich lerne, desto besser verstehe ich.,Je schneller du bist, desto früher kommen wir an.,Verb moves in the second clause.
