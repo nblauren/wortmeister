@@ -170,6 +170,8 @@ class _WordGalleryState extends State<WordGallery> {
                 return const Center(child: Text('No words available'));
               }
 
+              srsWords.shuffle();
+
               return SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
