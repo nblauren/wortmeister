@@ -193,28 +193,29 @@ class _AddWordScreenState extends State<AddWordScreen> {
       );
 
       String wordList = await rootBundle.loadString(
-        'assets/data/german_connectors.csv',
+        'assets/data/preposition.csv',
       );
 
       List<List<dynamic>> rowsAsListOfValues =
-          const CsvToListConverter().convert(wordList, eol: '\r\n');
+          const CsvToListConverter().convert(wordList, eol: '\n');
       for (var parts in rowsAsListOfValues) {
-        final type = parts[0].trim();
-        final connector = parts[1].trim();
-        final eng = parts[2].trim();
-        final exmpl1 = parts[3].trim();
-        final exmpl2 = parts[4].trim();
-        final usage = parts[5].trim();
+        final word = parts[0].trim();
+        final type = parts[1].trim();
+        final meaningde = parts[2].trim();
+        final meaning = parts[3].trim();
+        final exmpl1 = parts[4].trim();
+        final exmpl2 = parts[5].trim();
 
         final newWordId = Uuid().v4();
         Word newWord = Word(
           wordId: newWordId,
-          word: '$connector ($eng)',
+          word: '$word',
           meanings: [
             Meaning(
-              partOfSpeech: type,
+              context: type,
               exampleSentences: [exmpl1, exmpl2],
-              definition: usage,
+              definition: meaningde,
+              definitionEn: meaning,
             )
           ],
           language: 'de',

@@ -43,6 +43,16 @@ class DeskList extends StatelessWidget {
                     context,
                     '/deck/${deck.deckId}',
                   ),
+                  trailing: IconButton(
+                    icon: Icon(
+                      Icons.star,
+                      color: deck.isFavourite ? Colors.amber : Colors.grey,
+                    ),
+                    onPressed: () async {
+                      deck.isFavourite = !deck.isFavourite;
+                      await deckController.updateDeck(deck);
+                    },
+                  ),
                   isThreeLine: true,
                   title: Text(deck.title),
                   subtitle: Provider.value(

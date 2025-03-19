@@ -37,6 +37,10 @@ class Deck {
 
   bool isDeleted;
 
+  bool isFavourite;
+
+  bool smartFront;
+
   Deck({
     required this.deckId,
     required this.userId,
@@ -52,6 +56,8 @@ class Deck {
     required this.newLearnedToday,
     required this.lastUpdated,
     this.isDeleted = false,
+    this.isFavourite = false,
+    this.smartFront = false,
   });
 
   factory Deck.newEntry({
@@ -61,6 +67,7 @@ class Deck {
     required String description,
     required int dailyNewLimit,
     required int dailyReviewLimit,
+    required bool smartFront,
     List<String> wordIds = const [],
     required String createdBy,
   }) {
@@ -79,6 +86,8 @@ class Deck {
       newLearnedToday: 0,
       lastUpdated: DateTime.now(),
       isDeleted: false,
+      isFavourite: false,
+      smartFront: smartFront,
     );
   }
 
@@ -106,6 +115,8 @@ class Deck {
           ? (json["last_updated"] as firestore.Timestamp).toDate()
           : DateTime.parse(json["last_updated"]),
       isDeleted: json['is_deleted'] ?? false,
+      isFavourite: json['is_favourite'] ?? false,
+      smartFront: json['is_smart_front'] ?? false,
     );
   }
 
@@ -125,6 +136,8 @@ class Deck {
       'new_learned_today': newLearnedToday,
       'last_updated': lastUpdated,
       'isDeleted': isDeleted,
+      'is_favourite': isFavourite,
+      'is_smart_front': smartFront,
     };
   }
 }

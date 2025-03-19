@@ -12,6 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
   another_flutter_splash_screen: ^1.2.1
+  auto_size_text: ^3.0.0
   card_swiper: ^3.0.1
   cloud_firestore: ^5.6.3
   csv: ^6.0.0

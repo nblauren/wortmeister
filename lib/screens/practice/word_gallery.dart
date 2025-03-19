@@ -162,8 +162,7 @@ class _WordGalleryState extends State<WordGallery> {
               final srsReviewWords = snapshot.data![0];
               final srsNewWords = snapshot.data![1];
               final srsWords = [
-                ...srsNewWords,
-                ...srsReviewWords,
+                ...{...srsNewWords, ...srsReviewWords},
               ];
 
               if (srsWords.isEmpty) {
@@ -172,78 +171,76 @@ class _WordGalleryState extends State<WordGallery> {
 
               srsWords.shuffle();
 
-              return SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Swiper(
-                    scale: 0.7,
-                    physics: NeverScrollableScrollPhysics(),
-                    controller: _controller,
-                    itemBuilder: (BuildContext context, int index) {
-                      final word = srsWords[index].word;
-                      return Provider(
-                        create: (context) => word,
-                        child: WordFlip(),
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Swiper(
+                  scale: 0.7,
+                  physics: NeverScrollableScrollPhysics(),
+                  controller: _controller,
+                  itemBuilder: (BuildContext context, int index) {
+                    final word = srsWords[index].word;
+                    return Provider(
+                      create: (context) => word,
+                      child: WordFlip(),
+                    );
+                  },
+                  itemCount: srsWords.length,
+                  loop: false,
+                  control: null,
+                  pagination: SwiperCustomPagination(
+                    builder: (
+                      BuildContext context,
+                      SwiperPluginConfig config,
+                    ) {
+                      final srs = srsWords[config.activeIndex].srs;
+                      return Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              _ratingButton(
+                                context,
+                                srs,
+                                0,
+                                config.activeIndex,
+                                srsWords.length,
+                                'Again',
+                                deck.deckId,
+                              ),
+                              _ratingButton(
+                                context,
+                                srs,
+                                1,
+                                config.activeIndex,
+                                srsWords.length,
+                                'Hard',
+                                deck.deckId,
+                              ),
+                              _ratingButton(
+                                context,
+                                srs,
+                                2,
+                                config.activeIndex,
+                                srsWords.length,
+                                'Good',
+                                deck.deckId,
+                              ),
+                              _ratingButton(
+                                context,
+                                srs,
+                                3,
+                                config.activeIndex,
+                                srsWords.length,
+                                'Easy',
+                                deck.deckId,
+                              ),
+                            ],
+                          ),
+                        ),
                       );
                     },
-                    itemCount: srsWords.length,
-                    loop: false,
-                    control: null,
-                    pagination: SwiperCustomPagination(
-                      builder: (
-                        BuildContext context,
-                        SwiperPluginConfig config,
-                      ) {
-                        final srs = srsWords[config.activeIndex].srs;
-                        return Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                _ratingButton(
-                                  context,
-                                  srs,
-                                  0,
-                                  config.activeIndex,
-                                  srsWords.length,
-                                  'Again',
-                                  deck.deckId,
-                                ),
-                                _ratingButton(
-                                  context,
-                                  srs,
-                                  1,
-                                  config.activeIndex,
-                                  srsWords.length,
-                                  'Hard',
-                                  deck.deckId,
-                                ),
-                                _ratingButton(
-                                  context,
-                                  srs,
-                                  2,
-                                  config.activeIndex,
-                                  srsWords.length,
-                                  'Good',
-                                  deck.deckId,
-                                ),
-                                _ratingButton(
-                                  context,
-                                  srs,
-                                  3,
-                                  config.activeIndex,
-                                  srsWords.length,
-                                  'Easy',
-                                  deck.deckId,
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
                   ),
                 ),
               );

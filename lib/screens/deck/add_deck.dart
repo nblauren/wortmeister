@@ -1,62 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
-import 'package:wortmeister/core/services/locator_service.dart';
-import 'package:wortmeister/data/controllers/deck_controller.dart';
+import 'package:wortmeister/core/notifiers/add_deck_notifier.dart';
 import 'package:wortmeister/data/models/deck.dart';
 
-class AddDeckNotifier extends ChangeNotifier {
-  bool _isLoading = false;
-  String? _errorMessage;
+class AddDeck extends StatefulWidget {
+  const AddDeck({super.key});
 
-  bool get isLoading => _isLoading;
-  String? get errorMessage => _errorMessage;
-
-  Future<void> submit(
-    context, {
-    required String name,
-    required String description,
-    required int dailyNewLimit,
-    required int dailyReviewLimit,
-  }) async {
-    if (_isLoading) return;
-
-    _isLoading = true;
-    _errorMessage = null;
-    notifyListeners();
-
-    try {
-      DeckController deckController = DeckController(
-        isarService: LocatorService.isarService,
-      );
-      await deckController.createDeck(
-        Deck.newEntry(
-          deckId: Uuid().v4(),
-          userId: LocatorService.firebaseAuthService.currentUser()?.uid ?? '',
-          title: name,
-          description: '',
-          dailyNewLimit: dailyNewLimit,
-          dailyReviewLimit: dailyReviewLimit,
-          createdBy:
-              LocatorService.firebaseAuthService.currentUser()?.uid ?? '',
-        ),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Data sent successfully!')),
-      );
-      Navigator.of(context).pop();
-    } catch (e) {
-      _errorMessage = 'An undefined Error happened.';
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
-  }
+  @override
+  State<AddDeck> createState() => _AddDeckState();
 }
 
-class AddDeck extends StatelessWidget {
-  AddDeck({super.key});
-
+class _AddDeckState extends State<AddDeck> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _deckNameController = TextEditingController();
@@ -67,10 +21,23 @@ class AddDeck extends StatelessWidget {
 
   final TextEditingController _dailyReviewLimit = TextEditingController();
 
+  bool _isSmartFront = false;
+
   @override
   Widget build(BuildContext context) {
-    _dailyReviewLimit.text = '200';
-    _dailyNewWordsLimit.text = '50';
+    final deck = context.watch<Deck?>();
+    if (deck != null) {
+      _deckNameController.text = deck.title;
+      _descriptionController.text = deck.description;
+      _dailyNewWordsLimit.text = deck.dailyNewLimit.toString();
+      _dailyReviewLimit.text = deck.dailyReviewLimit.toString();
+      setState(() {
+        _isSmartFront = deck.smartFront;
+      });
+    } else {
+      _dailyReviewLimit.text = '200';
+      _dailyNewWordsLimit.text = '50';
+    }
     return ChangeNotifierProvider(
       create: (_) => AddDeckNotifier(),
       child: Padding(
@@ -138,6 +105,21 @@ class AddDeck extends StatelessWidget {
                   },
                 ),
                 SizedBox(height: 16.0),
+                // Checkbox
+                FormField<bool>(
+                  initialValue: _isSmartFront,
+                  builder: (field) {
+                    return CheckboxListTile(
+                      title: Text("Smart Front"),
+                      value: field.value,
+                      onChanged: (value) {
+                        field.didChange(value);
+                        _isSmartFront = value ?? false;
+                      },
+                    );
+                  },
+                ),
+
                 SizedBox(
                   width: double.infinity,
                   height: 50,
@@ -148,16 +130,18 @@ class AddDeck extends StatelessWidget {
                           if (_formKey.currentState?.validate() ?? false) {
                             await addDeckNotifier.submit(
                               context,
+                              deck: deck,
                               name: _deckNameController.text,
                               description: _descriptionController.text,
                               dailyNewLimit:
                                   int.parse(_dailyNewWordsLimit.text),
                               dailyReviewLimit:
                                   int.parse(_dailyReviewLimit.text),
+                              smartFront: _isSmartFront,
                             );
                           }
                         },
-                        child: addDeckNotifier._isLoading
+                        child: addDeckNotifier.isLoading
                             ? CircularProgressIndicator(color: Colors.white)
                             : Text('Submit'),
                       );

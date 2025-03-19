@@ -68,7 +68,15 @@ class DeckController {
   // Get all decks as a stream
   Stream<List<Deck>> watchDecks() {
     try {
-      return isarService.watchCollection<Deck>();
+      return isarService.watchCollection<Deck>().map((decks) {
+        decks.sort((a, b) {
+          if (b.isFavourite) {
+            return 1;
+          }
+          return -1;
+        });
+        return decks;
+      });
     } catch (e) {
       throw Exception('Error watching decks: $e');
     }

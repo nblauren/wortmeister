@@ -4,6 +4,7 @@ import 'package:wortmeister/core/notifiers/search_notifier.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/data/controllers/deck_controller.dart';
 import 'package:wortmeister/data/models/deck.dart';
+import 'package:wortmeister/screens/deck/add_deck.dart';
 import 'package:wortmeister/screens/deck/deck_statistics.dart';
 import 'package:wortmeister/screens/deck/word_list.dart';
 
@@ -47,11 +48,21 @@ class DeckScreen extends StatelessWidget {
                                 arguments: deck);
                           },
                         ),
-                        ElevatedButton(
-                          child: Text('Practice'),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.edit_note,
+                          ),
                           onPressed: () {
-                            Navigator.pushNamed(context, '/practice',
-                                arguments: deck);
+                            showModalBottomSheet(
+                              context: context,
+                              showDragHandle: true,
+                              builder: (BuildContext context) {
+                                return Provider<Deck?>.value(
+                                  value: deck,
+                                  child: AddDeck(),
+                                );
+                              },
+                            );
                           },
                         ),
                       ],
@@ -80,6 +91,27 @@ class DeckScreen extends StatelessWidget {
                       child: Provider.value(
                         value: deck,
                         child: DeckStatistics(),
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SizedBox(
+                          height: 40,
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              backgroundColor: Colors.purple,
+                            ),
+                            child: Text(
+                              'Practice',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/practice',
+                                  arguments: deck);
+                            },
+                          ),
+                        ),
                       ),
                     ),
                     SliverToBoxAdapter(

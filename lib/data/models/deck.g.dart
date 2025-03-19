@@ -52,38 +52,48 @@ const DeckSchema = CollectionSchema(
       name: r'isDeleted',
       type: IsarType.bool,
     ),
-    r'lastSessionDate': PropertySchema(
+    r'isFavourite': PropertySchema(
       id: 7,
+      name: r'isFavourite',
+      type: IsarType.bool,
+    ),
+    r'lastSessionDate': PropertySchema(
+      id: 8,
       name: r'lastSessionDate',
       type: IsarType.dateTime,
     ),
     r'lastUpdated': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'lastUpdated',
       type: IsarType.dateTime,
     ),
     r'newLearnedToday': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'newLearnedToday',
       type: IsarType.long,
     ),
     r'reviewedToday': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'reviewedToday',
       type: IsarType.long,
     ),
+    r'smartFront': PropertySchema(
+      id: 12,
+      name: r'smartFront',
+      type: IsarType.bool,
+    ),
     r'title': PropertySchema(
-      id: 11,
+      id: 13,
       name: r'title',
       type: IsarType.string,
     ),
     r'userId': PropertySchema(
-      id: 12,
+      id: 14,
       name: r'userId',
       type: IsarType.string,
     ),
     r'wordIds': PropertySchema(
-      id: 13,
+      id: 15,
       name: r'wordIds',
       type: IsarType.stringList,
     )
@@ -163,13 +173,15 @@ void _deckSerialize(
   writer.writeString(offsets[4], object.deckId);
   writer.writeString(offsets[5], object.description);
   writer.writeBool(offsets[6], object.isDeleted);
-  writer.writeDateTime(offsets[7], object.lastSessionDate);
-  writer.writeDateTime(offsets[8], object.lastUpdated);
-  writer.writeLong(offsets[9], object.newLearnedToday);
-  writer.writeLong(offsets[10], object.reviewedToday);
-  writer.writeString(offsets[11], object.title);
-  writer.writeString(offsets[12], object.userId);
-  writer.writeStringList(offsets[13], object.wordIds);
+  writer.writeBool(offsets[7], object.isFavourite);
+  writer.writeDateTime(offsets[8], object.lastSessionDate);
+  writer.writeDateTime(offsets[9], object.lastUpdated);
+  writer.writeLong(offsets[10], object.newLearnedToday);
+  writer.writeLong(offsets[11], object.reviewedToday);
+  writer.writeBool(offsets[12], object.smartFront);
+  writer.writeString(offsets[13], object.title);
+  writer.writeString(offsets[14], object.userId);
+  writer.writeStringList(offsets[15], object.wordIds);
 }
 
 Deck _deckDeserialize(
@@ -186,13 +198,15 @@ Deck _deckDeserialize(
     deckId: reader.readString(offsets[4]),
     description: reader.readString(offsets[5]),
     isDeleted: reader.readBoolOrNull(offsets[6]) ?? false,
-    lastSessionDate: reader.readDateTimeOrNull(offsets[7]),
-    lastUpdated: reader.readDateTime(offsets[8]),
-    newLearnedToday: reader.readLong(offsets[9]),
-    reviewedToday: reader.readLong(offsets[10]),
-    title: reader.readString(offsets[11]),
-    userId: reader.readString(offsets[12]),
-    wordIds: reader.readStringList(offsets[13]) ?? [],
+    isFavourite: reader.readBoolOrNull(offsets[7]) ?? false,
+    lastSessionDate: reader.readDateTimeOrNull(offsets[8]),
+    lastUpdated: reader.readDateTime(offsets[9]),
+    newLearnedToday: reader.readLong(offsets[10]),
+    reviewedToday: reader.readLong(offsets[11]),
+    smartFront: reader.readBoolOrNull(offsets[12]) ?? false,
+    title: reader.readString(offsets[13]),
+    userId: reader.readString(offsets[14]),
+    wordIds: reader.readStringList(offsets[15]) ?? [],
   );
   object.id = id;
   return object;
@@ -220,18 +234,22 @@ P _deckDeserializeProp<P>(
     case 6:
       return (reader.readBoolOrNull(offset) ?? false) as P;
     case 7:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readBoolOrNull(offset) ?? false) as P;
     case 8:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 9:
-      return (reader.readLong(offset)) as P;
+      return (reader.readDateTime(offset)) as P;
     case 10:
       return (reader.readLong(offset)) as P;
     case 11:
-      return (reader.readString(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 12:
-      return (reader.readString(offset)) as P;
+      return (reader.readBoolOrNull(offset) ?? false) as P;
     case 13:
+      return (reader.readString(offset)) as P;
+    case 14:
+      return (reader.readString(offset)) as P;
+    case 15:
       return (reader.readStringList(offset) ?? []) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1074,6 +1092,16 @@ extension DeckQueryFilter on QueryBuilder<Deck, Deck, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Deck, Deck, QAfterFilterCondition> isFavouriteEqualTo(
+      bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isFavourite',
+        value: value,
+      ));
+    });
+  }
+
   QueryBuilder<Deck, Deck, QAfterFilterCondition> lastSessionDateIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -1298,6 +1326,16 @@ extension DeckQueryFilter on QueryBuilder<Deck, Deck, QFilterCondition> {
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Deck, Deck, QAfterFilterCondition> smartFrontEqualTo(
+      bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'smartFront',
+        value: value,
       ));
     });
   }
@@ -1862,6 +1900,18 @@ extension DeckQuerySortBy on QueryBuilder<Deck, Deck, QSortBy> {
     });
   }
 
+  QueryBuilder<Deck, Deck, QAfterSortBy> sortByIsFavourite() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isFavourite', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Deck, Deck, QAfterSortBy> sortByIsFavouriteDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isFavourite', Sort.desc);
+    });
+  }
+
   QueryBuilder<Deck, Deck, QAfterSortBy> sortByLastSessionDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'lastSessionDate', Sort.asc);
@@ -1907,6 +1957,18 @@ extension DeckQuerySortBy on QueryBuilder<Deck, Deck, QSortBy> {
   QueryBuilder<Deck, Deck, QAfterSortBy> sortByReviewedTodayDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'reviewedToday', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Deck, Deck, QAfterSortBy> sortBySmartFront() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'smartFront', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Deck, Deck, QAfterSortBy> sortBySmartFrontDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'smartFront', Sort.desc);
     });
   }
 
@@ -2032,6 +2094,18 @@ extension DeckQuerySortThenBy on QueryBuilder<Deck, Deck, QSortThenBy> {
     });
   }
 
+  QueryBuilder<Deck, Deck, QAfterSortBy> thenByIsFavourite() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isFavourite', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Deck, Deck, QAfterSortBy> thenByIsFavouriteDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isFavourite', Sort.desc);
+    });
+  }
+
   QueryBuilder<Deck, Deck, QAfterSortBy> thenByLastSessionDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'lastSessionDate', Sort.asc);
@@ -2077,6 +2151,18 @@ extension DeckQuerySortThenBy on QueryBuilder<Deck, Deck, QSortThenBy> {
   QueryBuilder<Deck, Deck, QAfterSortBy> thenByReviewedTodayDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'reviewedToday', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Deck, Deck, QAfterSortBy> thenBySmartFront() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'smartFront', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Deck, Deck, QAfterSortBy> thenBySmartFrontDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'smartFront', Sort.desc);
     });
   }
 
@@ -2151,6 +2237,12 @@ extension DeckQueryWhereDistinct on QueryBuilder<Deck, Deck, QDistinct> {
     });
   }
 
+  QueryBuilder<Deck, Deck, QDistinct> distinctByIsFavourite() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'isFavourite');
+    });
+  }
+
   QueryBuilder<Deck, Deck, QDistinct> distinctByLastSessionDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'lastSessionDate');
@@ -2172,6 +2264,12 @@ extension DeckQueryWhereDistinct on QueryBuilder<Deck, Deck, QDistinct> {
   QueryBuilder<Deck, Deck, QDistinct> distinctByReviewedToday() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'reviewedToday');
+    });
+  }
+
+  QueryBuilder<Deck, Deck, QDistinct> distinctBySmartFront() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'smartFront');
     });
   }
 
@@ -2245,6 +2343,12 @@ extension DeckQueryProperty on QueryBuilder<Deck, Deck, QQueryProperty> {
     });
   }
 
+  QueryBuilder<Deck, bool, QQueryOperations> isFavouriteProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'isFavourite');
+    });
+  }
+
   QueryBuilder<Deck, DateTime?, QQueryOperations> lastSessionDateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'lastSessionDate');
@@ -2266,6 +2370,12 @@ extension DeckQueryProperty on QueryBuilder<Deck, Deck, QQueryProperty> {
   QueryBuilder<Deck, int, QQueryOperations> reviewedTodayProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'reviewedToday');
+    });
+  }
+
+  QueryBuilder<Deck, bool, QQueryOperations> smartFrontProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'smartFront');
     });
   }
 
