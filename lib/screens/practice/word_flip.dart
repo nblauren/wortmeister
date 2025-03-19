@@ -6,11 +6,19 @@ import 'package:wortmeister/data/models/deck.dart';
 import 'package:wortmeister/data/models/word.dart';
 import 'package:wortmeister/widgets/word_details.dart';
 
-class WordFlip extends StatelessWidget {
+class WordFlip extends StatefulWidget {
   const WordFlip({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<WordFlip> createState() => _WordFlipState();
+}
+
+class _WordFlipState extends State<WordFlip> {
+  late String frontFinal;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     final word = context.watch<Word>();
     final deck = context.watch<Deck>();
     final front1 = word.word.contains(' ') &&
@@ -22,11 +30,16 @@ class WordFlip extends StatelessWidget {
     final front2 =
         '${word.meanings?.first.definition} / ${word.meanings?.first.definitionEn}';
 
-    final frontFinal = deck.smartFront
+    frontFinal = deck.smartFront
         ? (DateTime.now().millisecondsSinceEpoch % 2 == 0)
             ? front2
             : front1
         : front1;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final word = context.watch<Word>();
 
     return FlipCard(
       speed: 200,
