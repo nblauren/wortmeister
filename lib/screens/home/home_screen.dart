@@ -4,6 +4,7 @@ import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/data/models/deck.dart';
 import 'package:wortmeister/screens/deck/add_deck.dart';
 import 'package:wortmeister/screens/home/desk_list.dart';
+import 'package:wortmeister/widgets/import_deck.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -21,6 +22,21 @@ class HomeScreen extends StatelessWidget {
             pinned: true,
             stretch: true,
             actions: [
+              IconButton(
+                icon: const Icon(Icons.import_export, color: Colors.white),
+                onPressed: () {
+                  showModalBottomSheet<void>(
+                    context: context,
+                    showDragHandle: true,
+                    builder: (BuildContext context) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ImportDeckWidget(),
+                      );
+                    },
+                  );
+                },
+              ),
               IconButton(
                 icon: const Icon(Icons.sync, color: Colors.white),
                 onPressed: () {
