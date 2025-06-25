@@ -193,29 +193,24 @@ class _AddWordScreenState extends State<AddWordScreen> {
       );
 
       String wordList = await rootBundle.loadString(
-        'assets/data/german_verb_noun_csv.csv',
+        'assets/data/email_2.csv',
       );
 
       List<List<dynamic>> rowsAsListOfValues =
           const CsvToListConverter().convert(wordList, eol: '\n');
       for (var parts in rowsAsListOfValues) {
-        final raw = parts[0].trim();
-        final complete = parts[1].trim();
-        final akkdat = parts[2].trim();
-        final meaningde = parts[3].trim();
-        final meaningeng = parts[4].trim();
-        final exmpl1 = parts[5].trim();
-        final exmpl2 = parts[6].trim();
+        final type = parts[0].trim();
+        final front = parts[1].trim();
+        final back = parts[2].trim();
 
         final newWordId = Uuid().v4();
         Word newWord = Word(
           wordId: newWordId,
-          word: '$raw',
+          word: '$front',
+          back: back,
           meanings: [
             Meaning(
-              exampleSentences: [exmpl1, exmpl2],
-              definition: meaningde,
-              definitionEn: meaningeng,
+              context: type,
             )
           ],
           language: 'de',
