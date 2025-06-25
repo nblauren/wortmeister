@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:wortmeister/core/services/locator_service.dart';
 import 'package:wortmeister/data/models/deck.dart';
 import 'package:wortmeister/firebase_options.dart';
@@ -24,18 +23,10 @@ Future<void> main() async {
   );
   await LocatorService.configureLocalModuleInjection();
 
-  await SentryFlutter.init(
-    (options) {
-      options.dsn =
-          'https://c835690e841e08b0bcdd5567e4b63202@o1346306.ingest.us.sentry.io/4508849863786496';
-      options.tracesSampleRate = 1.0;
-      options.profilesSampleRate = 1.0;
-    },
-    appRunner: () => runApp(
-      DevicePreview(
-        enabled: !kReleaseMode,
-        builder: (context) => MyApp(), // Wrap your app
-      ),
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MyApp(), // Wrap your app
     ),
   );
 }
